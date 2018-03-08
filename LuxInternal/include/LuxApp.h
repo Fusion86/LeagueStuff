@@ -8,9 +8,10 @@
 
 #include <json/json.h>
 
-#include "LuxApp.h"
 #include "LuxHook.h"
 #include "LuxKeybind.h"
+
+#define LUX_ADDHOOK(mod, func) LuxApp::AddHook(L##mod, #func, &hk_##func, (LPVOID*)&orig_##func);
 
 namespace Lux
 {

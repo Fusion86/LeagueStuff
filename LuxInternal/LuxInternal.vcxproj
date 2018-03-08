@@ -87,6 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libMinHook-x86-v141-mt.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -139,7 +140,6 @@
     <ClInclude Include="include\typedef\cef.h" />
     <ClInclude Include="include\typedef\curl.h" />
     <ClInclude Include="include\typedef\openssl.h" />
-    <ClInclude Include="include\typedef\windows.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jsoncpp.cpp">
