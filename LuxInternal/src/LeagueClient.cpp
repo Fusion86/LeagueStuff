@@ -76,7 +76,6 @@ extern "C"
 
 	decltype(&ZSTD_decompress) orig_ZSTD_decompress;
 
-	// It looks like this is method is only used to decompress the initial content that is loaded on client startup and kept in cache (all champs data + urls)
 	ZSTDLIB_API size_t hk_ZSTD_decompress(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
 	{
 		int res = orig_ZSTD_decompress(dst, dstCapacity, src, compressedSize);
