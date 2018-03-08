@@ -78,7 +78,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LeagueClientUx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Lux</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
