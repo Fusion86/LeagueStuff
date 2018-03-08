@@ -6,13 +6,13 @@
 
 namespace Lux
 {
-	class LeagueClient : public LuxApp
+	class LeagueClientUx : public LuxApp
 	{
 	public:
-		LeagueClient();
-		~LeagueClient();
+		LeagueClientUx();
+		~LeagueClientUx();
 
-		HRESULT Initialize(LPCWSTR szExePath) override;
+		//HRESULT Initialize(LPCWSTR szExePath) override;
 		//HRESULT Uninitialize() override;
 		//HRESULT Render() override;
 		//void RegisterKeybinds() override;

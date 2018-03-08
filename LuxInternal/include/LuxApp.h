@@ -2,30 +2,32 @@
 
 #include "stdafx.h"
 
+#include <filesystem>
 #include <map>
 #include <memory>
 #include <vector>
 
-#include <json/json.h>
-
+#include "json/json.h"
 #include "LuxHook.h"
 #include "LuxKeybind.h"
 
 #define LUX_ADDHOOK(mod, func) LuxApp::AddHook(L##mod, #func, &hk_##func, (LPVOID*)&orig_##func)
+
+namespace fs = std::experimental::filesystem;
 
 namespace Lux
 {
 	class LuxApp
 	{
 	public:
-		LuxApp();
-		~LuxApp();
+		//LuxApp();
+		//~LuxApp();
 
 		virtual HRESULT Initialize(LPCWSTR szExePath);
 		virtual HRESULT Uninitialize();
-		virtual HRESULT Render() = 0;
+		virtual HRESULT Render();
 		virtual void RegisterKeybinds();
-		virtual void RegisterHooks() = 0;
+		virtual void RegisterHooks() {}
 
 		HRESULT AddHook(LPCWSTR pszModule, LPCSTR pszProcName, LPVOID pDetour, LPVOID* ppOriginal);
 		void EnableHooks();
@@ -34,7 +36,13 @@ namespace Lux
 		void AddKeybind(std::string id, std::string displayName, int vk);
 		void PrintKeybinds();
 
-		HRESULT LoadConfig(LPCWSTR szExePath);
+		HRESULT LoadConfig();
+
+	protected:
+		fs::path exePath;
+		fs::path luxAppPath;
+		fs::path configPath;
+		fs::path dumpPath;
 
 	private:
 		std::vector<std::unique_ptr<Keybind>> m_Keybinds;

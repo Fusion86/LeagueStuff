@@ -65,7 +65,19 @@
     <ClInclude Include="include\LuxKeybind.h">
       <Filter>Header Files\Lux</Filter>
     </ClInclude>
+    <ClInclude Include="include\typedef\zstd.h">
+      <Filter>Header Files\Type Defs</Filter>
+    </ClInclude>
     <ClInclude Include="include\typedef\openssl.h">
+      <Filter>Header Files\Type Defs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memdmp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hexdmp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LeagueClientUx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

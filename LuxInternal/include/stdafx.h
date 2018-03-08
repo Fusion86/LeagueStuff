@@ -17,4 +17,5 @@
 #include <windows.h>
 #include <Shlwapi.h>
 
-#include <exception>
+#include <iostream>
+#include <string>

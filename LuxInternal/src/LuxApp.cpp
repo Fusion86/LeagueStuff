@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include "LuxApp.h"
+
 #include <codecvt>
 #include <fstream>
 #include <iostream>
@@ -8,21 +10,73 @@
 
 #include "MinHook.h"
 
-#include "LuxApp.h"
-
 namespace Lux
 {
-	LuxApp::LuxApp()
-	{
-	}
-
-	LuxApp::~LuxApp()
-	{
-	}
-
 	HRESULT LuxApp::Initialize(LPCWSTR szExePath)
 	{
-		int res = MH_Initialize();
+		int res = NULL;
+
+#pragma region Create directories
+
+		const char* appdata = getenv("APPDATA");
+		luxAppPath.assign(appdata);
+		luxAppPath /= "Lux";
+
+		if (CreateDirectory(luxAppPath.c_str(), NULL) == true)
+		{
+			std::cout << "[LuxApp Initialize] Created LuxApp directory '" << luxAppPath << "'" << std::endl;
+		}
+		else
+		{
+			res = GetLastError();
+			if (res != ERROR_ALREADY_EXISTS)
+			{
+				std::cout << "[LuxApp Initialize] Couldn't create LuxApp directory '" << luxAppPath << "'" << std::endl;
+				return 1;
+			}
+		}
+
+		exePath.assign(szExePath);
+
+		configPath.assign(luxAppPath);
+		configPath /= "Config";
+		configPath /= exePath.filename().stem().string() + ".json";
+
+		if (CreateDirectory(configPath.parent_path().c_str(), NULL) == true)
+		{
+			std::cout << "[LuxApp Initialize] Created config directory '" << configPath.parent_path() << "'" << std::endl;
+			std::cout << "[LuxApp Initialize] Using config file '" << configPath << "'" << std::endl;
+		}
+		else
+		{
+			res = GetLastError();
+			if (res != ERROR_ALREADY_EXISTS)
+			{
+				std::cout << "[LuxApp Initialize] Couldn't create config directory '" << configPath.parent_path() << "'" << std::endl;
+				return 1;
+			}
+		}
+
+		dumpPath.assign(luxAppPath);
+		dumpPath /= "Dump";
+
+		if (CreateDirectory(dumpPath.c_str(), NULL) == true)
+		{
+			std::cout << "[LuxApp Initialize] Created dump directory '" << dumpPath << "'" << std::endl;
+		}
+		else
+		{
+			res = GetLastError();
+			if (res != ERROR_ALREADY_EXISTS)
+			{
+				std::cout << "[LuxApp Initialize] Couldn't create dump directory '" << dumpPath << "'" << std::endl;
+				return 1;
+			}
+		}
+
+#pragma endregion
+
+		res = MH_Initialize();
 
 		if (res == MH_OK)
 			printf("[LuxApp Initialize] MinHook initialized!\n");
@@ -35,7 +89,7 @@ namespace Lux
 		RegisterKeybinds();
 		RegisterHooks();
 
-		if (LoadConfig(szExePath) != 0)
+		if (LoadConfig() != 0)
 		{
 			printf("[LuxApp Initialize] Couldn't load config, using default values\n");
 		}
@@ -54,6 +108,11 @@ namespace Lux
 		else
 			printf("[LuxApp Uninitialize] Error %s!\n", MH_StatusToString((MH_STATUS)res));
 
+		return 0;
+	}
+
+	HRESULT LuxApp::Render()
+	{
 		return 0;
 	}
 
@@ -123,9 +182,7 @@ namespace Lux
 
 	void LuxApp::PrintKeybinds()
 	{
-		std::string str = std::string(30, '*');
-
-		printf("%s\n", str.c_str());
+		printf("\n");
 		printf("Keybinds:\n");
 
 		for (auto &keybind : m_Keybinds)
@@ -133,28 +190,11 @@ namespace Lux
 			printf("  %i - %s\n", keybind->VirtualKey, keybind->DisplayName.c_str());
 		}
 
-		printf("%s\n", str.c_str());
+		printf("\n");
 	}
 
-	HRESULT LuxApp::LoadConfig(LPCWSTR szExePath)
+	HRESULT LuxApp::LoadConfig()
 	{
-		LPCWSTR rootDirName = L"League of Legends";
-		std::wstring wsExePath(szExePath);
-
-		int loc = wsExePath.find(rootDirName);
-		if (loc == std::string::npos)
-		{
-			printf("[LuxApp LoadConfig] Root folder '%ls' folder not found!\n", rootDirName);
-			return 1;
-		}
-
-		std::wstringstream wssConfigPath;
-		wssConfigPath << wsExePath.substr(0, loc);
-		wssConfigPath << rootDirName << "\\" << "Config" << "\\" << "Lux.json";
-
-		std::wstring configPath = wssConfigPath.str();
-		printf("[LuxApp LoadConfig] Config Path: %ls\n", configPath.c_str());
-
 		Json::Value j;
 
 		if (PathFileExists(configPath.c_str()))
@@ -168,7 +208,7 @@ namespace Lux
 			if (!ok)
 			{
 				printf("[LuxApp LoadConfig] Json parsing failed!\n");
-				printf("****\n %s \n****\n", errs.c_str());
+				printf("\n %s \n\n", errs.c_str());
 				return 1;
 			}
 		}
@@ -178,38 +218,38 @@ namespace Lux
 		// TODO: Make target specific (LeagueClient/LeagueClientUx)
 
 		// Keybinds
-		for (auto &keybind : m_Keybinds)
+		for (auto& keybind : m_Keybinds)
 		{
-			Json::Value* key = &j["keybinds"][keybind->Identifier];
+			Json::Value& key = j["keybinds"][keybind->Identifier];
 
-			if (*key == Json::nullValue)
+			if (key == Json::nullValue)
 			{
 				printf("[LuxApp LoadConfig] No value set for 'keybinds.%s', using the default value '%i'\n", keybind->Identifier.c_str(), keybind->VirtualKey);
-				*key = keybind->VirtualKey;
+				key = keybind->VirtualKey;
 				settingsChanged = true;
 			}
 			else
 			{
 				//printf("[LuxApp LoadConfig] Loaded \n");
-				keybind->VirtualKey = key->asInt();
+				keybind->VirtualKey = key.asInt();
 			}
 		}
 
 		// Hooks
-		for (auto &hook : m_Hooks)
+		for (auto& hook : m_Hooks)
 		{
-			Json::Value* function = &j["hooks"][hook->Function];
+			Json::Value& function = j["hooks"][hook->Function];
 
-			if (*function == Json::nullValue)
+			if (function == Json::nullValue)
 			{
 				printf("[LuxApp LoadConfig] No value set for 'hooks.%s', using the default value '%s'\n", hook->Function, hook->WantEnabled ? "true" : "false");
-				*function = hook->WantEnabled;
+				function = hook->WantEnabled;
 				settingsChanged = true;
 			}
 			else
 			{
 				//printf("[LuxApp LoadConfig] Loaded \n");
-				hook->WantEnabled = function->asBool();
+				hook->WantEnabled = function.asBool();
 			}
 		}
 

@@ -132,14 +132,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\hexdmp.h" />
     <ClInclude Include="include\LeagueClient.h" />
+    <ClInclude Include="include\LeagueClientUx.h" />
     <ClInclude Include="include\LuxApp.h" />
     <ClInclude Include="include\LuxHook.h" />
     <ClInclude Include="include\LuxKeybind.h" />
+    <ClInclude Include="include\memdmp.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\typedef\cef.h" />
     <ClInclude Include="include\typedef\curl.h" />
     <ClInclude Include="include\typedef\openssl.h" />
+    <ClInclude Include="include\typedef\zstd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jsoncpp.cpp">
