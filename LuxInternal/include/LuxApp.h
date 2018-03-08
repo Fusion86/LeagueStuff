@@ -34,7 +34,6 @@ namespace Lux
 		void AddKeybind(std::string id, std::string displayName, int vk);
 		void PrintKeybinds();
 
-		void InitializeConfig(Json::Value j);
 		HRESULT LoadConfig(LPCWSTR szExePath);
 
 	private:

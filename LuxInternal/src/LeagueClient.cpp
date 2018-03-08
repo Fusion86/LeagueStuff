@@ -128,7 +128,7 @@ namespace Lux
 
 		LUX_ADDHOOK("libcurl", curl_easy_setopt);
 
-		// TODO: This needs to be in 
+		// TODO: This needs to be in LeagueClientUx (NOT _Render)
 		//LUX_ADDHOOK("User32", BringWindowToTop); // Useless
 		//LUX_ADDHOOK("User32", SetWindowPos);
 		//LUX_ADDHOOK("User32", SetForegroundWindow);

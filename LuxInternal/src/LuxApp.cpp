@@ -136,19 +136,6 @@ namespace Lux
 		printf("%s\n", str.c_str());
 	}
 
-	void LuxApp::InitializeConfig(Json::Value j)
-	{
-		for (auto &keybind : m_Keybinds)
-		{
-			j["keybinds"][keybind->Identifier] = keybind->VirtualKey;
-		}
-
-		for (auto &hook : m_Hooks)
-		{
-			j["hooks"][hook->Function] = hook->WantEnabled;
-		}
-	}
-
 	HRESULT LuxApp::LoadConfig(LPCWSTR szExePath)
 	{
 		LPCWSTR rootDirName = L"League of Legends";
