@@ -46,10 +46,40 @@ extern "C"
 #pragma region Windows
 
 	decltype(&BringWindowToTop) orig_BringWindowToTop = NULL;
+	decltype(&SetWindowPos) orig_SetWindowPos = NULL;
+	decltype(&SetForegroundWindow) orig_SetForegroundWindow = NULL;
 
 	bool WINAPI hk_BringWindowToTop(_In_ HWND hWnd)
 	{
 		printf("[LeagueClient BringWindowToTop] Blocked call!\n");
+		return true;
+	}
+
+	BOOL WINAPI hk_SetWindowPos(
+		_In_ HWND hWnd,
+		_In_opt_ HWND hWndInsertAfter,
+		_In_ int  X,
+		_In_ int  Y,
+		_In_ int  cx,
+		_In_ int  cy,
+		_In_ UINT uFlags)
+	{
+		printf("[LeagueClient SetWindowPos] ");
+
+		if (hWndInsertAfter == HWND_TOP)
+		{
+			printf("hWndInsertAfter = HWND_TOP ");
+			hWndInsertAfter = HWND_NOTOPMOST;
+		}
+
+		printf("\n");
+
+		return orig_SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
+	}
+
+	BOOL WINAPI hk_SetForegroundWindow(_In_ HWND hWnd)
+	{
+		printf("[LeagueClient SetForegroundWindow] Blocked call!\n");
 		return true;
 	}
 
@@ -94,10 +124,13 @@ namespace Lux
 
 	void LeagueClient::RegisterHooks()
 	{
-		LUX_ADDHOOK("libssl-1_1", SSL_use_PrivateKey)
+		LUX_ADDHOOK("libssl-1_1", SSL_use_PrivateKey);
 
-		LUX_ADDHOOK("libcurl", curl_easy_setopt)
+		LUX_ADDHOOK("libcurl", curl_easy_setopt);
 
-		//LUX_ADDHOOK("User32", BringWindowToTop) // Useless
+		// TODO: This needs to be in 
+		//LUX_ADDHOOK("User32", BringWindowToTop); // Useless
+		//LUX_ADDHOOK("User32", SetWindowPos);
+		//LUX_ADDHOOK("User32", SetForegroundWindow);
 	}
 }
