@@ -41,7 +41,7 @@ namespace Spellthief
 
             if (!Directory.Exists(options.InDirectory))
             {
-                Console.Error.WriteLine($"The input directory '{options.InDirectory}' doesn't exist!");
+                Console.WriteLine($"The input directory '{options.InDirectory}' doesn't exist!");
                 return 1;
             }
 
@@ -49,13 +49,13 @@ namespace Spellthief
 
             if (files.Length == 0)
             {
-                Console.Error.WriteLine($"The input directory '{options.InDirectory}' is empty!");
+                Console.WriteLine($"The input directory '{options.InDirectory}' is empty!");
                 return 1;
             }
 
             if (!Directory.Exists(options.OutDirectory))
             {
-                Console.Error.WriteLine($"The output directory '{options.OutDirectory}' doesn't exist!");
+                Console.WriteLine($"The output directory '{options.OutDirectory}' doesn't exist!");
                 return 1;
             }
 
@@ -164,7 +164,7 @@ namespace Spellthief
                     if (foundMessage == null)
                         foundMessage = $"Found {name}";
                     
-                    Console.WriteLine(foundMessage.PadRight(24) + $"'{outPath}'");
+                    Console.WriteLine(foundMessage.PadRight(32) + $"'{outPath}'");
                 }
 
                 try
@@ -182,7 +182,7 @@ namespace Spellthief
             else
             {
                 if (options.PrintUndetected)
-                    Console.WriteLine("Unknown JSON file!".PadRight(48) + $"'{file}'");
+                    Console.WriteLine("Unknown JSON file!".PadRight(32) + $"'{file}'");
             }
         }
 

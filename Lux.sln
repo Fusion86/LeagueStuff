@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LuxInternal", "LuxInternal\LuxInternal.vcxproj", "{E4440065-F294-462E-A368-5EE2EE344512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spellthief", "Spellthief\Spellthief.csproj", "{8BCE436F-E67E-4833-9D4B-680DB8FB74B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spellthief", "Spellthief\Spellthief.csproj", "{8BCE436F-E67E-4833-9D4B-680DB8FB74B9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Katarina", "Katarina\Katarina.vcxproj", "{E1682068-3B29-41D1-BCFD-5C162118633C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,14 @@ Global
 		{8BCE436F-E67E-4833-9D4B-680DB8FB74B9}.Release|x64.Build.0 = Release|Any CPU
 		{8BCE436F-E67E-4833-9D4B-680DB8FB74B9}.Release|x86.ActiveCfg = Release|Any CPU
 		{8BCE436F-E67E-4833-9D4B-680DB8FB74B9}.Release|x86.Build.0 = Release|Any CPU
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Debug|x64.ActiveCfg = Debug|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Debug|x86.ActiveCfg = Debug|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Debug|x86.Build.0 = Debug|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Release|x64.ActiveCfg = Release|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Release|x86.ActiveCfg = Release|Win32
+		{E1682068-3B29-41D1-BCFD-5C162118633C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
