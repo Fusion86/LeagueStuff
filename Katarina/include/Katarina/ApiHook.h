@@ -11,5 +11,10 @@ namespace Katarina
 		LPVOID Detour;
 		LPVOID Original;
 		LPVOID Target;
+
+		inline std::string GetIdentifier()
+		{
+			return Module + "-" + ProcName;
+		}
 	};
 }

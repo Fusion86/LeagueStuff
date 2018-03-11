@@ -97,8 +97,10 @@
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\Katarina\Config.h" />
     <ClInclude Include="include\Katarina\ApiHook.h" />
+    <ClInclude Include="include\Katarina\FeatureHook.h" />
     <ClInclude Include="include\Katarina\LeagueBase.h" />
     <ClInclude Include="include\Katarina\LeagueClient.h" />
+    <ClInclude Include="include\MinHook.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>

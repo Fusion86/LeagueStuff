@@ -19,8 +19,7 @@ namespace Katarina
 		HRESULT Uninitialize() override;
 
 	protected:
-		void RegisterApiHooks();
-		void RegisterFeatureHooks();
+		void RegisterHooks();
 		void RegisterKeybindings() override;
 	};
 }

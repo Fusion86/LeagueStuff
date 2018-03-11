@@ -33,8 +33,7 @@ namespace Katarina
 
 #pragma region Config
 
-		RegisterApiHooks();
-		RegisterFeatureHooks();
+		RegisterHooks();
 
 		if (fs::exists(configPath))
 		{
@@ -87,9 +86,9 @@ namespace Katarina
 		}
 	}
 
-	HRESULT LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal)
+	ApiHook& LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour, _Out_ LPVOID *ppOriginal)
 	{
-		std::unique_ptr<ApiHook> hook(new ApiHook {
+		std::shared_ptr<ApiHook> hook(new ApiHook {
 				module,
 				procName,
 				pDetour,
@@ -106,18 +105,24 @@ namespace Katarina
 		{
 			logger->info("Hooked {} in {}", hook->ProcName, hook->Module);
 			hook->Original = *ppOriginal;
-			apiHooks.push_back(std::move(hook));
+			apiHooks.push_back(hook);
 		}
 		else
 		{
 			logger->warn("Failed to hook {} in {}. Reason: {}", hook->ProcName, hook->Module, MH_StatusToString((MH_STATUS)res));
 		}
 
-		return 0;
+		return *hook;
 	}
 
 	HRESULT LeagueBase::AddFeatureHook()
 	{
+		// Needed args
+		// Ptr to orignal - its the key to the std::map which the ApiHook reads to find all FeatureHooks
+		// Hook order - e.g before original is run or after
+		// Priority - if there are multiple FeatureHooks
+		// Ptr to FeatureHook - what method to execute
+
 		return 0;
 	}
 

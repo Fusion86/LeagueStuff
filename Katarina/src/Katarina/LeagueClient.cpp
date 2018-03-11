@@ -38,14 +38,9 @@ namespace Katarina
 		return 0;
 	}
 
-	void LeagueClient::RegisterApiHooks()
+	void LeagueClient::RegisterHooks()
 	{
 		KAT_AddApiHook("libzstd", ZSTD_decompress);
-	}
-
-	void LeagueClient::RegisterFeatureHooks()
-	{
-
 	}
 
 	void LeagueClient::RegisterKeybindings()

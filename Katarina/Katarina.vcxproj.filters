@@ -33,6 +33,12 @@
     <ClInclude Include="include\Katarina\ApiHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Katarina\FeatureHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MinHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
