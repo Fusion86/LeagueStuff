@@ -2,6 +2,8 @@
 
 #include <Katarina/LeagueBase.h>
 
+#include <MinHook.h>
+
 namespace Katarina
 {
 	HRESULT LeagueBase::Initialize()
@@ -11,16 +13,38 @@ namespace Katarina
 		appPath /= "Katarina";
 		appPath /= GetExecutableName();
 		logger->info("App Path: {}", appPath);
+		fs::create_directory(appPath);
 
 		configPath.assign(appPath);
 		configPath /= "Config.json";
 		logger->info("Config Path: {}", configPath);
+		fs::create_directory(configPath.parent_path());
 
-		//std::ifstream in(configPath, std::ifstream::in);
-		//std::ostringstream ss;
-		//ss << in.rdbuf();
+#pragma region Config
 
-		//config = nlohmann::json::parse(ss.str());
+		RegisterApiHooks();
+		RegisterFeatureHooks();
+
+		if (fs::exists(configPath))
+		{
+			logger->info("Found existing config file, loading it...");
+			std::ifstream in(configPath);
+			//json j = in;
+			config = json::parse(in);
+		}
+		else
+		{
+			logger->info("No config file found, creating a new one...");
+		}
+
+		// Update config
+
+		json doc = config;
+		std::ofstream out(configPath);
+		out << doc;
+		out.close();
+
+#pragma endregion
 
 		return 0;
 	}
@@ -40,4 +64,34 @@ namespace Katarina
 				Shutdown();
 		}
 	}
+
+	//HRESULT LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal)
+	//{
+	//	std::unique_ptr<ApiHook> hook(new ApiHook {
+	//			module,
+	//			procName,
+	//			pDetour,
+	//			0,
+	//			0
+	//		});
+
+	//	wchar_t szwModule[MAX_PATH + 1];
+	//	mbstowcs(szwModule, module.c_str(), sizeof(szwModule));
+
+	//	int res = MH_CreateHookApiEx(szwModule, hook->ProcName.c_str(), hook->Detour, ppOriginal, &hook->Target);
+
+	//	if (res == MH_OK)
+	//	{
+	//		logger->info("Created {} hook {}", hook->Module, hook->ProcName);
+	//		hook->Original = *ppOriginal;
+	//		apiHooks.push_back(std::move(hook));
+	//	}
+	//	else
+	//	{
+	//		std::string reason(MH_StatusToString((MH_STATUS)res));
+	//		logger->warn("Failed to create {} hook in {}. Reason:", hook->ProcName, hook->Module);
+	//	}
+
+	//	return 0;
+	//}
 }

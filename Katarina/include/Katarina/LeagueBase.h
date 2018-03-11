@@ -2,6 +2,9 @@
 
 #include "stdafx.h"
 
+#include <Katarina/Config.h>
+#include <Katarina/ApiHook.h>
+
 namespace Katarina
 {
 	class LeagueBase
@@ -12,8 +15,10 @@ namespace Katarina
 	protected:
 		fs::path appPath;
 		fs::path configPath;
+
+		Config::Config config;
 		
-		std::vector<int> apiHooks;
+		std::vector<std::unique_ptr<ApiHook>> apiHooks;
 		std::vector<int> featureHooks;
 
 	private:
@@ -28,6 +33,8 @@ namespace Katarina
 		void Shutdown() { shutdownRequested = true; }
 		
 	protected:
+		//HRESULT AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal);
+
 		virtual void RegisterApiHooks() = 0;
 		virtual void RegisterFeatureHooks() = 0;
 	};
