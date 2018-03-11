@@ -32,44 +32,53 @@ namespace Katarina
 
 		struct Config
 		{
+			//std::string version; // Ex. "1.3.2-b196557"
 			std::vector<struct Hook> hooks;
 			Keybindings keybinds;
 		};
 
-		inline void to_json(json& j, const Hook& p) {
+		inline void to_json(json& j, const Hook& p)
+		{
 			j = json { { "identifier", p.identifier }, { "enabled", p.enabled }, { "keycode", p.verbose } };
 		}
 
-		inline void from_json(const json& j, Hook& p) {
+		inline void from_json(const json& j, Hook& p)
+		{
 			p.identifier = j.at("identifier").get<std::string>();
 			p.enabled = j.at("enabled").get<bool>();
 			p.verbose = j.at("age").get<bool>();
 		}
 
-		inline void to_json(json& j, const Keybinding& p) {
+		inline void to_json(json& j, const Keybinding& p)
+		{
 			j = json { { "identifier", p.identifier }, { "enabled", p.enabled }, { "keycode", p.keycode } };
 		}
 
-		inline void from_json(const json& j, Keybinding& p) {
+		inline void from_json(const json& j, Keybinding& p)
+		{
 			p.identifier = j.at("identifier").get<std::string>();
 			p.enabled = j.at("enabled").get<bool>();
 			p.keycode = j.at("age").get<int>();
 		}
 
-		inline void to_json(json& j, const Keybindings& p) {
+		inline void to_json(json& j, const Keybindings& p)
+		{
 			j = json { { "console", p.console }, { "always", p.always } };
 		}
 
-		inline void from_json(const json& j, Keybindings& p) {
+		inline void from_json(const json& j, Keybindings& p)
+		{
 			p.console = j.at("console").get<std::vector<struct Keybinding>>();
 			p.always = j.at("always").get<std::vector<struct Keybinding>>();
 		}
 
-		inline void to_json(json& j, const Config& p) {
+		inline void to_json(json& j, const Config& p)
+		{
 			j = json { { "hooks", p.hooks }, { "keybinds", p.keybinds } };
 		}
 
-		inline void from_json(const json& j, Config& p) {
+		inline void from_json(const json& j, Config& p)
+		{
 			p.hooks = j.at("hooks").get<std::vector<struct Hook>>();
 			p.keybinds = j.at("keybinds").get<Keybindings>();
 		}

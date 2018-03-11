@@ -5,6 +5,8 @@
 #include <Katarina/Config.h>
 #include <Katarina/ApiHook.h>
 
+#define KAT_AddApiHook(mod, func) LeagueBase::AddApiHook(mod, #func, &hk_##func, (LPVOID*)&orig_##func)
+
 namespace Katarina
 {
 	class LeagueBase
@@ -33,9 +35,11 @@ namespace Katarina
 		void Shutdown() { shutdownRequested = true; }
 		
 	protected:
-		//HRESULT AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal);
+		HRESULT AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal);
+		HRESULT AddFeatureHook();
 
 		virtual void RegisterApiHooks() = 0;
 		virtual void RegisterFeatureHooks() = 0;
+		virtual void RegisterKeybindings();
 	};
 }

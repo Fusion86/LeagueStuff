@@ -20,6 +20,17 @@ namespace Katarina
 		logger->info("Config Path: {}", configPath);
 		fs::create_directory(configPath.parent_path());
 
+		int res = MH_Initialize();
+		if (res == MH_OK)
+		{
+			logger->info("Initialized MinHook");
+		}
+		else
+		{
+			logger->error("Couldn't initialize MinHook. Reason: {}", MH_StatusToString((MH_STATUS)res));
+			return res;
+		}
+
 #pragma region Config
 
 		RegisterApiHooks();
@@ -53,6 +64,17 @@ namespace Katarina
 	{
 		logger->info("Bye");
 
+		int res = MH_Uninitialize();
+		if (res == MH_OK)
+		{
+			logger->info("Uninitialized MinHook");
+		}
+		else
+		{
+			logger->error("Couldn't uninitialize MinHook. Reason: {}", MH_StatusToString((MH_STATUS)res));
+			return res;
+		}
+
 		return 0;
 	}
 
@@ -65,33 +87,42 @@ namespace Katarina
 		}
 	}
 
-	//HRESULT LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal)
-	//{
-	//	std::unique_ptr<ApiHook> hook(new ApiHook {
-	//			module,
-	//			procName,
-	//			pDetour,
-	//			0,
-	//			0
-	//		});
+	HRESULT LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour, LPVOID *ppOriginal)
+	{
+		std::unique_ptr<ApiHook> hook(new ApiHook {
+				module,
+				procName,
+				pDetour,
+				0,
+				0
+			});
 
-	//	wchar_t szwModule[MAX_PATH + 1];
-	//	mbstowcs(szwModule, module.c_str(), sizeof(szwModule));
+		wchar_t szwModule[MAX_PATH + 1];
+		mbstowcs(szwModule, module.c_str(), sizeof(szwModule));
 
-	//	int res = MH_CreateHookApiEx(szwModule, hook->ProcName.c_str(), hook->Detour, ppOriginal, &hook->Target);
+		int res = MH_CreateHookApiEx(szwModule, hook->ProcName.c_str(), hook->Detour, ppOriginal, &hook->Target);
 
-	//	if (res == MH_OK)
-	//	{
-	//		logger->info("Created {} hook {}", hook->Module, hook->ProcName);
-	//		hook->Original = *ppOriginal;
-	//		apiHooks.push_back(std::move(hook));
-	//	}
-	//	else
-	//	{
-	//		std::string reason(MH_StatusToString((MH_STATUS)res));
-	//		logger->warn("Failed to create {} hook in {}. Reason:", hook->ProcName, hook->Module);
-	//	}
+		if (res == MH_OK)
+		{
+			logger->info("Hooked {} in {}", hook->ProcName, hook->Module);
+			hook->Original = *ppOriginal;
+			apiHooks.push_back(std::move(hook));
+		}
+		else
+		{
+			logger->warn("Failed to hook {} in {}. Reason: {}", hook->ProcName, hook->Module, MH_StatusToString((MH_STATUS)res));
+		}
 
-	//	return 0;
-	//}
+		return 0;
+	}
+
+	HRESULT LeagueBase::AddFeatureHook()
+	{
+		return 0;
+	}
+
+	void LeagueBase::RegisterKeybindings()
+	{
+
+	}
 }

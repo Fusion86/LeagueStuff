@@ -21,5 +21,6 @@ namespace Katarina
 	protected:
 		void RegisterApiHooks();
 		void RegisterFeatureHooks();
+		void RegisterKeybindings() override;
 	};
 }
