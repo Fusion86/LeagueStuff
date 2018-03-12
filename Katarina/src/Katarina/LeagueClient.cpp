@@ -1,40 +1,14 @@
 #include "stdafx.h"
 
 #include <Katarina/LeagueClient.h>
+#include <Katarina/Hooks/LeagueClient.h>
 
-#include <External/zstd.h>
-
-extern "C"
-{
-	std::shared_ptr<spdlog::logger> g_logger;
-
-	//KAT_PrepareHook(ZSTD_decompress);
-
-	ZSTDLIB_API size_t hk_ZSTD_decompress(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
-	{
-		//for (auto const& hook : fhk_ZSTD_decompress[Katarina::HookOrder::BeforeOriginal])
-		//	if (hook == NULL) g_logger->error("Hook is NULL!"); else hook(dst, dstCapacity, src, compressedSize);
-
-		//int res = orig_ZSTD_decompress(dst, dstCapacity, src, compressedSize);
-
-		//for (auto const& hook : fhk_ZSTD_decompress[Katarina::HookOrder::AfterOriginal])
-		//	if (hook == NULL) g_logger->error("Hook is NULL!"); else hook(dst, dstCapacity, src, compressedSize);
-
-		//return res;
-		return 0;
-	}
-
-	void ZSTD_decompress___dump(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
-	{
-		g_logger->info("It works!");
-	}
-}
+using namespace Katarina::Hooks::LeagueClient;
 
 namespace Katarina
 {
 	HRESULT LeagueClient::Initialize()
 	{
-		g_logger = logger;
 
 		int res = LeagueBase::Initialize();
 		if (res != 0) return res;
@@ -63,6 +37,8 @@ namespace Katarina
 		//KAT_AddApiHook("libzstd", ZSTD_decompress);
 
 		//KAT_AddFeatureHook(ZSTD_decompress, dump, HookOrder::AfterOriginal);
+
+		LeagueBase::AddApiHook("libzstd", "ZSTD_decompress", &hk_ZSTD_decompress, (LPVOID*)&orig_ZSTD_decompress);
 	}
 
 	void LeagueClient::RegisterKeybindings()

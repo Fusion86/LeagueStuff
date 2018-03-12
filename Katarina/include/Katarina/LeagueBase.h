@@ -10,7 +10,7 @@
 //	decltype(&##func) orig_##func;
 //	//std::map<Katarina::HookOrder, std::vector<decltype(&##func)>> fhk_##func;
 //
-//#define KAT_AddApiHook(mod, func) ApiHook& apiHook_##func = LeagueBase::AddApiHook(mod, #func, &hk_##func, (LPVOID*)&orig_##func)
+//#define KAT_AddApiHook(mod, func) LeagueBase::AddApiHook(mod, #func, &hk_##func, (LPVOID*)&orig_##func)
 //
 //#define KAT_AddFeatureHook(func, name, order) \
 //	/*FeatureHook& featureHook_##func = */LeagueBase::AddFeatureHook(apiHook_##func, #name, order, func##___##name);
