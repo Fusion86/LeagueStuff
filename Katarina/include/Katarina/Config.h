@@ -12,75 +12,75 @@ namespace Katarina
 	{
 		struct Hook
 		{
-			std::string identifier;
-			bool enabled;
-			bool verbose;
+			std::string Identifier;
+			bool Enabled;
+			bool Verbose;
 		};
 
 		struct Keybinding
 		{
-			std::string identifier;
-			bool enabled;
-			int keycode;
+			std::string Identifier;
+			bool Enabled;
+			int Keycode;
 		};
 
 		struct Keybindings
 		{
-			std::vector<struct Keybinding> console;
-			std::vector<struct Keybinding> always;
+			std::vector<struct Keybinding> Console;
+			std::vector<struct Keybinding> Always;
 		};
 
 		struct Config
 		{
 			//std::string version; // Ex. "1.3.2-b196557"
-			std::vector<struct Hook> hooks;
-			Keybindings keybinds;
+			std::vector<struct Hook> Hooks;
+			Keybindings Keybinds;
 		};
 
 		inline void to_json(json& j, const Hook& p)
 		{
-			j = json { { "identifier", p.identifier }, { "enabled", p.enabled }, { "keycode", p.verbose } };
+			j = json { { "identifier", p.Identifier }, { "enabled", p.Enabled }, { "verbose", p.Verbose } };
 		}
 
 		inline void from_json(const json& j, Hook& p)
 		{
-			p.identifier = j.at("identifier").get<std::string>();
-			p.enabled = j.at("enabled").get<bool>();
-			p.verbose = j.at("age").get<bool>();
+			p.Identifier = j.at("identifier").get<std::string>();
+			p.Enabled = j.at("enabled").get<bool>();
+			p.Verbose = j.at("verbose").get<bool>();
 		}
 
 		inline void to_json(json& j, const Keybinding& p)
 		{
-			j = json { { "identifier", p.identifier }, { "enabled", p.enabled }, { "keycode", p.keycode } };
+			j = json { { "identifier", p.Identifier }, { "enabled", p.Enabled }, { "keycode", p.Keycode } };
 		}
 
 		inline void from_json(const json& j, Keybinding& p)
 		{
-			p.identifier = j.at("identifier").get<std::string>();
-			p.enabled = j.at("enabled").get<bool>();
-			p.keycode = j.at("age").get<int>();
+			p.Identifier = j.at("identifier").get<std::string>();
+			p.Enabled = j.at("enabled").get<bool>();
+			p.Keycode = j.at("keycode").get<int>();
 		}
 
 		inline void to_json(json& j, const Keybindings& p)
 		{
-			j = json { { "console", p.console }, { "always", p.always } };
+			j = json { { "console", p.Console }, { "always", p.Always } };
 		}
 
 		inline void from_json(const json& j, Keybindings& p)
 		{
-			p.console = j.at("console").get<std::vector<struct Keybinding>>();
-			p.always = j.at("always").get<std::vector<struct Keybinding>>();
+			p.Console = j.at("console").get<std::vector<struct Keybinding>>();
+			p.Always = j.at("always").get<std::vector<struct Keybinding>>();
 		}
 
 		inline void to_json(json& j, const Config& p)
 		{
-			j = json { { "hooks", p.hooks }, { "keybinds", p.keybinds } };
+			j = json { { "hooks", p.Hooks }, { "keybinds", p.Keybinds } };
 		}
 
 		inline void from_json(const json& j, Config& p)
 		{
-			p.hooks = j.at("hooks").get<std::vector<struct Hook>>();
-			p.keybinds = j.at("keybinds").get<Keybindings>();
+			p.Hooks = j.at("hooks").get<std::vector<struct Hook>>();
+			p.Keybinds = j.at("keybinds").get<Keybindings>();
 		}
 	}
 }

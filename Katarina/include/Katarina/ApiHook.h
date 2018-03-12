@@ -11,6 +11,7 @@ namespace Katarina
 		LPVOID Detour;
 		LPVOID Original;
 		LPVOID Target;
+		bool IsNeeded;
 
 		inline std::string GetIdentifier()
 		{

@@ -92,6 +92,7 @@ extern "C"
 
 		memdmp(path.string().c_str(), dst, dstCapacity);
 		std::cout << "[LeagueClient ZSTD_decompress] Dumped to '" << path << "'" << std::endl;
+
 		return res;
 	}
 

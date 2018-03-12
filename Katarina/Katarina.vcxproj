@@ -64,7 +64,6 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;KATARINA_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -95,8 +94,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\json.hpp" />
-    <ClInclude Include="include\Katarina\Config.h" />
     <ClInclude Include="include\Katarina\ApiHook.h" />
+    <ClInclude Include="include\Katarina\Config.h" />
     <ClInclude Include="include\Katarina\FeatureHook.h" />
     <ClInclude Include="include\Katarina\LeagueBase.h" />
     <ClInclude Include="include\Katarina\LeagueClient.h" />
@@ -104,6 +103,8 @@
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\Katarina\Hooks\LeagueClient.h" />
+    <ClCompile Include="src\Katarina\Hooks\LeagueClient.cpp" />
     <ClCompile Include="src\Katarina\LeagueBase.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\Katarina\LeagueClient.cpp" />

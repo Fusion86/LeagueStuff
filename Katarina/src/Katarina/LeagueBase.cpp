@@ -9,16 +9,16 @@ namespace Katarina
 	HRESULT LeagueBase::Initialize()
 	{
 		const char* appdata = getenv("APPDATA");
-		appPath.assign(appdata);
-		appPath /= "Katarina";
-		appPath /= GetExecutableName();
-		logger->info("App Path: {}", appPath);
-		fs::create_directory(appPath);
+		m_appPath.assign(appdata);
+		m_appPath /= "Katarina";
+		m_appPath /= GetExecutableName();
+		logger->info("App Path: {}", m_appPath);
+		fs::create_directories(m_appPath);
 
-		configPath.assign(appPath);
-		configPath /= "Config.json";
-		logger->info("Config Path: {}", configPath);
-		fs::create_directory(configPath.parent_path());
+		m_configPath.assign(m_appPath);
+		m_configPath /= "Config.json";
+		logger->info("Config Path: {}", m_configPath);
+		fs::create_directories(m_configPath.parent_path());
 
 		int res = MH_Initialize();
 		if (res == MH_OK)
@@ -31,38 +31,88 @@ namespace Katarina
 			return res;
 		}
 
-#pragma region Config
-
 		RegisterHooks();
 
-		if (fs::exists(configPath))
+#pragma region Config
+
+		if (fs::exists(m_configPath))
 		{
 			logger->info("Found existing config file, loading it...");
-			std::ifstream in(configPath);
-			//json j = in;
-			config = json::parse(in);
+			std::ifstream in(m_configPath);
+			m_config = json::parse(in);
 		}
 		else
 		{
 			logger->info("No config file found, creating a new one...");
 		}
 
-		// Update config
+		for (auto const& featureHook : m_featureHooks)
+		{
+			bool found = false;
+			for (auto const& hook : m_config.Hooks)
+			{
+				if (hook.Identifier == featureHook->GetIdentifier())
+				{
+					found = true;
+					break;
+				}
+			}
 
-		json doc = config;
-		std::ofstream out(configPath);
+			if (found)
+			{
+				logger->info("Enabling '{}' because at least one feature hook uses it", featureHook->ApiHook.GetIdentifier());
+				res = MH_EnableHook(featureHook->ApiHook.Target);
+				if (res != MH_OK)
+				{
+					logger->error("Couldn't enable '{}'. Reason: {}", featureHook->ApiHook.GetIdentifier(), MH_StatusToString((MH_STATUS)res));
+					return res;
+				}
+			}
+			else
+			{
+				Config::Hook hook;
+				hook.Identifier = featureHook->GetIdentifier();
+				hook.Enabled = false;
+				hook.Verbose = false;
+
+				m_config.Hooks.push_back(hook);
+			}
+		}
+
+		MH_EnableHook(MH_ALL_HOOKS);
+
+		json doc = m_config;
+		std::ofstream out(m_configPath);
 		out << doc;
 		out.close();
 
 #pragma endregion
+
+		//for (auto const& apiHook : m_apiHooks)
+		//{
+		//	auto const& featureHooksForApiHook = m_featureHooks.find(apiHook->Original);
+
+		//	if (featureHooksForApiHook != m_featureHooks.end())
+		//	{
+		//		int count = 0;
+		//		count += featureHooksForApiHook->second[HookOrder::BeforeOriginal].size();
+		//		count += featureHooksForApiHook->second[HookOrder::AfterOriginal].size();
+		//		logger->info("Enabling {} because {} feature hooks use it", apiHook->GetIdentifier(), count);
+
+		//		res = MH_EnableHook(apiHook->Target);
+		//		if (res != MH_OK)
+		//		{
+		//			logger->error("Couldn't enable {}. Reason: {}", apiHook->GetIdentifier(), MH_StatusToString((MH_STATUS)res));
+		//			return res;
+		//		}
+		//	}
+		//}
 
 		return 0;
 	}
 
 	HRESULT LeagueBase::Uninitialize()
 	{
-		logger->info("Bye");
-
 		int res = MH_Uninitialize();
 		if (res == MH_OK)
 		{
@@ -79,7 +129,7 @@ namespace Katarina
 
 	void LeagueBase::Run()
 	{
-		while (!shutdownRequested)
+		while (!m_shutdownRequested)
 		{
 			if (GetAsyncKeyState(VK_DELETE))
 				Shutdown();
@@ -103,25 +153,30 @@ namespace Katarina
 
 		if (res == MH_OK)
 		{
-			logger->info("Hooked {} in {}", hook->ProcName, hook->Module);
+			logger->info("Hooked '{}' in '{}'", hook->ProcName, hook->Module);
 			hook->Original = *ppOriginal;
-			apiHooks.push_back(hook);
+			m_apiHooks.push_back(hook);
 		}
 		else
 		{
-			logger->warn("Failed to hook {} in {}. Reason: {}", hook->ProcName, hook->Module, MH_StatusToString((MH_STATUS)res));
+			logger->warn("Failed to hook '{}' in '{}'. Reason: {}", hook->ProcName, hook->Module, MH_StatusToString((MH_STATUS)res));
 		}
 
 		return *hook;
 	}
 
-	HRESULT LeagueBase::AddFeatureHook()
+	HRESULT LeagueBase::AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback)
 	{
-		// Needed args
-		// Ptr to orignal - its the key to the std::map which the ApiHook reads to find all FeatureHooks
-		// Hook order - e.g before original is run or after
-		// Priority - if there are multiple FeatureHooks
-		// Ptr to FeatureHook - what method to execute
+		std::shared_ptr<FeatureHook> hook(new FeatureHook {
+				apiHook,
+				name,
+				order,
+				callback
+			});
+
+		logger->info("Registered feature hook '{}'", hook->GetIdentifier());
+
+		m_featureHooks.push_back(hook);
 
 		return 0;
 	}
