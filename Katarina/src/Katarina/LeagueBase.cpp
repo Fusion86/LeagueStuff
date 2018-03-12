@@ -46,40 +46,28 @@ namespace Katarina
 			logger->info("No config file found, creating a new one...");
 		}
 
+		// Populate config
 		for (auto const& featureHook : m_featureHooks)
 		{
 			bool found = false;
 			for (auto const& hook : m_config.Hooks)
-			{
-				if (hook.Identifier == featureHook->GetIdentifier())
+				if (hook.Identifier == featureHook.second->GetIdentifier())
 				{
-					found = true;
-					break;
+					found = true; break;
 				}
-			}
 
-			if (found)
-			{
-				logger->info("Enabling '{}' because at least one feature hook uses it", featureHook->ApiHook.GetIdentifier());
-				res = MH_EnableHook(featureHook->ApiHook.Target);
-				if (res != MH_OK)
-				{
-					logger->error("Couldn't enable '{}'. Reason: {}", featureHook->ApiHook.GetIdentifier(), MH_StatusToString((MH_STATUS)res));
-					return res;
-				}
-			}
-			else
+			if (!found)
 			{
 				Config::Hook hook;
-				hook.Identifier = featureHook->GetIdentifier();
+				hook.Identifier = featureHook.second->GetIdentifier();
 				hook.Enabled = false;
 				hook.Verbose = false;
+
+				logger->critical("NOT FOUND!");
 
 				m_config.Hooks.push_back(hook);
 			}
 		}
-
-		MH_EnableHook(MH_ALL_HOOKS);
 
 		json doc = m_config;
 		std::ofstream out(m_configPath);
@@ -87,26 +75,6 @@ namespace Katarina
 		out.close();
 
 #pragma endregion
-
-		//for (auto const& apiHook : m_apiHooks)
-		//{
-		//	auto const& featureHooksForApiHook = m_featureHooks.find(apiHook->Original);
-
-		//	if (featureHooksForApiHook != m_featureHooks.end())
-		//	{
-		//		int count = 0;
-		//		count += featureHooksForApiHook->second[HookOrder::BeforeOriginal].size();
-		//		count += featureHooksForApiHook->second[HookOrder::AfterOriginal].size();
-		//		logger->info("Enabling {} because {} feature hooks use it", apiHook->GetIdentifier(), count);
-
-		//		res = MH_EnableHook(apiHook->Target);
-		//		if (res != MH_OK)
-		//		{
-		//			logger->error("Couldn't enable {}. Reason: {}", apiHook->GetIdentifier(), MH_StatusToString((MH_STATUS)res));
-		//			return res;
-		//		}
-		//	}
-		//}
 
 		return 0;
 	}
@@ -155,7 +123,7 @@ namespace Katarina
 		{
 			logger->info("Hooked '{}' in '{}'", hook->ProcName, hook->Module);
 			hook->Original = *ppOriginal;
-			m_apiHooks.push_back(hook);
+			m_apiHooks[hook->GetIdentifier()] = hook;
 		}
 		else
 		{
@@ -165,7 +133,7 @@ namespace Katarina
 		return *hook;
 	}
 
-	HRESULT LeagueBase::AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback)
+	FeatureHook& LeagueBase::AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback)
 	{
 		std::shared_ptr<FeatureHook> hook(new FeatureHook {
 				apiHook,
@@ -176,9 +144,9 @@ namespace Katarina
 
 		logger->info("Registered feature hook '{}'", hook->GetIdentifier());
 
-		m_featureHooks.push_back(hook);
+		m_featureHooks[hook->GetIdentifier()] = hook;
 
-		return 0;
+		return *hook;
 	}
 
 	void LeagueBase::RegisterKeybindings()

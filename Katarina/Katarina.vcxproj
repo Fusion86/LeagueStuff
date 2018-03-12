@@ -103,8 +103,6 @@
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\Katarina\Hooks\LeagueClient.h" />
-    <ClCompile Include="src\Katarina\Hooks\LeagueClient.cpp" />
     <ClCompile Include="src\Katarina\LeagueBase.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\Katarina\LeagueClient.cpp" />
