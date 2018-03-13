@@ -98,6 +98,7 @@
     <ClInclude Include="include\Katarina\Config.h" />
     <ClInclude Include="include\Katarina\LeagueBase.h" />
     <ClInclude Include="include\Katarina\LeagueClient.h" />
+    <ClInclude Include="include\memdmp.h" />
     <ClInclude Include="include\MinHook.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>

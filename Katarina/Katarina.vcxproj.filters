@@ -36,6 +36,9 @@
     <ClInclude Include="include\Katarina\Hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\memdmp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">

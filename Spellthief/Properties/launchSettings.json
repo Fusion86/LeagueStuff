@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Spellthief": {
-      "commandName": "Project",
-      "commandLineArgs": "-i \"C:\\Users\\Wouter\\AppData\\Roaming\\Lux\\Dump\" -o \"C:\\Users\\Wouter\\AppData\\Roaming\\Lux\\Out\" -u -f"
-    }
-  }
-}

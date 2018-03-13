@@ -48,7 +48,7 @@ namespace Katarina
 			logger->info("No config file found, creating a new one");
 		}
 
-		for (const auto& apiHook : m_Hooks)
+		for (const auto& apiHook : m_hooks)
 		{
 			logger->debug("ApiHook: {}", apiHook->GetIdentifier());
 
@@ -126,7 +126,7 @@ namespace Katarina
 	void LeagueBase::Run()
 	{
 		// Enable hooks
-		for (const auto& apiHook : m_Hooks)
+		for (const auto& apiHook : m_hooks)
 		{
 			if (apiHook->GetIsNeeded())
 			{
@@ -170,7 +170,7 @@ namespace Katarina
 		if (res == MH_OK)
 		{
 			logger->info("Hooked '{}' in '{}'", hook->ProcName, hook->Module);
-			m_Hooks.insert(hook);
+			m_hooks.insert(hook);
 		}
 		else
 		{

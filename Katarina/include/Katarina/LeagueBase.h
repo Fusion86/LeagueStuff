@@ -23,7 +23,7 @@ namespace Katarina
 
 		Config::Config m_config;
 
-		std::set<std::shared_ptr<ApiHook>> m_Hooks;
+		std::set<std::shared_ptr<ApiHook>> m_hooks;
 
 	private:
 		std::atomic<bool> m_shutdownRequested = false;
