@@ -51,15 +51,7 @@ namespace Katarina
 	void LeagueClient::RegisterHooks()
 	{
 		KAT_AddApiHook("libzstd", ZSTD_decompress);
-
-		//KAT_AddFeatureHook(ZSTD_decompress, dump, HookOrder::AfterOriginal);
-
-		FeatureHook fhk;
-		fhk.IsEnabled = false;
-		fhk.Name = "dump";
-		fhk.Target = hk_ZSTD_decompress$dump;
-
-		apiHook_ZSTD_decompress->AddFeatureHook(fhk, HookOrder::AfterOriginal);
+		KAT_AddFeatureHook(ZSTD_decompress, dump, HookOrder::AfterOriginal);
 	}
 
 	void LeagueClient::RegisterKeybindings()
