@@ -5,9 +5,10 @@
 #include <Katarina/Config.h>
 #include <Katarina/Hook.h>
 
-#define KAT_AddApiHook(mod, func) LeagueBase::AddApiHook(mod, #func, &hk_##func)
+#define KAT_AddApiHook(mod, func) apiHook_##func = LeagueBase::AddApiHook(mod, #func, &hk_##func)
 
-//#define KAT_AddFeatureHook(func)
+#define KAT_AddFeatureHook(func, name, order) \
+	apiHook_##func->AddFeatureHook(FeatureHook { false, #name, hk_##func##$##name }, HookOrder::AfterOriginal);
 
 namespace Katarina
 {
@@ -37,7 +38,6 @@ namespace Katarina
 		
 	protected:
 		std::shared_ptr<ApiHook> AddApiHook(std::string module, std::string procName, LPVOID pDetour);
-		//FeatureHook& AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback);
 
 		virtual void RegisterHooks() = 0;
 		virtual void RegisterKeybindings();

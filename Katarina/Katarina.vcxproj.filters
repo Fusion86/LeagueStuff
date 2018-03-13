@@ -50,6 +50,9 @@
     <ClCompile Include="src\Katarina\LeagueClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Katarina\Hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\External\zstd.h" />

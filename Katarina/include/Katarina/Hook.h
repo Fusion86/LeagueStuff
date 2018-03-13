@@ -12,9 +12,13 @@ namespace Katarina
 
 	struct FeatureHook
 	{
-		bool IsEnabled;
+		mutable bool IsEnabled;
 		std::string Name;
 		LPCVOID Target;
+
+		bool operator<(const FeatureHook& other) const {
+			return Target < other.Target;
+		}
 	};
 
 	class ApiHook
@@ -26,27 +30,16 @@ namespace Katarina
 		LPVOID Original;
 		LPVOID Target;
 
-		std::map<HookOrder, std::vector<FeatureHook>> FeatureHooks;
+		std::map<HookOrder, std::set<FeatureHook>> FeatureHooks;
+		std::map<HookOrder, std::set<int>> test;
 
 	public:
-		std::string GetIdentifier() 
-		{
-			return Module + "-" + ProcName;
-		}
+		std::string GetIdentifier();
 
-		std::string GetFeatureHookIdentifier(FeatureHook featureHook)
-		{
-			return GetIdentifier() + "-" + featureHook.Name;
-		}
+		std::string GetFeatureHookIdentifier(FeatureHook featureHook);
 
-		bool IsNeeded()
-		{
-			return false;
-		}
+		bool GetIsNeeded();
 
-		void AddFeatureHook(FeatureHook& featureHook, HookOrder hookOrder)
-		{
-
-		}
+		void AddFeatureHook(FeatureHook featureHook, HookOrder hookOrder);
 	};
 }

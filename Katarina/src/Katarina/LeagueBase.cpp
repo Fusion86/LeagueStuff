@@ -125,11 +125,34 @@ namespace Katarina
 
 	void LeagueBase::Run()
 	{
+		// Enable hooks
+		for (const auto& apiHook : m_Hooks)
+		{
+			if (apiHook->GetIsNeeded())
+			{
+				int res = MH_EnableHook(apiHook->Target);
+				if (res == MH_OK)
+				{
+					logger->info("Enabled ApiHook {}", apiHook->GetIdentifier());
+				}
+				else
+				{
+					logger->error("Couldn't enable ApiHook. Reason: {}", MH_StatusToString((MH_STATUS)res));
+				}
+			}
+			else
+			{
+				logger->debug("No need to enable ApiHook {} as no FeatureHooks use it", apiHook->GetIdentifier());
+			}
+		}
+
 		while (!m_shutdownRequested)
 		{
-			if (GetAsyncKeyState(VK_DELETE))
+			if (GetAsyncKeyState(VK_F3))
 				Shutdown();
 		}
+
+		// Disable hooks (maybe?)
 	}
 
 	std::shared_ptr<ApiHook> LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour)
@@ -156,22 +179,6 @@ namespace Katarina
 
 		return hook;
 	}
-
-	//void LeagueBase::AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback)
-	//{
-		//std::shared_ptr<FeatureHook> hook(new FeatureHook {
-		//		apiHook,
-		//		name,
-		//		order,
-		//		callback
-		//	});
-
-		//logger->info("Registered feature hook '{}'", hook->GetIdentifier());
-
-		//m_featureHooks[hook->GetIdentifier()] = hook;
-
-		//return *hook;
-	//}
 
 	void LeagueBase::RegisterKeybindings()
 	{
