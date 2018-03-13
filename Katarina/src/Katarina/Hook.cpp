@@ -16,15 +16,21 @@ namespace Katarina
 
 	bool ApiHook::GetIsNeeded()
 	{
-		for (const auto& map : FeatureHooks)
-			for (const auto& featureHook : map.second)
-				if (featureHook.IsEnabled) return true;
-
-		return false;
+		return EnabledFeatureHooks.size() > 0;
 	}
 
-	void ApiHook::AddFeatureHook(FeatureHook featureHook, HookOrder hookOrder)
+	void ApiHook::AddFeatureHook(FeatureHook featureHook)
 	{
-		FeatureHooks[hookOrder].insert(featureHook);
+		AllFeatureHooks.insert(featureHook);
+	}
+
+	void ApiHook::EnableFeatureHook(const FeatureHook* featureHook)
+	{
+		EnabledFeatureHooks[featureHook->Order].insert(featureHook);
+	}
+
+	void ApiHook::DisableFeatureHook(const FeatureHook* featureHook)
+	{
+		EnabledFeatureHooks[featureHook->Order].erase(featureHook);
 	}
 }

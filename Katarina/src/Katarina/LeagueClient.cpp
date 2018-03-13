@@ -18,13 +18,13 @@ extern "C"
 
 	int hk_ZSTD_decompress(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
 	{
-		for (const auto& hook : apiHook_ZSTD_decompress->FeatureHooks[Katarina::HookOrder::BeforeOriginal])
-			(decltype(&ZSTD_decompress)(hook.Target))(dst, dstCapacity, src, compressedSize);
-
+		for (const auto& hook : apiHook_ZSTD_decompress->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
+			(decltype(&ZSTD_decompress)(hook->Target))(dst, dstCapacity, src, compressedSize);
+		
 		int res = (decltype(&ZSTD_decompress)(apiHook_ZSTD_decompress->Original))(dst, dstCapacity, src, compressedSize);
 
-		for (const auto& hook : apiHook_ZSTD_decompress->FeatureHooks[Katarina::HookOrder::AfterOriginal])
-			(decltype(&ZSTD_decompress)(hook.Target))(dst, dstCapacity, src, compressedSize);
+		for (const auto& hook : apiHook_ZSTD_decompress->EnabledFeatureHooks[Katarina::HookOrder::AfterOriginal])
+			(decltype(&ZSTD_decompress)(hook->Target))(dst, dstCapacity, src, compressedSize);
 
 		return res;
 	}
@@ -44,6 +44,11 @@ extern "C"
 		memdmp(path.string().c_str(), dst, dstCapacity);
 
 		g_logger->info("Dumped to '{}'", path);
+	}
+
+	void hk_ZSTD_decompress$hello(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
+	{
+		g_logger->info("Hello!");
 	}
 }
 
@@ -77,6 +82,7 @@ namespace Katarina
 	{
 		KAT_AddApiHook("libzstd", ZSTD_decompress);
 		KAT_AddFeatureHook(ZSTD_decompress, dump, HookOrder::AfterOriginal);
+		KAT_AddFeatureHook(ZSTD_decompress, hello, HookOrder::AfterOriginal);
 	}
 
 	void LeagueClient::RegisterKeybindings()

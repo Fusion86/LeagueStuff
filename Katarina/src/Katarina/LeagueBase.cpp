@@ -52,46 +52,42 @@ namespace Katarina
 		{
 			logger->debug("ApiHook: {}", apiHook->GetIdentifier());
 
-			for (auto& map : apiHook->FeatureHooks)
+			for (const auto& featureHook : apiHook->AllFeatureHooks)
 			{
-				logger->debug("HookOrder: {}", map.first == HookOrder::BeforeOriginal ? "BeforeOriginal" : "AfterOriginal");
+				const Config::Hook* hook = nullptr;
+				const std::string identifier = apiHook->GetFeatureHookIdentifier(featureHook);
 
-				for (auto& featureHook : map.second)
+				for (const auto& cfgHook : m_config.Hooks)
 				{
-					const Config::Hook* hook = nullptr;
-					const std::string identifier = apiHook->GetFeatureHookIdentifier(featureHook);
-
-					for (const auto& cfgHook : m_config.Hooks)
+					if (cfgHook.Identifier == identifier)
 					{
-						if (cfgHook.Identifier == identifier)
-						{
-							hook = &cfgHook;
-							break;
-						}
+						hook = &cfgHook;
+						break;
 					}
+				}
 
-					if (hook == nullptr)
+				if (hook == nullptr)
+				{
+					logger->info("FeatureHook '{}' is not defined in the config file. Adding it with the default values", identifier);
+
+					Config::Hook hook;
+					hook.Identifier = identifier;
+					hook.Enabled = false;
+					hook.Verbose = false;
+
+					m_config.Hooks.push_back(hook);
+				}
+				else
+				{
+					if (hook->Enabled)
 					{
-						logger->info("FeatureHook {} is not defined in the config file. Adding it with the default values");
-						
-						Config::Hook hook;
-						hook.Identifier = identifier;
-						hook.Enabled = false;
-						hook.Verbose = false;
-
-						m_config.Hooks.push_back(hook);
+						logger->info("Found FeatureHook '{}' in config, enabling it", identifier);
+						apiHook->EnableFeatureHook(&featureHook);
 					}
 					else
 					{
-						if (hook->Enabled)
-						{
-							logger->info("Found FeatureHook {} in config, enabling it", identifier);
-							featureHook.IsEnabled = true;
-						}
-						else
-						{
-							logger->info("Found FeatureHook {} in config, but it is disabled", identifier);
-						}
+						logger->info("Found FeatureHook '{}' in config, but it is disabled", identifier);
+						// No need to disable it, since it is disabled by default
 					}
 				}
 			}

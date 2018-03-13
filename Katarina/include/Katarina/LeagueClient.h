@@ -14,7 +14,7 @@ namespace Katarina
 	private:
 		fs::path m_dumpPath;
 		std::shared_ptr<spdlog::logger> logger = spdlog::stdout_color_mt("LeagueClient");
-		
+
 	public:
 		HRESULT Initialize() override;
 		HRESULT Uninitialize() override;
