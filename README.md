@@ -5,4 +5,4 @@ Just for fun.
 
 ## Image
 
-![Katarina](Docs/Katarina.png)
+![Katarina](https://raw.githubusercontent.com/Fusion86/LeagueStuff/master/Docs/Katarina.png)
