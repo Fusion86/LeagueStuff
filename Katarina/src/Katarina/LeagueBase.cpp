@@ -35,37 +35,65 @@ namespace Katarina
 
 #pragma region Config
 
+		json j;
+
 		if (fs::exists(m_configPath))
 		{
-			logger->info("Found existing config file, loading it...");
+			logger->info("Found existing config file");
 			std::ifstream in(m_configPath);
 			m_config = json::parse(in);
 		}
 		else
 		{
-			logger->info("No config file found, creating a new one...");
+			logger->info("No config file found, creating a new one");
 		}
 
-		// Populate config
-		for (auto const& featureHook : m_featureHooks)
+		for (const auto& apiHook : m_Hooks)
 		{
-			bool found = false;
-			for (auto const& hook : m_config.Hooks)
-				if (hook.Identifier == featureHook.second->GetIdentifier())
-				{
-					found = true; break;
-				}
+			logger->debug("ApiHook: {}", apiHook->GetIdentifier());
 
-			if (!found)
+			for (auto& map : apiHook->FeatureHooks)
 			{
-				Config::Hook hook;
-				hook.Identifier = featureHook.second->GetIdentifier();
-				hook.Enabled = false;
-				hook.Verbose = false;
+				logger->debug("HookOrder: {}", map.first == HookOrder::BeforeOriginal ? "BeforeOriginal" : "AfterOriginal");
 
-				logger->critical("NOT FOUND!");
+				for (auto& featureHook : map.second)
+				{
+					const Config::Hook* hook = nullptr;
+					const std::string identifier = apiHook->GetFeatureHookIdentifier(featureHook);
 
-				m_config.Hooks.push_back(hook);
+					for (const auto& cfgHook : m_config.Hooks)
+					{
+						if (cfgHook.Identifier == identifier)
+						{
+							hook = &cfgHook;
+							break;
+						}
+					}
+
+					if (hook == nullptr)
+					{
+						logger->info("FeatureHook {} is not defined in the config file. Adding it with the default values");
+						
+						Config::Hook hook;
+						hook.Identifier = identifier;
+						hook.Enabled = false;
+						hook.Verbose = false;
+
+						m_config.Hooks.push_back(hook);
+					}
+					else
+					{
+						if (hook->Enabled)
+						{
+							logger->info("Found FeatureHook {} in config, enabling it", identifier);
+							featureHook.IsEnabled = true;
+						}
+						else
+						{
+							logger->info("Found FeatureHook {} in config, but it is disabled", identifier);
+						}
+					}
+				}
 			}
 		}
 
@@ -104,50 +132,46 @@ namespace Katarina
 		}
 	}
 
-	ApiHook& LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour, _Out_ LPVOID *ppOriginal)
+	std::shared_ptr<ApiHook> LeagueBase::AddApiHook(std::string module, std::string procName, LPVOID pDetour)
 	{
-		std::shared_ptr<ApiHook> hook(new ApiHook {
-				module,
-				procName,
-				pDetour,
-				0,
-				0
-			});
+		std::shared_ptr<ApiHook> hook(new ApiHook);
+		hook->Module = module;
+		hook->ProcName = procName;
+		hook->Detour = pDetour;
 
 		wchar_t szwModule[MAX_PATH + 1];
 		mbstowcs(szwModule, module.c_str(), sizeof(szwModule));
 
-		int res = MH_CreateHookApiEx(szwModule, hook->ProcName.c_str(), hook->Detour, ppOriginal, &hook->Target);
+		int res = MH_CreateHookApiEx(szwModule, hook->ProcName.c_str(), hook->Detour, &hook->Original, &hook->Target);
 
 		if (res == MH_OK)
 		{
 			logger->info("Hooked '{}' in '{}'", hook->ProcName, hook->Module);
-			hook->Original = *ppOriginal;
-			m_apiHooks[hook->GetIdentifier()] = hook;
+			m_Hooks.insert(hook);
 		}
 		else
 		{
 			logger->warn("Failed to hook '{}' in '{}'. Reason: {}", hook->ProcName, hook->Module, MH_StatusToString((MH_STATUS)res));
 		}
 
-		return *hook;
+		return hook;
 	}
 
-	FeatureHook& LeagueBase::AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback)
-	{
-		std::shared_ptr<FeatureHook> hook(new FeatureHook {
-				apiHook,
-				name,
-				order,
-				callback
-			});
+	//void LeagueBase::AddFeatureHook(ApiHook& apiHook, std::string name, HookOrder order, LPCVOID callback)
+	//{
+		//std::shared_ptr<FeatureHook> hook(new FeatureHook {
+		//		apiHook,
+		//		name,
+		//		order,
+		//		callback
+		//	});
 
-		logger->info("Registered feature hook '{}'", hook->GetIdentifier());
+		//logger->info("Registered feature hook '{}'", hook->GetIdentifier());
 
-		m_featureHooks[hook->GetIdentifier()] = hook;
+		//m_featureHooks[hook->GetIdentifier()] = hook;
 
-		return *hook;
-	}
+		//return *hook;
+	//}
 
 	void LeagueBase::RegisterKeybindings()
 	{

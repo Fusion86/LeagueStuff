@@ -1,25 +1,34 @@
 #include "stdafx.h"
 
 #include <Katarina/LeagueClient.h>
-#include <Katarina/Hooks/LeagueClient.h>
+#include <Katarina/Hook.h>
 
-using namespace Katarina::Hooks::LeagueClient;
+#include <External/zstd.h>
+
+extern "C"
+{
+	std::shared_ptr<Katarina::ApiHook> apiHook_ZSTD_decompress;
+
+	int hk_ZSTD_decompress(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
+	{
+		for (const auto& hook : apiHook_ZSTD_decompress->FeatureHooks[Katarina::HookOrder::BeforeOriginal])
+			(decltype(&ZSTD_decompress)(hook.Target))(dst, dstCapacity, src, compressedSize);
+
+		int res = (decltype(&ZSTD_decompress)(apiHook_ZSTD_decompress->Original))(dst, dstCapacity, src, compressedSize);
+
+		for (const auto& hook : apiHook_ZSTD_decompress->FeatureHooks[Katarina::HookOrder::AfterOriginal])
+			res = (decltype(&ZSTD_decompress)(hook.Target))(dst, dstCapacity, src, compressedSize);
+
+		return res;
+	}
+}
 
 namespace Katarina
 {
 	HRESULT LeagueClient::Initialize()
 	{
-
 		int res = LeagueBase::Initialize();
 		if (res != 0) return res;
-
-		for (auto const& hook : m_config.Hooks)
-		{
-			if (hook.Enabled)
-			{
-				logger->info("We want to enable {}", hook.Identifier);
-			}
-		}
 
 		return 0;
 	}
@@ -34,11 +43,7 @@ namespace Katarina
 
 	void LeagueClient::RegisterHooks()
 	{
-		//KAT_AddApiHook("libzstd", ZSTD_decompress);
-
-		//KAT_AddFeatureHook(ZSTD_decompress, dump, HookOrder::AfterOriginal);
-
-		LeagueBase::AddApiHook("libzstd", "ZSTD_decompress", &hk_ZSTD_decompress, (LPVOID*)&orig_ZSTD_decompress);
+		apiHook_ZSTD_decompress = KAT_AddApiHook("libzstd", ZSTD_decompress);
 	}
 
 	void LeagueClient::RegisterKeybindings()

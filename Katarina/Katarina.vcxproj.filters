@@ -33,10 +33,7 @@
     <ClInclude Include="include\MinHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Katarina\ApiHook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Katarina\FeatureHook.h">
+    <ClInclude Include="include\Katarina\Hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -51,12 +48,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Katarina\LeagueClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\Katarina\Hooks\LeagueClient.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Katarina\Hooks\LeagueClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

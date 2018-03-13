@@ -32,7 +32,6 @@ namespace Katarina
 
 		struct Config
 		{
-			//std::string version; // Ex. "1.3.2-b196557"
 			std::vector<struct Hook> Hooks;
 			Keybindings Keybinds;
 		};
