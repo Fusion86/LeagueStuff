@@ -8,7 +8,7 @@
 #define KAT_AddApiHook(mod, func) apiHook_##func = LeagueBase::AddApiHook(mod, #func, &hk_##func)
 
 #define KAT_AddFeatureHook(func, name, order) \
-	apiHook_##func->AddFeatureHook(FeatureHook { false, #name, hk_##func##$##name }, HookOrder::AfterOriginal);
+	apiHook_##func->AddFeatureHook(FeatureHook { false, #name, hk_##func##$##name }, order);
 
 namespace Katarina
 {

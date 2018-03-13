@@ -31,7 +31,6 @@ namespace Katarina
 		LPVOID Target;
 
 		std::map<HookOrder, std::set<FeatureHook>> FeatureHooks;
-		std::map<HookOrder, std::set<int>> test;
 
 	public:
 		std::string GetIdentifier();
