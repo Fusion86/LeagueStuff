@@ -129,7 +129,7 @@ namespace Katarina
 				int res = MH_EnableHook(apiHook->Target);
 				if (res == MH_OK)
 				{
-					logger->info("Enabled ApiHook {}", apiHook->GetIdentifier());
+					logger->info("Enabled ApiHook '{}'", apiHook->GetIdentifier());
 				}
 				else
 				{
@@ -138,7 +138,7 @@ namespace Katarina
 			}
 			else
 			{
-				logger->debug("No need to enable ApiHook {} as no FeatureHooks use it", apiHook->GetIdentifier());
+				logger->debug("No need to enable ApiHook '{}' as no FeatureHooks use it", apiHook->GetIdentifier());
 			}
 		}
 
