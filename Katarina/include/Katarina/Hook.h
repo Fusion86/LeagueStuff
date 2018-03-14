@@ -2,6 +2,17 @@
 
 #include "stdafx.h"
 
+#define KAT_HookNamespaceName(func) ns_##func
+#define KAT_HookName(func) hk_##func
+#define KAT_FeatureHookName(func, name) hk_##func##$##name
+
+#define KAT_RegisterApiHook(mod, func) \
+	Hooks::KAT_HookNamespaceName(func)::logger = spdlog::stdout_color_mt(#func); \
+	Hooks::KAT_HookNamespaceName(func)::apiHook = LeagueBase::AddApiHook(mod, #func, &Hooks::KAT_HookNamespaceName(func)::KAT_HookName(func))
+
+#define KAT_RegisterFeatureHook(func, name, order) \
+	Hooks::KAT_HookNamespaceName(func)::apiHook->AddFeatureHook(FeatureHook { #name, Hooks::KAT_HookNamespaceName(func)::KAT_FeatureHookName(func, name), order });
+
 namespace Katarina
 {
 	enum HookOrder

@@ -11,7 +11,7 @@ namespace Katarina
 		const char* appdata = getenv("APPDATA");
 		m_appPath.assign(appdata);
 		m_appPath /= "Katarina";
-		m_appPath /= GetExecutableName();
+		m_appPath /= GetName();
 		logger->info("App Path: {}", m_appPath);
 		fs::create_directories(m_appPath);
 

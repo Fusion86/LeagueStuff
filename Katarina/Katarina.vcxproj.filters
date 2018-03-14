@@ -39,6 +39,21 @@
     <ClInclude Include="include\memdmp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Katarina\Hooks\LeagueClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Katarina\Hooks\LeagueClientUx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Katarina\LeagueClientUx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\External\cef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\External\zstd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
@@ -56,8 +71,8 @@
     <ClCompile Include="src\Katarina\Hook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\External\zstd.h" />
+    <ClCompile Include="src\Katarina\LeagueClientUx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

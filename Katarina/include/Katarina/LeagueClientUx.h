@@ -6,15 +6,14 @@
 
 namespace Katarina
 {
-	namespace LeagueClient
+	namespace LeagueClientUx
 	{
-		class LeagueClient : public LeagueBase
+		class LeagueClientUx : public LeagueBase
 		{
 		public:
-			const char* GetName() { return "LeagueClient"; }
+			const char* GetName() { return "LeagueClientUx"; }
 
 		private:
-			fs::path m_dumpPath;
 			std::shared_ptr<spdlog::logger> logger = spdlog::stdout_color_mt(GetName());
 
 		public:

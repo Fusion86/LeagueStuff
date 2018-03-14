@@ -5,17 +5,12 @@
 #include <Katarina/Config.h>
 #include <Katarina/Hook.h>
 
-#define KAT_AddApiHook(mod, func) apiHook_##func = LeagueBase::AddApiHook(mod, #func, &hk_##func)
-
-#define KAT_AddFeatureHook(func, name, order) \
-	apiHook_##func->AddFeatureHook(FeatureHook { #name, hk_##func##$##name, order });
-
 namespace Katarina
 {
 	class LeagueBase
 	{
 	public:
-		virtual const char* GetExecutableName() = 0;
+		virtual const char* GetName() { return "LeagueBase"; };
 
 	protected:
 		fs::path m_appPath;
@@ -27,7 +22,7 @@ namespace Katarina
 
 	private:
 		std::atomic<bool> m_shutdownRequested = false;
-		std::shared_ptr<spdlog::logger> logger = spdlog::stdout_color_mt("LeagueBase");
+		std::shared_ptr<spdlog::logger> logger = spdlog::stdout_color_mt(GetName());
 
 	public:
 		virtual HRESULT Initialize();
