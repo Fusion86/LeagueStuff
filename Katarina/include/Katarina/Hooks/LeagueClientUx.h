@@ -19,6 +19,8 @@ namespace Katarina
 				static std::shared_ptr<Katarina::ApiHook> apiHook;
 				static std::shared_ptr<spdlog::logger> logger;
 
+				static std::set<std::wstring>* cef_parse_urls;
+
 				extern "C"
 				{
 					int KAT_HookName(cef_parse_url)(const cef_string_t* url, cef_urlparts_t* parts)
@@ -34,9 +36,14 @@ namespace Katarina
 						return res;
 					}
 
-					void KAT_FeatureHookName(cef_parse_url, log)(const cef_string_t* url, cef_urlparts_t* parts)
+					void KAT_FeatureHookName(cef_parse_url, print)(const cef_string_t* url, cef_urlparts_t* parts)
 					{
 						logger->info(L"{}", url->str);
+					}
+
+					void KAT_FeatureHookName(cef_parse_url, save_to_file)(const cef_string_t* url, cef_urlparts_t* parts)
+					{
+						cef_parse_urls->insert(std::wstring(url->str)); // This isn't even that slow apparently
 					}
 				}
 			}

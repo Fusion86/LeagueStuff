@@ -14,7 +14,6 @@ namespace Katarina
 			const char* GetName() { return "LeagueClient"; }
 
 		private:
-			fs::path m_dumpPath;
 			std::shared_ptr<spdlog::logger> logger = spdlog::stdout_color_mt(GetName());
 
 		public:
@@ -22,6 +21,7 @@ namespace Katarina
 			HRESULT Uninitialize() override;
 
 		protected:
+			void Update(int delta) override;
 			void RegisterHooks();
 			void RegisterKeybindings() override;
 		};

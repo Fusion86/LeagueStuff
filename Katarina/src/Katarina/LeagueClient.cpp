@@ -12,10 +12,6 @@ namespace Katarina
 			int res = LeagueBase::Initialize();
 			if (res != 0) return res;
 
-			m_dumpPath = m_appPath;
-			m_dumpPath /= "Dump";
-			fs::create_directories(m_dumpPath);
-
 			// Set global vars used by the FeatureHooks
 			Hooks::dumpPath = m_dumpPath;
 
@@ -28,6 +24,11 @@ namespace Katarina
 			if (res != 0) return res;
 
 			return 0;
+		}
+
+		void LeagueClient::Update(int delta)
+		{
+			LeagueBase::Update(delta);
 		}
 
 		void LeagueClient::RegisterHooks()

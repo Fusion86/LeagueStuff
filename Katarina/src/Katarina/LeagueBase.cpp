@@ -20,6 +20,10 @@ namespace Katarina
 		logger->info("Config Path: {}", m_configPath);
 		fs::create_directories(m_configPath.parent_path());
 
+		m_dumpPath = m_appPath;
+		m_dumpPath /= "Dump";
+		fs::create_directories(m_dumpPath);
+
 		int res = MH_Initialize();
 		if (res == MH_OK)
 		{
@@ -142,10 +146,28 @@ namespace Katarina
 			}
 		}
 
+		int oldTime = 0;
+		int newTime = 0; // If an Update() ever takes so long that the int will overflow then the int overflow is the least of our worries
+		LARGE_INTEGER now;
+		LARGE_INTEGER frequency;
+		bool use_qpc = QueryPerformanceFrequency(&frequency);
+
+		if (!use_qpc)
+			logger->warn("We can't use QueryPerformanceFrequency, but I am not sure if that matters.");
+
+		// Update loop
 		while (!m_shutdownRequested)
 		{
+			oldTime = newTime;
+			QueryPerformanceCounter(&now);
+			newTime = (1000LL * now.QuadPart) / frequency.QuadPart;
+
 			if (GetAsyncKeyState(VK_F3))
 				Shutdown();
+
+			Update(newTime - oldTime); // This will usually be equal to m_updateInterval, but I guess it is nice to have in somecases
+
+			Sleep(m_updateInterval); // No need to 'catch up' (m_updateInterval - (delta - m_updateInterval)) when the delta time is larger than expected, worst case scenario is that nothing happens for a split second
 		}
 
 		// Disable hooks (maybe?)
@@ -174,6 +196,13 @@ namespace Katarina
 		}
 
 		return hook;
+	}
+
+	void LeagueBase::Update(int delta)
+	{
+		// Print delta time if deviation is larger than 5%
+		if (abs(delta - m_updateInterval) > m_updateInterval * 0.05)
+			logger->debug("Delta time: {}ms", delta);
 	}
 
 	void LeagueBase::RegisterKeybindings()

@@ -13,8 +13,11 @@ namespace Katarina
 		virtual const char* GetName() { return "LeagueBase"; };
 
 	protected:
+		int m_updateInterval = 100; // Time between updates in milliseconds
+
 		fs::path m_appPath;
 		fs::path m_configPath;
+		fs::path m_dumpPath;
 
 		Config::Config m_config;
 
@@ -34,6 +37,7 @@ namespace Katarina
 	protected:
 		std::shared_ptr<ApiHook> AddApiHook(std::string module, std::string procName, LPVOID pDetour);
 
+		virtual void Update(int delta);
 		virtual void RegisterHooks() = 0;
 		virtual void RegisterKeybindings();
 	};

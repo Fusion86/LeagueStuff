@@ -38,15 +38,8 @@ namespace Katarina
 
 					void KAT_FeatureHookName(ZSTD_decompress, dump)(void* dst, size_t dstCapacity, const void* src, size_t compressedSize)
 					{
-						SYSTEMTIME st;
-						GetLocalTime(&st);
-
-						std::stringstream ss;
-						ss << "luxdmp--" << st.wYear << "-" << st.wMonth << "-" << st.wDay
-							<< "--" << st.wHour << "-" << st.wMinute << "-" << st.wSecond << "-" << st.wMilliseconds << ".bin";
-
 						fs::path path = dumpPath;
-						path /= ss.str();
+						path /= "ZSTD_decompress--" + Utils::GetDateTimeString() + ".bin";
 
 						memdmp(path.string().c_str(), dst, dstCapacity);
 

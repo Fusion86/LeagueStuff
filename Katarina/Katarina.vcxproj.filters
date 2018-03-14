@@ -54,6 +54,9 @@
     <ClInclude Include="include\External\zstd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Katarina\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
