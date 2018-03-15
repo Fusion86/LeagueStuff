@@ -4,6 +4,8 @@
 
 #include <Katarina/LeagueBase.h>
 #include <Katarina/Hook.h>
+#include <Katarina/VoidTracker.h>
+#include <External/curl.h>
 #include <External/zstd.h>
 
 #include <memdmp.h>
@@ -15,6 +17,46 @@ namespace Katarina
 		namespace Hooks
 		{
 			fs::path dumpPath;
+			VoidTracker curl_handles;
+
+#pragma region CURL
+
+			namespace KAT_HookNamespaceName(curl_easy_setopt)
+			{
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
+
+				extern "C"
+				{
+					CURLcode KAT_HookName(curl_easy_setopt)(CURL *handle, CURLoption option, void* parameter)
+					{
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
+							(decltype(&curl_easy_setopt)(hook->Target))(handle, option, parameter);
+
+						CURLcode res = (decltype(&curl_easy_setopt)(apiHook->Original))(handle, option, parameter);
+
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::AfterOriginal])
+							(decltype(&curl_easy_setopt)(hook->Target))(handle, option, parameter);
+
+						return res;
+					}
+
+					void KAT_FeatureHookName(curl_easy_setopt, print)(CURL *handle, CURLoption option, void* parameter)
+					{
+						const char* optStr = curlopt_to_str(option);
+						int handleNumber = curl_handles.Get(handle);
+
+						if (_curl_is_string_option(option))
+							logger->info("[Handle {}] Set option '{}' to '{}'", handleNumber, optStr, (char*)parameter);
+						else
+							logger->info("[Handle {}] Set option '{}' to '{}'", handleNumber, optStr, (int)parameter);
+					}
+				}
+			}
+
+#pragma endregion
+
+#pragma region ZSTD
 
 			namespace KAT_HookNamespaceName(ZSTD_decompress)
 			{
@@ -52,6 +94,9 @@ namespace Katarina
 					}
 				}
 			}
+
+#pragma endregion
+
 		}
 	}
 }

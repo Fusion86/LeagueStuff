@@ -99,10 +99,12 @@ namespace Katarina
 
 		json doc = m_config;
 		std::ofstream out(m_configPath);
-		out << doc;
+		out << std::setw(4) << doc << std::endl;
 		out.close();
 
 #pragma endregion
+
+		logger->debug("Update interval: {}ms", m_updateInterval);
 
 		return 0;
 	}

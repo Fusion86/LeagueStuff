@@ -14,6 +14,8 @@ namespace Katarina
 		{
 			fs::path dumpPath;
 
+#pragma region CEF
+
 			namespace KAT_HookNamespaceName(cef_parse_url)
 			{
 				static std::shared_ptr<Katarina::ApiHook> apiHook;
@@ -47,6 +49,9 @@ namespace Katarina
 					}
 				}
 			}
+
+#pragma endregion
+
 		}
 	}
 }

@@ -13,6 +13,14 @@
 #define KAT_RegisterFeatureHook(func, name, order) \
 	Hooks::KAT_HookNamespaceName(func)::apiHook->AddFeatureHook(FeatureHook { #name, Hooks::KAT_HookNamespaceName(func)::KAT_FeatureHookName(func, name), order });
 
+#define KAT_RegisterSharedApiHook(mod, func) \
+	Shared::Hooks::KAT_HookNamespaceName(func)::logger = spdlog::stdout_color_mt(#func); \
+	Shared::Hooks::KAT_HookNamespaceName(func)::apiHook = LeagueBase::AddApiHook(mod, #func, &Shared::Hooks::KAT_HookNamespaceName(func)::KAT_HookName(func))
+
+#define KAT_RegisterSharedFeatureHook(func, name, order) \
+	Shared::Hooks::KAT_HookNamespaceName(func)::apiHook->AddFeatureHook(FeatureHook { #name, Shared::Hooks::KAT_HookNamespaceName(func)::KAT_FeatureHookName(func, name), order });
+
+
 namespace Katarina
 {
 	enum HookOrder
