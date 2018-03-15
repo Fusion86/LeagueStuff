@@ -2,7 +2,6 @@
 
 #include <Katarina/LeagueClientUx.h>
 #include <Katarina/Hooks/LeagueClientUx.h>
-#include <Katarina/Hooks/Shared.h>
 
 namespace Katarina
 {
