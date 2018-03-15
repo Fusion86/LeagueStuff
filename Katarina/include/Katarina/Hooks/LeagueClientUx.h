@@ -12,7 +12,7 @@ namespace Katarina
 	{
 		namespace Hooks
 		{
-			fs::path dumpPath;
+			static fs::path dumpPath;
 
 #pragma region CEF
 

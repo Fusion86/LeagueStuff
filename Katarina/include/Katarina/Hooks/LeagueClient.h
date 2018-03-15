@@ -16,15 +16,15 @@ namespace Katarina
 	{
 		namespace Hooks
 		{
-			fs::path dumpPath;
-			VoidTracker curl_handles;
+			static fs::path dumpPath;
+			static VoidTracker curl_handles;
 
 #pragma region CURL
 
 			namespace KAT_HookNamespaceName(curl_easy_setopt)
 			{
-				std::shared_ptr<Katarina::ApiHook> apiHook;
-				std::shared_ptr<spdlog::logger> logger;
+				static std::shared_ptr<Katarina::ApiHook> apiHook;
+				static std::shared_ptr<spdlog::logger> logger;
 
 				extern "C"
 				{
