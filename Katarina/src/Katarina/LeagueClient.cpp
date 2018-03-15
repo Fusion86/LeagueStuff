@@ -33,6 +33,9 @@ namespace Katarina
 
 		void LeagueClient::RegisterHooks()
 		{
+			KAT_RegisterApiHook("libcurl", curl_easy_setopt);
+			KAT_RegisterFeatureHook(curl_easy_setopt, print, HookOrder::AfterOriginal);
+
 			KAT_RegisterApiHook("libzstd", ZSTD_decompress);
 			KAT_RegisterFeatureHook(ZSTD_decompress, dump, HookOrder::AfterOriginal);
 			KAT_RegisterFeatureHook(ZSTD_decompress, hello, HookOrder::AfterOriginal);

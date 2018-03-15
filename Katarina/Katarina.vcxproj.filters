@@ -57,6 +57,9 @@
     <ClInclude Include="include\Katarina\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\External\curl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">

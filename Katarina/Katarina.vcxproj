@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\External\cef.h" />
+    <ClInclude Include="include\External\curl.h" />
     <ClInclude Include="include\External\zstd.h" />
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\Katarina\Hook.h" />

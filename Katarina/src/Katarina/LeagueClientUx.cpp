@@ -44,9 +44,6 @@ namespace Katarina
 
 				cef_parse_urls.clear();
 			}
-
-			if (GetAsyncKeyState(VK_F2))
-				Sleep(100);
 		}
 
 		void LeagueClientUx::RegisterHooks()
