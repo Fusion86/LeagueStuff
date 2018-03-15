@@ -36,7 +36,7 @@ namespace Katarina
 				fs::path path = m_dumpPath;
 				path /= "cef_parse_url--" + Utils::GetDateTimeString() + ".txt";
 
-				logger->info("Writing {} collected urls (from cef_parse_urls) to ''", cef_parse_urls.size(), path);
+				logger->info("Writing {} collected urls (from cef_parse_urls) to '{}'", cef_parse_urls.size(), path);
 
 				std::wofstream ofs(path);
 				for (const auto& url : cef_parse_urls)

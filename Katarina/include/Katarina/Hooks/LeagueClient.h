@@ -54,6 +54,72 @@ namespace Katarina
 				}
 			}
 
+			namespace KAT_HookNamespaceName(curl_multi_perform)
+			{
+				static std::shared_ptr<Katarina::ApiHook> apiHook;
+				static std::shared_ptr<spdlog::logger> logger;
+
+				extern "C"
+				{
+					CURLMcode KAT_HookName(curl_multi_perform)(CURLM *multi_handle, int *running_handles)
+					{
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
+							(decltype(&curl_multi_perform)(hook->Target))(multi_handle, running_handles);
+
+						CURLMcode res = (decltype(&curl_multi_perform)(apiHook->Original))(multi_handle, running_handles);
+
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::AfterOriginal])
+							(decltype(&curl_multi_perform)(hook->Target))(multi_handle, running_handles);
+
+						return res;
+					}
+
+					void KAT_FeatureHookName(curl_multi_perform, print)(CURLM *multi_handle, int *running_handles)
+					{
+						logger->info("{}", (int)multi_handle); // This is just boilerplate stuff, not usefull for anything
+					}
+				}
+			}
+
+#pragma endregion
+
+#pragma region Ws2_32
+
+			namespace KAT_HookNamespaceName(bind)
+			{
+				static std::shared_ptr<Katarina::ApiHook> apiHook;
+				static std::shared_ptr<spdlog::logger> logger;
+
+				extern "C"
+				{
+					int __stdcall KAT_HookName(bind)(SOCKET s, const struct sockaddr* name, int namelen)
+					{
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
+							(decltype(&bind)(hook->Target))(s, name, namelen);
+
+						int res = (decltype(&bind)(apiHook->Original))(s, name, namelen);
+
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::AfterOriginal])
+							(decltype(&bind)(hook->Target))(s, name, namelen);
+
+						return res;
+					}
+
+					void __stdcall KAT_FeatureHookName(bind, print)(SOCKET s, const struct sockaddr* name, int namelen)
+					{
+						struct sockaddr_in sin;
+						int addrlen = sizeof(sin);
+						if (getsockname(s, (struct sockaddr *)&sin, &addrlen) == 0 &&
+							sin.sin_family == AF_INET &&
+							addrlen == sizeof(sin))
+						{
+							int local_port = ntohs(sin.sin_port);
+							logger->info("Bind to port {}", local_port);
+						}
+					}
+				}
+			}
+
 #pragma endregion
 
 #pragma region ZSTD
