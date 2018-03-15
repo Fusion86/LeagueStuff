@@ -2,6 +2,9 @@
 
 #include <Katarina/LeagueClient.h>
 #include <Katarina/Hooks/LeagueClient.h>
+#include <Katarina/Hooks/Shared.h>
+
+using namespace Katarina::Shared;
 
 namespace Katarina
 {

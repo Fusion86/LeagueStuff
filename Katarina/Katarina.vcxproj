@@ -101,15 +101,18 @@
     <ClInclude Include="include\Katarina\Config.h" />
     <ClInclude Include="include\Katarina\Hooks\LeagueClient.h" />
     <ClInclude Include="include\Katarina\Hooks\LeagueClientUx.h" />
+    <ClInclude Include="include\Katarina\Hooks\Shared.h" />
     <ClInclude Include="include\Katarina\LeagueBase.h" />
     <ClInclude Include="include\Katarina\LeagueClient.h" />
     <ClInclude Include="include\Katarina\LeagueClientUx.h" />
     <ClInclude Include="include\Katarina\Utils.h" />
+    <ClInclude Include="include\Katarina\VoidTracker.h" />
     <ClInclude Include="include\memdmp.h" />
     <ClInclude Include="include\MinHook.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Katarina\Hooks\Shared.cpp" />
     <ClCompile Include="src\Katarina\Hook.cpp" />
     <ClCompile Include="src\Katarina\LeagueBase.cpp" />
     <ClCompile Include="src\dllmain.cpp" />

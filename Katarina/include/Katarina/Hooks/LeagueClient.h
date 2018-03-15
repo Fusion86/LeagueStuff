@@ -4,6 +4,7 @@
 
 #include <Katarina/LeagueBase.h>
 #include <Katarina/Hook.h>
+#include <Katarina/VoidTracker.h>
 #include <External/curl.h>
 #include <External/zstd.h>
 
@@ -16,13 +17,14 @@ namespace Katarina
 		namespace Hooks
 		{
 			fs::path dumpPath;
+			VoidTracker curl_handles;
 
 #pragma region CURL
 
 			namespace KAT_HookNamespaceName(curl_easy_setopt)
 			{
-				static std::shared_ptr<Katarina::ApiHook> apiHook;
-				static std::shared_ptr<spdlog::logger> logger;
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
 
 				extern "C"
 				{
@@ -41,15 +43,13 @@ namespace Katarina
 
 					void KAT_FeatureHookName(curl_easy_setopt, print)(CURL *handle, CURLoption option, void* parameter)
 					{
-						if (_curl_is_string_option(option))
-						{
-							const char* optStr = curlopt_to_str(option);
+						const char* optStr = curlopt_to_str(option);
+						int handleNumber = curl_handles.Get(handle);
 
-							if (optStr != nullptr)
-								logger->info("Set option '{}' to '{}'", optStr, (char*)parameter);
-							else
-								logger->info("Set option {} to '{}'", option, (char*)parameter);
-						}
+						if (_curl_is_string_option(option))
+							logger->info("[Handle {}] Set option '{}' to '{}'", handleNumber, optStr, (char*)parameter);
+						else
+							logger->info("[Handle {}] Set option '{}' to '{}'", handleNumber, optStr, (int)parameter);
 					}
 				}
 			}

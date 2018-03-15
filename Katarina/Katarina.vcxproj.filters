@@ -60,6 +60,12 @@
     <ClInclude Include="include\External\curl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Katarina\VoidTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Katarina\Hooks\Shared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
@@ -78,6 +84,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Katarina\LeagueClientUx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Katarina\Hooks\Shared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
