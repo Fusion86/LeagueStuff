@@ -9,6 +9,7 @@
 #include <External/zstd.h>
 
 #include <memdmp.h>
+#include <hexprint.h>
 
 namespace Katarina
 {
@@ -16,15 +17,16 @@ namespace Katarina
 	{
 		namespace Hooks
 		{
-			static fs::path dumpPath;
-			static VoidTracker curl_handles;
+			fs::path dumpPath;
+			VoidTracker curl_handles;
+			SOCKET serverSocket = NULL;
 
 #pragma region CURL
 
 			namespace KAT_HookNamespaceName(curl_easy_setopt)
 			{
-				static std::shared_ptr<Katarina::ApiHook> apiHook;
-				static std::shared_ptr<spdlog::logger> logger;
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
 
 				extern "C"
 				{
@@ -56,8 +58,8 @@ namespace Katarina
 
 			namespace KAT_HookNamespaceName(curl_multi_perform)
 			{
-				static std::shared_ptr<Katarina::ApiHook> apiHook;
-				static std::shared_ptr<spdlog::logger> logger;
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
 
 				extern "C"
 				{
@@ -87,8 +89,8 @@ namespace Katarina
 
 			namespace KAT_HookNamespaceName(bind)
 			{
-				static std::shared_ptr<Katarina::ApiHook> apiHook;
-				static std::shared_ptr<spdlog::logger> logger;
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
 
 				extern "C"
 				{
@@ -107,6 +109,10 @@ namespace Katarina
 
 					void __stdcall KAT_FeatureHookName(bind, print)(SOCKET s, const struct sockaddr* name, int namelen)
 					{
+						// The first socket to be bound is the serverSocket;
+						if (serverSocket == NULL)
+							serverSocket = s;
+
 						struct sockaddr_in sin;
 						int addrlen = sizeof(sin);
 						if (getsockname(s, (struct sockaddr *)&sin, &addrlen) == 0 &&
@@ -120,14 +126,42 @@ namespace Katarina
 				}
 			}
 
+			namespace KAT_HookNamespaceName(recv)
+			{
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
+
+				extern "C"
+				{
+					int __stdcall KAT_HookName(recv)(SOCKET s, char* buf, int len, int flags)
+					{
+						//for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
+						//	(decltype(&recv)(hook->Target))(s, buf, len, flags);
+
+						int res = (decltype(&recv)(apiHook->Original))(s, buf, len, flags);
+
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::AfterOriginal])
+							(decltype(&recv)(hook->Target))(s, buf, len, flags);
+
+						return res;
+					}
+
+					void __stdcall KAT_FeatureHookName(recv, print)(SOCKET s, char* buf, int len, int flags)
+					{
+						if (GetAsyncKeyState(VK_F2))
+							hexprint("recv", buf, len);
+					}
+				}
+			}
+
 #pragma endregion
 
 #pragma region ZSTD
 
 			namespace KAT_HookNamespaceName(ZSTD_decompress)
 			{
-				static std::shared_ptr<Katarina::ApiHook> apiHook;
-				static std::shared_ptr<spdlog::logger> logger;
+				std::shared_ptr<Katarina::ApiHook> apiHook;
+				std::shared_ptr<spdlog::logger> logger;
 
 				extern "C"
 				{

@@ -2,6 +2,7 @@
 
 #include <Katarina/LeagueClient.h>
 #include <Katarina/Hooks/LeagueClient.h>
+#include <Katarina/Hooks/Shared.h>
 
 namespace Katarina
 {
@@ -45,6 +46,12 @@ namespace Katarina
 
 			KAT_RegisterApiHook("Ws2_32", bind);
 			KAT_RegisterFeatureHook(bind, print, HookOrder::AfterOriginal);
+
+			KAT_RegisterApiHook("Ws2_32", recv);
+			KAT_RegisterFeatureHook(recv, print, HookOrder::AfterOriginal);
+
+			KAT_RegisterSharedApiHook("libssl-1_1", SSL_write);
+			KAT_RegisterSharedFeatureHook(SSL_write, print, HookOrder::AfterOriginal);
 		}
 
 		void LeagueClient::RegisterKeybindings()

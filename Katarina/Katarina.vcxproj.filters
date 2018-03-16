@@ -66,6 +66,12 @@
     <ClInclude Include="include\Katarina\Hooks\Shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\hexprint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\External\openssl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
