@@ -135,8 +135,8 @@ namespace Katarina
 				{
 					int __stdcall KAT_HookName(recv)(SOCKET s, char* buf, int len, int flags)
 					{
-						//for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
-						//	(decltype(&recv)(hook->Target))(s, buf, len, flags);
+						for (const auto& hook : apiHook->EnabledFeatureHooks[Katarina::HookOrder::BeforeOriginal])
+							(decltype(&recv)(hook->Target))(s, buf, len, flags);
 
 						int res = (decltype(&recv)(apiHook->Original))(s, buf, len, flags);
 
