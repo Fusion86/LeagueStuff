@@ -50,8 +50,12 @@ namespace Katarina
 			KAT_RegisterApiHook("Ws2_32", recv);
 			KAT_RegisterFeatureHook(recv, print, HookOrder::AfterOriginal);
 
+			KAT_RegisterSharedApiHook("libssl-1_1", SSL_read);
+			KAT_RegisterSharedFeatureHook(SSL_read, print, HookOrder::AfterOriginal);
+
 			KAT_RegisterSharedApiHook("libssl-1_1", SSL_write);
 			KAT_RegisterSharedFeatureHook(SSL_write, print, HookOrder::AfterOriginal);
+			KAT_RegisterSharedFeatureHook(SSL_write, print_api_events, HookOrder::AfterOriginal);
 		}
 
 		void LeagueClient::RegisterKeybindings()
