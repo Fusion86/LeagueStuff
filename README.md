@@ -12,7 +12,7 @@ Just for fun.
 
 ### Katarina
 
-The DLL's that you inject into either LeagueClient or LeagueClientUx.
+The DLL that you inject into either LeagueClient or LeagueClientUx.
 
 ### Spellthief
 
