@@ -30,6 +30,12 @@ Downloads the API documentation (which btw is also accessible with Swagger UI af
 - https://github.com/msgpack/msgpack/blob/master/spec.md
 
 
+## F.A.Q
+
+**Q:** Can Riot detect this?  
+**A:** 100% yes
+
+
 ## Riot's Stance on Third Party Applications
 
 *No software should interfere directly with the in-game player experience, from when you press “Play” to the end-of-game screen* - [Riot](https://support.riotgames.com/hc/en-us/articles/225266848-Third-Party-Applications)
