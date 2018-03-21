@@ -4,7 +4,7 @@
 
 // https://stackoverflow.com/a/7776146/2125072
 // FIXME: Same as with memdmp.h
-inline void hexprint(char *desc, const void *addr, int len) {
+inline void hexprint(const char *desc, const void *addr, int len) {
 	int i;
 	unsigned char buff[17];
 	unsigned char *pc = (unsigned char*)addr;
