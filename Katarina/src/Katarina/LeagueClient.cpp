@@ -56,6 +56,12 @@ namespace Katarina
 			KAT_RegisterSharedApiHook("libssl-1_1", SSL_write);
 			KAT_RegisterSharedFeatureHook(SSL_write, print, HookOrder::AfterOriginal);
 			KAT_RegisterSharedFeatureHook(SSL_write, print_api_events, HookOrder::AfterOriginal);
+
+			KAT_RegisterSharedApiHook("libssl-1_1", SSL_CTX_ctrl);
+			KAT_RegisterSharedFeatureHook(SSL_CTX_ctrl, print, HookOrder::AfterOriginal);
+
+			KAT_RegisterSharedApiHook("libssl-1_1", SSL_get_error);
+			KAT_RegisterSharedFeatureHook(SSL_get_error, print, HookOrder::AfterOriginal);
 		}
 
 		void LeagueClient::RegisterKeybindings()
