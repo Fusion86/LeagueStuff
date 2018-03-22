@@ -54,7 +54,12 @@ namespace Xayah
 
             string outPathBase = Path.Combine(options.OutDirectory, o["info"]["description"].Value<string>());
             Directory.CreateDirectory(outPathBase); // Nothing happens if it already exists
-            File.WriteAllTextAsync(Path.Combine(outPathBase, "index.json"), index);
+            string indexPath = Path.Combine(outPathBase, "index.json");
+
+            File.WriteAllTextAsync(indexPath, index);
+            Console.WriteLine($"Downloaded index".PadRight(40) + $"'{indexPath}'");
+
+            bool hasAlreadyExportedModels = false;
 
             Parallel.ForEach(o["apis"], (x) =>
             {
@@ -63,7 +68,19 @@ namespace Xayah
                 string fileName = path.Substring(1) + ".json"; // Cut off the starting '/'
                 string outPath = Path.Combine(outPathBase, fileName);
 
-                File.WriteAllText(outPath, content);
+                JObject sub = JObject.Parse(content);
+
+                if (!hasAlreadyExportedModels)
+                {
+                    hasAlreadyExportedModels = true;
+
+                    string modelsPath = Path.Combine(outPathBase, "models.json");
+
+                    File.WriteAllText(modelsPath, sub["models"].ToString());
+                    Console.WriteLine($"Downloaded models".PadRight(40) + $"'{outPath}'");
+                }
+
+                File.WriteAllText(outPath, sub["apis"].ToString());
                 Console.WriteLine($"Downloaded {path}".PadRight(40) + $"'{outPath}'");
             });
 

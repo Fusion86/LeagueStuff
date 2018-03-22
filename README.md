@@ -20,7 +20,8 @@ Tries to give files dumped with LeagueClient's `libzstd-ZSTD_decompress-dump` a 
 
 ### Xayah
 
-Downloads the API documentation (which btw is also accessible with Swagger UI afaik). Get password and port with LeagueClientUx's `libcef-cef_parse_url-print`. Gives a lot of duplicate content (and it probably misses some stuff).
+Downloads the API documentation (which btw is also accessible with Swagger UI afaik). Get password and port with LeagueClientUx's `libcef-cef_parse_url-print`.  
+It's probably better to just download `https://127.0.0.1:{port}/v3/openapi.json`.
 
 
 ## References
