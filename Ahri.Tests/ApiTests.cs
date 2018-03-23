@@ -1,24 +1,46 @@
 using Ahri.Models;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Ahri.Tests
 {
+    [TestClass]
     public class ApiTests
     {
-        [Fact]
-        public void GetApiDocs()
+        private static LeagueClientApi api;
+
+        [AssemblyInitialize]
+        public static void Initialize(TestContext context)
         {
-            LeagueClientApi api = new LeagueClientApi("", 1234);
-            ApiDocs res = api.GetApiDocs();
-            Assert.True(res.Apis.Count > 0);
+            string password = context.Properties["password"]?.ToString();
+
+            if (password == null) throw new Exception("Password is not set!");
+
+            if (int.TryParse(context.Properties["port"]?.ToString(), out int port) == false)
+                throw new Exception("Port is not set!");
+
+            api = new LeagueClientApi(password, port);
         }
 
-        [Fact]
+        [TestMethod]
+        public void GetApiDocs()
+        {
+            ApiDocs res = api.GetApiDocs();
+            Assert.IsTrue(res.Apis.Count > 0);
+        }
+
+        [TestMethod]
         public void GetAppName()
         {
-            LeagueClientApi api = new LeagueClientApi("", 1234);
             string res = api.RiotClient.GetAppName();
-            Assert.True(res == "LeagueClient");
+            Assert.IsTrue(res == "LeagueClient");
+        }
+
+        [TestMethod]
+        public void GetChampSelectSession()
+        {
+            ChampSelectSession res = api.ChampSelect.GetSession();
+            Assert.Fail();
         }
     }
 }

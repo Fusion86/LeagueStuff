@@ -10,6 +10,7 @@ namespace Ahri
     public class LeagueClientApi
     {
         public readonly RiotClient RiotClient;
+        public readonly ChampSelect ChampSelect;
 
         private readonly string _username;
         private readonly string _password;
@@ -29,6 +30,7 @@ namespace Ahri
             _client.Authenticator = new HttpBasicAuthenticator(_username, _password);
 
             RiotClient = new RiotClient(this);
+            ChampSelect = new ChampSelect(this);
         }
 
         /// <summary>
