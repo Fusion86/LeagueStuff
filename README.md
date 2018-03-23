@@ -10,6 +10,10 @@ Just for fun.
 
 ## Projects
 
+## Ahri
+
+.NET Core 2 library to talk with the LeagueClientApi. It's going to be a pita to get it to work so I'll probably just make a (Node.Js) JavaScript library (because there we don't need types).
+
 ### Katarina
 
 The DLL that you inject into either LeagueClient or LeagueClientUx.
