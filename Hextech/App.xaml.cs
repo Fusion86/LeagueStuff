@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Net;
 using System.Windows;
 
 namespace Hextech
@@ -13,5 +8,10 @@ namespace Hextech
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            // Accept untrusted SSL certs
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+        }
     }
 }
