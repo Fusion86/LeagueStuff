@@ -12,7 +12,15 @@
         <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
 
-    <Frame x:Name="frameMain">
-        
-    </Frame>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Version"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <Grid>
+            
+        </Grid>
+    </DockPanel>
 </Window>
