@@ -10,8 +10,7 @@ namespace Hextech
     {
         public App()
         {
-            // Accept untrusted SSL certs
-            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+
         }
     }
 }

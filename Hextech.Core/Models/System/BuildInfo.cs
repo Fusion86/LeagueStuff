@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace Hextech.LeagueClient.Models
+namespace Hextech.LeagueClient.Models.System
 {
     public class BuildInfo
     {
-        [JsonProperty("branch")]
+        [JsonProperty("branch", Required = Required.Always)]
         public string Branch { get; set; }
 
         [JsonProperty("branchFull")]

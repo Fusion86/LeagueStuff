@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,13 +16,32 @@ namespace Hextech.LeagueClient
 
         private int m_port;
 
-        public void Initialize(string password, int port)
+        public LeagueClient()
+        {
+            // Accept untrusted SSL certs
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            m_client = new HttpClient(handler);
+        }
+
+        public async Task<bool> Login(string password, int port)
         {
             m_port = port;
 
-            NetworkCredential credentials = new NetworkCredential("riot", password);
-            HttpClientHandler handler = new HttpClientHandler { Credentials = credentials };
-            m_client = new HttpClient(handler);
+            var byteArray = Encoding.ASCII.GetBytes("riot:" + password);
+            m_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
+            try
+            {
+                await GetAsync("/lol-chat/v1/me");
+            }
+            catch (Exception ex)
+            {
+                // Put a breakpoint here if something stops working and look at 'ex'
+                return false;
+            }
+
+            return true;
         }
 
         public string GetUrl(string path)
