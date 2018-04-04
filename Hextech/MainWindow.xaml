@@ -15,12 +15,16 @@
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="Version"/>
+                <TextBlock Text="{Binding AppVersionString}"/>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <TextBlock Text="{Binding LeagueVersionString}"/>
             </StatusBarItem>
         </StatusBar>
 
-        <Grid>
+        <Frame Content="{Binding Content}">
             
-        </Grid>
+        </Frame>
     </DockPanel>
 </Window>

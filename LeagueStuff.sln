@@ -8,6 +8,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Katarina", "Katarina\Katarina.vcxproj", "{E1682068-3B29-41D1-BCFD-5C162118633C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hextech", "Hextech\Hextech.csproj", "{6A89276B-5A48-4F72-A5C4-427CD6661784}"
+	ProjectSection(ProjectDependencies) = postProject
+		{168F5F8E-A39F-4B9C-8424-2E26826125FD} = {168F5F8E-A39F-4B9C-8424-2E26826125FD}
+		{BD8286D5-924E-4852-8C03-15477A2B5099} = {BD8286D5-924E-4852-8C03-15477A2B5099}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hextech.LeagueClient", "Hextech.LeagueClient\Hextech.LeagueClient.csproj", "{6E1EAFF2-93D4-4C0B-849D-3D563C66A499}"
 EndProject
