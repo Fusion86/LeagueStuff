@@ -82,7 +82,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y ..\..\..\Debug\KatarinaMini.dll .
-xcopy /Y ..\..\..\KatarinaInjector\bin\Debug\JLibrary.dll .
-xcopy /Y ..\..\..\KatarinaInjector\bin\Debug\KatarinaInjector.exe .</PostBuildEvent>
+xcopy /Y ..\..\..\KatarinaInjectorbin\$(ConfigurationName)\JLibrary.dll .
+xcopy /Y ..\..\..\KatarinaInjector\bin\$(ConfigurationName)\KatarinaInjector.exe .</PostBuildEvent>
   </PropertyGroup>
 </Project>
