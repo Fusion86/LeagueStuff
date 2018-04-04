@@ -17,9 +17,12 @@ namespace Hextech.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LeagueClientApi LeagueClientApi { get; set; }
+        public LeagueClientApi LeagueClientApi { get; set; } = new LeagueClientApi();
+        public bool IsLoggedIn { get; set; }
 
-        public Page Content { get; set; }
+        public Page LoginPage { get; set; }
+        public Visibility LoginPageVisibility => IsLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+        public Visibility LoginRequiredPageVisibility => IsLoggedIn ? Visibility.Visible : Visibility.Collapsed;
 
         public MainWindowViewModel()
         {
@@ -30,12 +33,10 @@ namespace Hextech.ViewModels
             {
                 if (pp != null)
                 {
-                    LeagueClientApi client = new LeagueClientApi();
-                    bool isLoggedIn = await client.Login(pp.Password, pp.Port);
+                    IsLoggedIn = await LeagueClientApi.Login(pp.Password, pp.Port);
 
-                    if (isLoggedIn)
+                    if (IsLoggedIn)
                     {
-                        LeagueClientApi = client;
                         UpdateLeagueVersionString();
                     }
                     else
@@ -45,7 +46,7 @@ namespace Hextech.ViewModels
                 }
             };
 
-            Content = login;
+            LoginPage = login;
 
             #endregion
         }

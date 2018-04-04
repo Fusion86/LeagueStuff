@@ -23,6 +23,22 @@
             </StatusBarItem>
         </StatusBar>
 
-        <Frame Content="{Binding Content}"/>
+        <TabControl>
+            <TabItem Header="Login" Visibility="{Binding LoginPageVisibility}">
+                <Frame Content="{Binding LoginPage}"/>
+            </TabItem>
+
+            <TabItem Header="Dashboard" Visibility="{Binding LoginRequiredPageVisibility}">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="About">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>
