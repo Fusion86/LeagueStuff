@@ -62,6 +62,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppState.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -69,6 +76,8 @@
     <Compile Include="UserControls\SummonerInfo.xaml.cs">
       <DependentUpon>SummonerInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AboutPageViewModel.cs" />
+    <Compile Include="ViewModels\DashboardPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SummonerInfoViewModel.cs" />
@@ -84,6 +93,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

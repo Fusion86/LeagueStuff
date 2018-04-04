@@ -7,6 +7,8 @@ namespace Hextech.LeagueClient
     {
         private LeagueHttpClient client;
 
+        public bool IsLoggedIn { get; private set; }
+
         public SystemApi System;
         public ChatApi Chat;
         public SummonerApi Summoner;
@@ -22,7 +24,7 @@ namespace Hextech.LeagueClient
 
         public async Task<bool> Login(string password, int port)
         {
-            return await client.Login(password, port);
+            return IsLoggedIn = await client.Login(password, port);
         }
     }
 }

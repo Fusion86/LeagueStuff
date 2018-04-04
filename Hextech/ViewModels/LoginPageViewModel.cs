@@ -74,7 +74,7 @@ namespace Hextech.ViewModels
 
             if (res.Contains("process not found"))
             {
-                Status = "Please launch the League of Legends client and click start.";
+                Status = "Please launch the League of Legends client.";
                 return null;
             }
 

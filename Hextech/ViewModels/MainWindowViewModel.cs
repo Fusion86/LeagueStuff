@@ -2,12 +2,8 @@
 using Hextech.LeagueClient.Models.System;
 using Hextech.Pages;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,12 +13,13 @@ namespace Hextech.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LeagueClientApi LeagueClientApi { get; set; } = new LeagueClientApi();
         public bool IsLoggedIn { get; set; }
 
         public Page LoginPage { get; set; }
         public Visibility LoginPageVisibility => IsLoggedIn ? Visibility.Collapsed : Visibility.Visible;
         public Visibility LoginRequiredPageVisibility => IsLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+
+        private LeagueClientApi LeagueClientApi = AppState.LeagueClientApi;
 
         public MainWindowViewModel()
         {

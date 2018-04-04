@@ -29,15 +29,11 @@
             </TabItem>
 
             <TabItem Header="Dashboard" Visibility="{Binding LoginRequiredPageVisibility}">
-                <Grid>
-                    
-                </Grid>
+                <Frame Source="/Hextech;component/Pages/DashboardPage.xaml"/>
             </TabItem>
-            
-            <TabItem Header="About">
-                <Grid>
 
-                </Grid>
+            <TabItem Header="About">
+                <Frame Source="/Hextech;component/Pages/AboutPage.xaml"/>
             </TabItem>
         </TabControl>
     </DockPanel>
