@@ -12,7 +12,21 @@ Just for fun.
 
 ### Katarina
 
-The DLL that you inject into either LeagueClient or LeagueClientUx.
+DLL. Mostly used for research.
+
+### KatarinaInjector
+
+Simple commandline DLL injector.  
+Usage: `KatarinaInjector.exe ProcessName DllFile.dll`
+
+### KatarinaInjectorGUI
+
+Simple DLL injector with GUI. Loads DLLs from `./Inject`.  
+Only supports injecting DLLs into LeagueClient or LeagueClientUx.
+
+### KatarinaMini
+
+DLL. Used by Hextech. Displays password and port when injected into LeagueClientUx.
 
 ### Spellthief
 

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hextech.Core\Hextech.LeagueClient.csproj" />
+    <ProjectReference Include="..\Hextech.LeagueClient\Hextech.LeagueClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>
