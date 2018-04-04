@@ -13,6 +13,31 @@ namespace Hextech.ViewModels
 
         public string Status { get; set; } = "Launching...";
 
+        private string m_quietPath;
+        private string m_authPath;
+
+       public LoginPageViewModel()
+        {
+            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appPath = Path.Combine(appdata, "Katarina");
+            appPath = Path.Combine(appPath, "KatarinaMini");
+
+            m_quietPath = Path.Combine(appPath, "quiet");
+            m_authPath = Path.Combine(appPath, "auth");
+
+            Directory.CreateDirectory(appPath); // Create dirs if they don't exist
+        }
+
+        ~LoginPageViewModel()
+        {
+            // Make sure to clean after us
+            try
+            {
+                if (File.Exists(m_quietPath))
+                    File.Delete(m_quietPath);
+            } catch (Exception) { }
+        }
+
         public async Task<PasswordPort> GetPasswordPort()
         {
             const string injector = "KatarinaInjector.exe";
@@ -34,16 +59,7 @@ namespace Hextech.ViewModels
                 return null;
             }
 
-            // Enable KatarinaInjector quite modus
-            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appPath = Path.Combine(appdata, "Katarina");
-            appPath = Path.Combine(appPath, "KatarinaMini");
-
-            string quietPath = Path.Combine(appPath, "quiet");
-            string authPath = Path.Combine(appPath, "auth");
-
-            Directory.CreateDirectory(appPath); // Create dirs if they don't exist
-            using (File.Create(quietPath)) { } // Create empty file
+            using (File.Create(m_quietPath)) { } // Enable KatarinaInjector quiet modus
 
             Process p = new Process();
             p.StartInfo.FileName = injector;
@@ -52,6 +68,7 @@ namespace Hextech.ViewModels
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.CreateNoWindow = true;
             p.Start();
+            p.WaitForExit();
 
             string res = p.StandardOutput.ReadToEnd();
 
@@ -63,30 +80,25 @@ namespace Hextech.ViewModels
 
             Status = "Please click on something in the League of Legends client.";
 
-            while (true)
+            while (!File.Exists(m_authPath))
+                await Task.Delay(100); // Possible deadlock
+
+            string[] parts = File.ReadAllText(m_authPath).Split(new[] { ',' });
+
+            PasswordPort pp = new PasswordPort();
+            pp.Password = parts[0];
+            pp.Port = int.Parse(parts[1]);
+
+            try
             {
-                if (File.Exists(authPath))
-                {
-                    string[] parts = File.ReadAllText(authPath).Split(new[] { ',' });
-
-                    PasswordPort pp = new PasswordPort();
-                    pp.Password = parts[0];
-                    pp.Port = int.Parse(parts[1]);
-
-                    try
-                    {
-                        File.Delete(quietPath);
-                        File.Delete(authPath);
-                    }
-                    catch (Exception ex) { }
-
-                    Status = "Done!";
-
-                    return pp;
-                }
-
-                await Task.Delay(100);
+                File.Delete(m_authPath);
+                File.Delete(m_authPath);
             }
+            catch (Exception) { }
+
+            Status = "Done!";
+
+            return pp;
         }
     }
 }

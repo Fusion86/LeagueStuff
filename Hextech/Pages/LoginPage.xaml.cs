@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace Hextech.Pages
@@ -17,6 +18,9 @@ namespace Hextech.Pages
 
         private async void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            // Don't try to grab auth details when in design mode
+            if (DesignerProperties.GetIsInDesignMode(this)) return;
+
             PasswordPort pp = await vm.GetPasswordPort();
             OnAuthenticationFound(this, pp);
         }

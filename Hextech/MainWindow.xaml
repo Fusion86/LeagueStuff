@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Hextech"
         xmlns:vm="clr-namespace:Hextech.ViewModels"
         mc:Ignorable="d"
-        Title="Hextech" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Hextech" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
 
     <Window.DataContext>
         <vm:MainWindowViewModel x:Name="vm"/>
@@ -23,8 +23,6 @@
             </StatusBarItem>
         </StatusBar>
 
-        <Frame Content="{Binding Content}">
-            
-        </Frame>
+        <Frame Content="{Binding Content}"/>
     </DockPanel>
 </Window>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Hextech.ViewModels
@@ -23,6 +24,7 @@ namespace Hextech.ViewModels
         public MainWindowViewModel()
         {
             #region Login
+
             LoginPage login = new LoginPage();
             login.OnAuthenticationFound += async (object loginSender, PasswordPort pp) =>
             {
