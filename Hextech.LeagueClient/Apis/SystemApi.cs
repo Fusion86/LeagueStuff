@@ -6,7 +6,7 @@ namespace Hextech.LeagueClient.Apis
 {
     public class SystemApi : ApiBase
     {
-        public SystemApi(LeagueClient client) : base(client)
+        public SystemApi(LeagueHttpClient client) : base(client)
         {
 
         }

@@ -5,7 +5,7 @@ namespace Hextech.LeagueClient
 {
     public class LeagueClientApi
     {
-        private LeagueClient client;
+        private LeagueHttpClient client;
 
         public SystemApi System;
         public ChatApi Chat;
@@ -13,7 +13,7 @@ namespace Hextech.LeagueClient
 
         public LeagueClientApi()
         {
-            client = new LeagueClient();
+            client = new LeagueHttpClient();
 
             System = new SystemApi(client);
             Chat = new ChatApi(client);

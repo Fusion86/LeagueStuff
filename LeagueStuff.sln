@@ -23,6 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JLibrary", "JLibrary\JLibra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatarinaInjectorGUI", "KatarinaInjectorGUI\KatarinaInjectorGUI.csproj", "{6A3661AC-C937-48A2-AA42-ED2AE36B68BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassportPls", "PassportPls\PassportPls.csproj", "{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{168F5F8E-A39F-4B9C-8424-2E26826125FD} = {168F5F8E-A39F-4B9C-8424-2E26826125FD}
+		{BD8286D5-924E-4852-8C03-15477A2B5099} = {BD8286D5-924E-4852-8C03-15477A2B5099}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +145,18 @@ Global
 		{6A3661AC-C937-48A2-AA42-ED2AE36B68BA}.Release|x64.Build.0 = Release|Any CPU
 		{6A3661AC-C937-48A2-AA42-ED2AE36B68BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A3661AC-C937-48A2-AA42-ED2AE36B68BA}.Release|x86.Build.0 = Release|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Debug|x64.Build.0 = Debug|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Debug|x86.Build.0 = Debug|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Release|x64.ActiveCfg = Release|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Release|x64.Build.0 = Release|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Release|x86.ActiveCfg = Release|Any CPU
+		{3DB2FF5E-441E-4914-8A0E-6F12EBBA16D2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

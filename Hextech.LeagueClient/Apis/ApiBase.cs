@@ -2,9 +2,9 @@
 {
     public abstract class ApiBase
     {
-        protected LeagueClient m_client;
+        protected LeagueHttpClient m_client;
 
-        public ApiBase(LeagueClient client)
+        public ApiBase(LeagueHttpClient client)
         {
             m_client = client;
         }

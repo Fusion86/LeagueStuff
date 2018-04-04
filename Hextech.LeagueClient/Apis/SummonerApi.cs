@@ -7,7 +7,7 @@ namespace Hextech.LeagueClient.Apis
 {
     public class SummonerApi : ApiBase
     {
-        public SummonerApi(LeagueClient client) : base(client)
+        public SummonerApi(LeagueHttpClient client) : base(client)
         {
 
         }

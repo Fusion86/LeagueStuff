@@ -7,7 +7,7 @@ namespace Hextech.LeagueClient.Apis
 {
     public class ChatApi : ApiBase
     {
-        public ChatApi(LeagueClient client) : base(client)
+        public ChatApi(LeagueHttpClient client) : base(client)
         {
 
         }
