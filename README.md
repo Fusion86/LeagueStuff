@@ -26,7 +26,11 @@ Only supports injecting DLLs into LeagueClient or LeagueClientUx.
 
 ### KatarinaMini
 
-DLL. Used by Hextech. Displays password and port when injected into LeagueClientUx.
+DLL. Used by Hextech/PassportPls. Displays password and port when injected into LeagueClientUx.
+
+### PassportPls
+
+GUI tool to grab the password and port for the LeagueClient API.
 
 ### Spellthief
 

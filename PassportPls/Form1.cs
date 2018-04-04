@@ -52,6 +52,7 @@ namespace PassportPls
             string quietPath = Path.Combine(appPath, "quiet");
             string authPath = Path.Combine(appPath, "auth");
 
+            Directory.CreateDirectory(appPath); // Create dirs if they don't exist
             using (File.Create(quietPath)) { } // Create empty file
 
             Process p = new Process();
@@ -66,7 +67,7 @@ namespace PassportPls
 
             if (res.Contains("process not found"))
             {
-                SetStatus("Please launch the League of Legends client and try again.");
+                SetStatus("Please launch the League of Legends client and click start.");
                 return null;
             }
 
