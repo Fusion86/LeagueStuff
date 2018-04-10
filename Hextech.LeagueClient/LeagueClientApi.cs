@@ -1,4 +1,5 @@
 ﻿using Hextech.LeagueClient.Apis;
+using System;
 using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient
@@ -7,11 +8,14 @@ namespace Hextech.LeagueClient
     {
         private LeagueHttpClient client;
 
-        public bool IsLoggedIn { get; private set; }
-
         public SystemApi System;
         public ChatApi Chat;
         public SummonerApi Summoner;
+
+        public bool IsLoggedIn { get; private set; }
+
+        public event EventHandler OnLoggedIn;
+        public event EventHandler OnLoggedOut;
 
         public LeagueClientApi()
         {
@@ -22,9 +26,22 @@ namespace Hextech.LeagueClient
             Summoner = new SummonerApi(client);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="port"></param>
+        /// <returns>True if login successful, false on error or when already logged in</returns>
         public async Task<bool> Login(string password, int port)
         {
-            return IsLoggedIn = await client.Login(password, port);
+            if (IsLoggedIn) return false;
+
+            IsLoggedIn = await client.Login(password, port);
+
+            if (IsLoggedIn)
+                OnLoggedIn(this, EventArgs.Empty);
+
+            return IsLoggedIn;
         }
     }
 }

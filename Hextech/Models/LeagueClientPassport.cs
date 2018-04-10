@@ -1,6 +1,6 @@
-﻿namespace Hextech
+﻿namespace Hextech.Models
 {
-    public class PasswordPort
+    public class LeagueClientPassport
     {
         public string Password;
         public int Port;

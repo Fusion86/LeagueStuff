@@ -1,4 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Hextech
@@ -8,9 +13,5 @@ namespace Hextech
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {
-
-        }
     }
 }

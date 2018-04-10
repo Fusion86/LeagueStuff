@@ -1,64 +1,30 @@
-﻿using Hextech.LeagueClient;
-using Hextech.LeagueClient.Models.System;
-using Hextech.Pages;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Hextech.ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool IsLoggedIn { get; set; }
+        public bool ShowLogin { get; set; } = true;
 
-        public Page LoginPage { get; set; }
-        public Visibility LoginPageVisibility => IsLoggedIn ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility LoginRequiredPageVisibility => IsLoggedIn ? Visibility.Visible : Visibility.Collapsed;
-
-        private LeagueClientApi LeagueClientApi = AppState.LeagueClientApi;
+        public Visibility LoginFrameVisibility => ShowLogin ? Visibility.Visible : Visibility.Collapsed;
 
         public MainWindowViewModel()
         {
-            #region Login
-
-            LoginPage login = new LoginPage();
-            login.OnAuthenticationFound += async (object loginSender, PasswordPort pp) =>
-            {
-                if (pp != null)
-                {
-                    IsLoggedIn = await LeagueClientApi.Login(pp.Password, pp.Port);
-
-                    if (IsLoggedIn)
-                    {
-                        UpdateLeagueVersionString();
-                    }
-                    else
-                    {
-                        throw new Exception("Login failed!");
-                    }
-                }
-            };
-
-            LoginPage = login;
-
-            #endregion
+            AppState.LeagueClientApi.OnLoggedIn += LeagueClientApi_OnLoggedIn;
         }
 
-        #region Status bar
-
-        public string AppVersionString => "Version: " + Assembly.GetExecutingAssembly().GetName().Version;
-        public string LeagueVersionString { get; private set; } = "League of Legends: not connected";
-
-        public async void UpdateLeagueVersionString()
+        private void LeagueClientApi_OnLoggedIn(object sender, EventArgs e)
         {
-            BuildInfo info = await LeagueClientApi.System.GetBuildInfo();
-            LeagueVersionString = "League of Legends: " + info.Version;
+            ShowLogin = false;
         }
-
-        #endregion
     }
 }

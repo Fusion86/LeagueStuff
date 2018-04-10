@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Hextech"
         xmlns:vm="clr-namespace:Hextech.ViewModels"
         mc:Ignorable="d"
-        Title="Hextech" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
-
+        Title="Hextech" Height="450" Width="800" ResizeMode="CanResizeWithGrip">
+    
     <Window.DataContext>
         <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
@@ -15,26 +15,12 @@
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="{Binding AppVersionString}"/>
-            </StatusBarItem>
-
-            <StatusBarItem>
-                <TextBlock Text="{Binding LeagueVersionString}"/>
+                <TextBlock Text="Version"/>
             </StatusBarItem>
         </StatusBar>
 
-        <TabControl>
-            <TabItem Header="Login" Visibility="{Binding LoginPageVisibility}">
-                <Frame Content="{Binding LoginPage}"/>
-            </TabItem>
-
-            <TabItem Header="Dashboard" Visibility="{Binding LoginRequiredPageVisibility}">
-                <Frame Source="/Hextech;component/Pages/DashboardPage.xaml"/>
-            </TabItem>
-
-            <TabItem Header="About">
-                <Frame Source="/Hextech;component/Pages/AboutPage.xaml"/>
-            </TabItem>
-        </TabControl>
+        <Grid>
+            
+        </Grid>
     </DockPanel>
 </Window>
