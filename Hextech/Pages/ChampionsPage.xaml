@@ -8,7 +8,22 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ChampionsPage">
 
-    <Grid Background="Yellow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox>
+            <ComboBoxItem Content="Test"/>
+        </ComboBox>
         
+        <TabControl Grid.Row="1">
+            <TabItem Header="Zed">
+                <Grid>
+                    <Label Content="Waddup"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
