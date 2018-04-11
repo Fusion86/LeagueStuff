@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hextech.LeagueClient;
+using Hextech.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +15,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Hextech
+namespace Hextech.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DashboardPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DashboardPage : Page
     {
-        public MainWindow()
+        private readonly DashboardPageViewModel vm;
+
+        public DashboardPage(LeagueClientApi leagueClientApi)
         {
             InitializeComponent();
+
+            DataContext = vm = new DashboardPageViewModel(leagueClientApi);
         }
     }
 }

@@ -6,21 +6,11 @@
         xmlns:local="clr-namespace:Hextech"
         xmlns:vm="clr-namespace:Hextech.ViewModels"
         mc:Ignorable="d"
-        Title="Hextech" Height="450" Width="800" ResizeMode="CanResizeWithGrip">
+        Title="Hextech" Height="576" Width="844">
     
     <Window.DataContext>
         <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
 
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem>
-                <TextBlock Text="Version"/>
-            </StatusBarItem>
-        </StatusBar>
-
-        <Grid>
-            
-        </Grid>
-    </DockPanel>
+    <Frame Content="{Binding Content}" NavigationUIVisibility="Hidden"/>
 </Window>

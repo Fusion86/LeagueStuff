@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hextech.LeagueClient;
+using Hextech.Pages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,18 +15,27 @@ namespace Hextech.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool ShowLogin { get; set; } = true;
+        public Page Content {get;set;}
 
-        public Visibility LoginFrameVisibility => ShowLogin ? Visibility.Visible : Visibility.Collapsed;
+        private readonly LeagueClientApi LeagueClientApi;
 
         public MainWindowViewModel()
         {
-            AppState.LeagueClientApi.OnLoggedIn += LeagueClientApi_OnLoggedIn;
+            LeagueClientApi = new LeagueClientApi();
+            LeagueClientApi.OnLoggedIn += LeagueClientApi_OnLoggedIn;
+            LeagueClientApi.OnLoggedOut += LeagueClientApi_OnLoggedOut;
+
+            Content = new LoginPage(LeagueClientApi);
         }
 
         private void LeagueClientApi_OnLoggedIn(object sender, EventArgs e)
         {
-            ShowLogin = false;
+            Content = new DashboardPage(LeagueClientApi);
+        }
+
+        private void LeagueClientApi_OnLoggedOut(object sender, EventArgs e)
+        {
+            Content = new LoginPage(LeagueClientApi);
         }
     }
 }

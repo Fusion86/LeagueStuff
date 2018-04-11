@@ -1,0 +1,83 @@
+﻿<Page x:Class="Hextech.Pages.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Hextech.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="576" d:DesignWidth="844"
+      Title="DashboardPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#132B2A">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="40, 0, 0, 0">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="0,0,40,0"/>
+                        <Setter Property="FontFamily" Value="/Hextech;component/Assets/Fonts/#BeaufortforLOL"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="Foreground" Value="#B8A360"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock Text="{TemplateBinding Content}"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button x:Name="txtHome" Content="Home"/>
+                <Button x:Name="txtLiveGame" Content="Live Game"/>
+                <Button x:Name="txtBuilds" Content="Builds"/>
+                <Button x:Name="txtChampions" Content="Champions"/>
+            </StackPanel>
+
+            <TextBlock Grid.Column="1" Text="{Binding SummonerName}" FontFamily="./#BeaufortforLOL" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18" Foreground="#B8A360"/>
+
+            <Ellipse Grid.Column="2" Width="50" Height="50">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding SummonerIconUri}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+
+        <TabControl Grid.Row="1" Margin="0" BorderThickness="0" Padding="0">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+
+            <TabItem x:Name="tabHome">
+                <Frame Content="{Binding HomePage}"/>
+            </TabItem>
+
+            <TabItem x:Name="tabLiveGame">
+                <Frame Content="{Binding LiveGamePage}"/>
+            </TabItem>
+
+            <TabItem x:Name="tabBuilds">
+                <Frame Content="{Binding BuildsPage}"/>
+            </TabItem>
+
+            <TabItem x:Name="tabChampions">
+                <Frame Content="{Binding ChampionsPage}"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
