@@ -155,10 +155,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Panel\" />
-    <Folder Include="UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Hextech.LeagueClient\Hextech.LeagueClient.csproj">
       <Project>{6E1EAFF2-93D4-4C0B-849D-3D563C66A499}</Project>
