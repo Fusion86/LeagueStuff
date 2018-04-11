@@ -8,6 +8,7 @@ namespace Hextech.LeagueClient
     {
         private LeagueHttpClient client;
 
+        public AssetsApi Assets;
         public SystemApi System;
         public ChatApi Chat;
         public SummonerApi Summoner;
@@ -21,6 +22,7 @@ namespace Hextech.LeagueClient
         {
             client = new LeagueHttpClient();
 
+            Assets = new AssetsApi(client);
             System = new SystemApi(client);
             Chat = new ChatApi(client);
             Summoner = new SummonerApi(client);
@@ -38,7 +40,7 @@ namespace Hextech.LeagueClient
 
             IsLoggedIn = await client.Login(password, port);
 
-            if (IsLoggedIn)
+            if (IsLoggedIn && OnLoggedIn != null)
                 OnLoggedIn(this, EventArgs.Empty);
 
             return IsLoggedIn;

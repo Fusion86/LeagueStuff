@@ -11,21 +11,21 @@ namespace Hextech.LeagueClient.Test.Tests
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
-        public async Task GetConfig()
+        public async Task ChatGetConfig()
         {
             var obj = await client.Chat.GetConfig();
             Assert.IsNotNull(obj);
         }
 
         [TestMethod]
-        public async Task GetFriends()
+        public async Task ChatGetFriends()
         {
             var obj = await client.Chat.GetFriends();
             Assert.IsNotNull(obj);
         }
 
         [TestMethod]
-        public async Task GetMe()
+        public async Task ChatGetMe()
         {
             var obj = await client.Chat.GetMe();
             Assert.IsNotNull(obj);

@@ -29,7 +29,7 @@ namespace Hextech.LeagueClient
 
             try
             {
-                await GetAsync("/lol-chat/v1/me");
+                await GetAsync("/system/v1/builds"); // Uses a path that should always be available, even if the player is not logged in
             }
             catch (Exception ex)
             {
@@ -40,20 +40,35 @@ namespace Hextech.LeagueClient
             return true;
         }
 
-        public string GetUrl(string path)
+        private string GetFullUrl(string path)
         {
             return "https://127.0.0.1:" + m_port + path;
         }
 
         public async Task<string> GetAsync(string path)
         {
-            HttpResponseMessage res = await m_client.GetAsync(GetUrl(path));
+            HttpResponseMessage res = await m_client.GetAsync(GetFullUrl(path));
+
+            if (!res.IsSuccessStatusCode) throw new RiotApiException(res.ReasonPhrase);
+
             return await res.Content.ReadAsStringAsync();
+        }
+
+        public async Task<byte[]> GetByteArrayAsync(string path)
+        {
+            HttpResponseMessage res = await m_client.GetAsync(GetFullUrl(path));
+
+            if (!res.IsSuccessStatusCode) throw new RiotApiException(res.ReasonPhrase);
+
+            return await res.Content.ReadAsByteArrayAsync();
         }
 
         public async Task<string> PostAsync(string path, FormUrlEncodedContent content)
         {
-            HttpResponseMessage res = await m_client.PostAsync(GetUrl(path), content);
+            HttpResponseMessage res = await m_client.PostAsync(GetFullUrl(path), content);
+
+            if (!res.IsSuccessStatusCode) throw new RiotApiException(res.ReasonPhrase);
+
             return await res.Content.ReadAsStringAsync();
         }
     }

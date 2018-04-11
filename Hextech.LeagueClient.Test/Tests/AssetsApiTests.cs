@@ -4,23 +4,16 @@ using System.Threading.Tasks;
 namespace Hextech.LeagueClient.Test.Tests
 {
     [TestClass]
-    public class SummonerApiTests
+    public class AssetsApiTests
     {
         public TestContext TestContext { get; set; }
 
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
-        public async Task SummonerGetCurrentSummoner()
+        public async Task AssetsGetAsset()
         {
-            var obj = await client.Summoner.GetCurrentSummoner();
-            Assert.IsNotNull(obj);
-        }
-
-        [TestMethod]
-        public async Task SummonerGetSummoner()
-        {
-            var obj = await client.Summoner.GetSummoner("Fizz sucks");
+            var obj = await client.Assets.GetAsset("/lol-game-data/assets/v1/champion-icons/1.png");
             Assert.IsNotNull(obj);
         }
     }
