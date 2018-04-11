@@ -30,5 +30,25 @@ namespace Hextech.Pages
 
             DataContext = vm = new DashboardPageViewModel(leagueClientApi);
         }
+
+        private void txtHome_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            tabControl.SelectedIndex = 0;
+        }
+
+        private void txtLiveGame_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            tabControl.SelectedIndex = 1;
+        }
+
+        private void txtBuilds_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            tabControl.SelectedIndex = 2;
+        }
+
+        private void txtChampions_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            tabControl.SelectedIndex = 3;
+        }
     }
 }

@@ -17,17 +17,17 @@ using System.Windows.Shapes;
 namespace Hextech.Pages
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for LiveGamePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class LiveGamePage : Page
     {
-        //private readonly HomePageViewModel vm;
+        //private readonly LiveGamePageViewModel vm;
 
-        public HomePage(LeagueClientApi leagueClientApi)
+        public LiveGamePage(LeagueClientApi leagueClientApi)
         {
             InitializeComponent();
 
-            //DataContext = vm = new HomePageViewModel(leagueClientApi);
+            //DataContext = vm = new DashboardPageViewModel(leagueClientApi);
         }
     }
 }

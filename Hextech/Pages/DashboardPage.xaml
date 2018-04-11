@@ -23,27 +23,20 @@
             
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="40, 0, 0, 0">
                 <StackPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
+                    <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Margin" Value="0,0,40,0"/>
                         <Setter Property="FontFamily" Value="/Hextech;component/Assets/Fonts/#BeaufortforLOL"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="FontSize" Value="18"/>
                         <Setter Property="Foreground" Value="#B8A360"/>
-
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <TextBlock Text="{TemplateBinding Content}"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="Cursor" Value="Hand"/>
                     </Style>
                 </StackPanel.Resources>
 
-                <Button x:Name="txtHome" Content="Home"/>
-                <Button x:Name="txtLiveGame" Content="Live Game"/>
-                <Button x:Name="txtBuilds" Content="Builds"/>
-                <Button x:Name="txtChampions" Content="Champions"/>
+                <TextBlock x:Name="txtHome" Text="Home" PreviewMouseLeftButtonDown="txtHome_PreviewMouseLeftButtonDown"/>
+                <TextBlock x:Name="txtLiveGame" Text="Live Game" PreviewMouseLeftButtonDown="txtLiveGame_PreviewMouseLeftButtonDown"/>
+                <TextBlock x:Name="txtBuilds" Text="Builds" PreviewMouseLeftButtonDown="txtBuilds_PreviewMouseLeftButtonDown"/>
+                <TextBlock x:Name="txtChampions" Text="Champions" PreviewMouseLeftButtonDown="txtChampions_PreviewMouseLeftButtonDown"/>
             </StackPanel>
 
             <TextBlock Grid.Column="1" Text="{Binding SummonerName}" FontFamily="./#BeaufortforLOL" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18" Foreground="#B8A360"/>
@@ -55,7 +48,7 @@
             </Ellipse>
         </Grid>
 
-        <TabControl Grid.Row="1" Margin="0" BorderThickness="0" Padding="0">
+        <TabControl x:Name="tabControl" Grid.Row="1" Margin="0" BorderThickness="0" Padding="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Visibility" Value="Collapsed"/>
