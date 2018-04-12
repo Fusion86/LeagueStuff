@@ -24,5 +24,11 @@ namespace Hextech
         {
             InitializeComponent();
         }
+
+        private void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+                e.Cancel = true;
+        }
     }
 }

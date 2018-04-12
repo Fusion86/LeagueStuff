@@ -1,6 +1,8 @@
 ﻿using Hextech.LeagueClient;
+using Hextech.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +23,31 @@ namespace Hextech.Pages
     /// </summary>
     public partial class ChampionsPage : Page
     {
-        //private readonly ChampionsPageViewModel vm;
+        private readonly ChampionsPageViewModel vm;
 
         public ChampionsPage(LeagueClientApi leagueClientApi)
         {
             InitializeComponent();
 
-            //DataContext = vm = new ChampionsPaageViewModel(leagueClientApi);
+            DataContext = vm = new ChampionsPageViewModel(leagueClientApi);
+        }
+
+        private void AutoCompleteBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                AutoCompleteBox box = (AutoCompleteBox)sender;
+                if (box.SelectedItem != null)
+                {
+                    box.Text = "";
+                }
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                AutoCompleteBox box = (AutoCompleteBox)sender;
+                box.Text = "";
+            }
         }
     }
 }

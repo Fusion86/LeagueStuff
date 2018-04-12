@@ -12,6 +12,7 @@ namespace Hextech.LeagueClient
         public SystemApi System;
         public ChatApi Chat;
         public SummonerApi Summoner;
+        public GameDataApi GameData;
 
         public bool IsLoggedIn { get; private set; }
 
@@ -26,6 +27,7 @@ namespace Hextech.LeagueClient
             System = new SystemApi(client);
             Chat = new ChatApi(client);
             Summoner = new SummonerApi(client);
+            GameData = new GameDataApi(client);
         }
 
         /// <summary>

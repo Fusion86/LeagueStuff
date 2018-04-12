@@ -12,5 +12,5 @@
         <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
 
-    <Frame Content="{Binding Content}" NavigationUIVisibility="Hidden"/>
+    <Frame Content="{Binding Content}" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating"/>
 </Window>
