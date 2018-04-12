@@ -1,4 +1,5 @@
 ﻿using Hextech.LeagueClient;
+using Hextech.LeagueClient.Models.GameData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ namespace Hextech.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<string> Champions { get; } = new List<string>();
+        public List<Champion> Champions { get; private set; }
         public string SelectedChampion { get; set; }
 
         private LeagueClientApi LeagueClientApi;
@@ -20,10 +21,12 @@ namespace Hextech.ViewModels
         public ChampionsPageViewModel(LeagueClientApi leagueClientApi)
         {
             LeagueClientApi = leagueClientApi;
+        }
 
-            Champions.Add("Karel");
-            Champions.Add("Meneer");
-            Champions.Add("Freek");
+        public async Task Load()
+        {
+            List<Champion> champs = await LeagueClientApi.GameData.GetChampionSummary();
+            Champions = champs.Skip(1).ToList(); // Skip the 'None' champion
         }
     }
 }

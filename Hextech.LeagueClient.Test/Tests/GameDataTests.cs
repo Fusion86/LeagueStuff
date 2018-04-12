@@ -14,7 +14,7 @@ namespace Hextech.LeagueClient.Test.Tests
         public async Task GameDataGetChampionSummary()
         {
             var obj = await client.GameData.GetChampionSummary();
-            Assert.IsNotNull(obj);
+            Assert.IsTrue(obj.Count > 0);
         }
     }
 }

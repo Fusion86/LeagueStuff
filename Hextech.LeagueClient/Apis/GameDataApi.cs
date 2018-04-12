@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Hextech.LeagueClient.Models.GameData;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
 {
@@ -11,11 +14,11 @@ namespace Hextech.LeagueClient.Apis
 
         }
 
-        public async Task<object[]> GetChampionSummary()
+        public async Task<List<Champion>> GetChampionSummary()
         {
             string str = await m_client.GetAsync(GetUrl("/assets/v1/champion-summary.json"));
-
-            return new object[] { };
+            var obj = JsonConvert.DeserializeObject<List<Champion>>(str);
+            return obj;
         }
     }
 }

@@ -7,7 +7,7 @@
       xmlns:input="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ChampionsPage">
+      Title="ChampionsPage" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,12 +15,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <input:AutoCompleteBox ItemsSource="{Binding Champions}" SelectedItem="{Binding SelectedChampion}" IsTextCompletionEnabled="True" Placeholder="Open new tab for champion" KeyUp="AutoCompleteBox_KeyUp">
+        <input:AutoCompleteBox ItemsSource="{Binding Champions}" SelectedItem="{Binding SelectedChampion}" IsTextCompletionEnabled="True" Placeholder="Open new tab for champion" ValueMemberPath="Name" KeyUp="AutoCompleteBox_KeyUp">
 
         </input:AutoCompleteBox>
 
         <TabControl Grid.Row="1" ItemsSource="{Binding ChampionPages}">
-
+            
         </TabControl>
     </Grid>
 </Page>

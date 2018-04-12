@@ -32,6 +32,11 @@ namespace Hextech.Pages
             DataContext = vm = new ChampionsPageViewModel(leagueClientApi);
         }
 
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await vm.Load();
+        }
+
         private void AutoCompleteBox_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
