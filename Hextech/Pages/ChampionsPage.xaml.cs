@@ -1,4 +1,5 @@
 ﻿using Hextech.LeagueClient;
+using Hextech.LeagueClient.Models.GameData;
 using Hextech.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace Hextech.Pages
                 AutoCompleteBox box = (AutoCompleteBox)sender;
                 if (box.SelectedItem != null)
                 {
+                    vm.AddTab((Champion)box.SelectedItem);
                     box.Text = "";
                 }
             }
@@ -53,6 +55,22 @@ namespace Hextech.Pages
                 AutoCompleteBox box = (AutoCompleteBox)sender;
                 box.Text = "";
             }
+        }
+
+        private void AutoCompleteBox_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AutoCompleteBox box = (AutoCompleteBox)sender;
+            if (box.SelectedItem != null)
+            {
+                vm.AddTab((Champion)box.SelectedItem);
+                box.Text = "";
+                // FIXME: There are some visual glitches
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.RemoveTab((Champion)((Control)sender).Tag);
         }
     }
 }

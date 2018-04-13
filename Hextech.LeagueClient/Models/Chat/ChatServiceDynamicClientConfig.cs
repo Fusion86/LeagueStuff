@@ -2,7 +2,7 @@
 
 namespace Hextech.LeagueClient.Models.Chat
 {
-    public class ChatServiceDynamicClientConfig
+    public class ChatServiceDynamicClientConfig : ILeagueClientModel
     {
         [JsonProperty("ChatDomain", Required = Required.Always)]
         public LolChatChatDomainConfig ChatDomain { get; set; }
@@ -11,7 +11,7 @@ namespace Hextech.LeagueClient.Models.Chat
         public LolChatLcuSocialConfig LcuSocial { get; set; }
     }
 
-    public class LolChatChatDomainConfig
+    public class LolChatChatDomainConfig : ILeagueClientModel
     {
         [JsonProperty("ChampSelectDomainName", Required = Required.Always)]
         public string ChampSelectDomainName { get; set; }

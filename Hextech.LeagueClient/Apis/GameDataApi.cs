@@ -16,9 +16,7 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<List<Champion>> GetChampionSummary()
         {
-            string str = await m_client.GetAsync(GetUrl("/assets/v1/champion-summary.json"));
-            var obj = JsonConvert.DeserializeObject<List<Champion>>(str);
-            return obj;
+            return await m_client.GetAsync<List<Champion>>(GetUrl("/assets/v1/champion-summary.json"));
         }
     }
 }

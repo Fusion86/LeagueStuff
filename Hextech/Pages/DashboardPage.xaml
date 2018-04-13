@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Hextech.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="576" d:DesignWidth="844"
-      Title="DashboardPage">
+      Title="DashboardPage" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -41,7 +41,7 @@
 
             <TextBlock Grid.Column="1" Text="{Binding SummonerName}" FontFamily="./#BeaufortforLOL" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18" Foreground="#B8A360"/>
 
-            <Ellipse Grid.Column="2" Width="50" Height="50">
+            <Ellipse Grid.Column="2" Width="50" Height="50" MouseUp="Ellipse_MouseUp">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="{Binding SummonerIconUri}"/>
                 </Ellipse.Fill>

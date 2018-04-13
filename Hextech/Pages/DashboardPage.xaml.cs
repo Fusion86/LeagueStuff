@@ -50,5 +50,15 @@ namespace Hextech.Pages
         {
             tabControl.SelectedIndex = 3;
         }
+
+        private async void Ellipse_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            await vm.Update();
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await vm.Update();
+        }
     }
 }

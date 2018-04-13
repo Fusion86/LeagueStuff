@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
 {
@@ -13,12 +14,18 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<byte[]> GetAsset(string path)
         {
-            return await m_client.GetByteArrayAsync(path);
+            HttpResponseMessage res = await m_client.GetAsync(path);
+
+            if (res.IsSuccessStatusCode) return await res.Content.ReadAsByteArrayAsync();
+            else return null;
         }
 
         public async Task<byte[]> GetAsset(ApiBase plugin, string path)
         {
-            return await m_client.GetByteArrayAsync($"/{plugin.Name}/assets{path}");         
+            HttpResponseMessage res = await m_client.GetAsync($"/{plugin.Name}/assets{path}");
+
+            if (res.IsSuccessStatusCode) return await res.Content.ReadAsByteArrayAsync();
+            else return null;
         }
     }
 }

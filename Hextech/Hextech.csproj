@@ -39,6 +39,9 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bindables, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bindables.Fody.0.5.0\lib\net40\Bindables.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetProjects.DataVisualization.Toolkit, Version=5.0.43.0, Culture=neutral, PublicKeyToken=79778c5f2eed289b, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetProjects.Wpf.Toolkit.5.0.43\lib\net40\DotNetProjects.DataVisualization.Toolkit.dll</HintPath>
     </Reference>
@@ -96,7 +99,11 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ChampionInfoUserControl.xaml.cs">
+      <DependentUpon>ChampionInfoUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\LeagueClientApiUtilities.cs" />
+    <Compile Include="ViewModels\ChampionInfoUserControlViewModel.cs" />
     <Compile Include="ViewModels\ChampionsPageViewModel.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
@@ -137,6 +144,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ChampionInfoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -168,7 +179,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hextech.LeagueClient\Hextech.LeagueClient.csproj">
       <Project>{6E1EAFF2-93D4-4C0B-849D-3D563C66A499}</Project>

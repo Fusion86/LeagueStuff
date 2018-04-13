@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Hextech.LeagueClient.Models.GameData
 {
-    public partial class Champion
+    public class Champion : ILeagueClientModel
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -16,9 +17,11 @@ namespace Hextech.LeagueClient.Models.GameData
         [JsonProperty("squarePortraitPath")]
         public string SquarePortraitPath { get; set; }
 
-        //[JsonProperty("roles")]
-        //public List<Role> Roles { get; set; }
+        [JsonProperty("roles")]
+        public List<Role> Roles { get; set; }
+
+        public override string ToString() => Name;
     }
 
-    //public enum Role { Assassin, Fighter, Mage, Marksman, Support, Tank };
+    public enum Role { Assassin, Fighter, Mage, Marksman, Support, Tank };
 }

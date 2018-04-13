@@ -16,16 +16,12 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<Summoner> GetCurrentSummoner()
         {
-            string str = await m_client.GetAsync(GetUrl("/v1/current-summoner"));
-            var obj = JsonConvert.DeserializeObject<Summoner>(str);
-            return obj;
+            return await m_client.GetAsync<Summoner>(GetUrl("/v1/current-summoner"));
         }
 
         public async Task<Summoner> GetSummoner(string name)
         {
-            string str = await m_client.GetAsync(GetUrl("/v1/summoners?name=" + HttpUtility.UrlEncode(name)));
-            var obj = JsonConvert.DeserializeObject<Summoner>(str);
-            return obj;
+            return await m_client.GetAsync<Summoner>(GetUrl("/v1/summoners?name=" + HttpUtility.UrlEncode(name)));
         }
     }
 }

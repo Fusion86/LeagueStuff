@@ -2,7 +2,7 @@
 
 namespace Hextech.LeagueClient.Models.Chat
 {
-    public class FriendResource
+    public class FriendResource : ILeagueClientModel
     {
         [JsonProperty("availability", Required = Required.Always)]
         public string Availability { get; set; }
@@ -37,7 +37,7 @@ namespace Hextech.LeagueClient.Models.Chat
         [JsonProperty("statusMessage")]
         public string StatusMessage { get; set; }
     }
-    
+
     public class LolChatFriendResourceExtraData
     {
         [JsonProperty("profileIcon", NullValueHandling = NullValueHandling.Ignore)]
