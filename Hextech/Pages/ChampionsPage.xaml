@@ -23,7 +23,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Name}"/>
-                        <nk Content="x" Click="CloseButton_Click" Tag="{Binding}"/>
+                        <Button Content="x" Click="CloseButton_Click" Tag="{Binding}"/>
                     </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
