@@ -10,18 +10,27 @@ Just for fun.
 
 ## Projects
 
+### Hextech
+
+GUI that uses Hextech.LeagueClient to quickly lists a champions abilities/runes/builds/winrates
+and suggests counter picks based on your personal winrate etc.
+
+### Hextech.LeagueClient
+
+Communicate with the LeagueClient API.
+
 ### Katarina
 
 DLL. Mostly used for research.
 
 ### KatarinaInjector
 
-Simple commandline DLL injector.  
+Simple commandline DLL injector.
 Usage: `KatarinaInjector.exe ProcessName DllFile.dll`
 
 ### KatarinaInjectorGUI
 
-Simple DLL injector with GUI. Loads DLLs from `./Inject`.  
+Simple DLL injector with GUI. Loads DLLs from `./Inject`.
 Only supports injecting DLLs into LeagueClient or LeagueClientUx.
 
 ### KatarinaMini
@@ -46,7 +55,7 @@ Tries to give files dumped with LeagueClient's `libzstd-ZSTD_decompress-dump` a 
 
 ## F.A.Q
 
-**Q:** Can Riot detect this?  
+**Q:** Can Riot detect this?
 **A:** 100% yes
 
 
