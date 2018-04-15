@@ -80,6 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\AuthenticationInfoDialog.xaml.cs">
+      <DependentUpon>AuthenticationInfoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\LeagueClientPassport.cs" />
     <Compile Include="Pages\BuildsPage.xaml.cs">
       <DependentUpon>BuildsPage.xaml</DependentUpon>
@@ -99,15 +102,25 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="UserControls\ChampionInfoUserControl.xaml.cs">
       <DependentUpon>ChampionInfoUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\LobbyChampionUserControl.xaml.cs">
+      <DependentUpon>LobbyChampionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\LeagueClientApiUtilities.cs" />
+    <Compile Include="ViewModels\AuthenticationInfoDialogViewModel.cs" />
     <Compile Include="ViewModels\ChampionInfoUserControlViewModel.cs" />
     <Compile Include="ViewModels\ChampionsPageViewModel.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
+    <Compile Include="ViewModels\LobbyChampionUserControlViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Page Include="Dialogs\AuthenticationInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -145,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ChampionInfoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LobbyChampionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

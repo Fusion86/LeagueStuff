@@ -18,7 +18,7 @@
 
         <input:AutoCompleteBox ItemsSource="{Binding Champions}" SelectedItem="{Binding SelectedChampion}" IsTextCompletionEnabled="True" Placeholder="Open new tab for champion" ValueMemberPath="Name" KeyUp="AutoCompleteBox_KeyUp" MouseUp="AutoCompleteBox_MouseUp"/>
 
-        <TabControl Grid.Row="1" ItemsSource="{Binding ChampionPages}">
+        <TabControl Grid.Row="1" ItemsSource="{Binding ChampionPages}" SelectedItem="{Binding SelectedPage}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

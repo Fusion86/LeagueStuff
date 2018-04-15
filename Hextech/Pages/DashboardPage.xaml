@@ -18,7 +18,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
             
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="40, 0, 0, 0">
@@ -39,13 +38,27 @@
                 <TextBlock x:Name="txtChampions" Text="Champions" PreviewMouseLeftButtonDown="txtChampions_PreviewMouseLeftButtonDown"/>
             </StackPanel>
 
-            <TextBlock Grid.Column="1" Text="{Binding SummonerName}" FontFamily="./#BeaufortforLOL" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18" Foreground="#B8A360"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
 
-            <Ellipse Grid.Column="2" Width="50" Height="50" MouseUp="Ellipse_MouseUp">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding SummonerIconUri}"/>
-                </Ellipse.Fill>
-            </Ellipse>
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Refresh Summoner" Command="{Binding RefreshSummonerCommand}"/>
+                        <MenuItem Header="Show Authentication Data" Command="{Binding ShowAuthenticationDiagCommand}"/>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+
+                <TextBlock Grid.Column="0" Text="{Binding SummonerName}" FontFamily="./#BeaufortforLOL" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18" Foreground="#B8A360"/>
+
+                <Ellipse Grid.Column="1" Width="50" Height="50" MouseUp="Ellipse_MouseUp">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding SummonerIconUri}"/>
+                    </Ellipse.Fill>
+                    </Ellipse>
+            </Grid>
         </Grid>
 
         <TabControl x:Name="tabControl" Grid.Row="1" Margin="0" BorderThickness="0" Padding="0">

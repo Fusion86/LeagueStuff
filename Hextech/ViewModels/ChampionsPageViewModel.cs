@@ -21,6 +21,7 @@ namespace Hextech.ViewModels
         #endregion AutoCompleteBox
 
         public ObservableCollection<Champion> ChampionPages { get; } = new ObservableCollection<Champion>();
+        public Champion SelectedPage { get; set; }
 
         private LeagueClientApi LeagueClientApi;
 
@@ -41,6 +42,7 @@ namespace Hextech.ViewModels
             if (!ChampionPages.Contains(champion))
             {
                 ChampionPages.Add(champion);
+                SelectedPage = champion;
             }
         }
 

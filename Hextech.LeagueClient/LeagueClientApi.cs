@@ -19,6 +19,9 @@ namespace Hextech.LeagueClient
         public event EventHandler OnLoggedIn;
         public event EventHandler OnLoggedOut;
 
+        public string Password { get; private set; }
+        public int Port { get; private set; }
+
         public LeagueClientApi()
         {
             client = new LeagueHttpClient();
@@ -42,8 +45,13 @@ namespace Hextech.LeagueClient
 
             IsLoggedIn = await client.Login(password, port);
 
-            if (IsLoggedIn && OnLoggedIn != null)
-                OnLoggedIn(this, EventArgs.Empty);
+            if (IsLoggedIn)
+            {
+                Password = password;
+                Port = port;
+
+                OnLoggedIn?.Invoke(this, EventArgs.Empty);
+            }
 
             return IsLoggedIn;
         }

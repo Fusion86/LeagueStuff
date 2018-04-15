@@ -1,4 +1,5 @@
-﻿using Hextech.LeagueClient;
+﻿using Hextech.Dialogs;
+using Hextech.LeagueClient;
 using Hextech.Pages;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ namespace Hextech.ViewModels
         public BuildsPage BuildsPage { get; private set; }
         public ChampionsPage ChampionsPage { get; private set; }
 
+        public RelayCommand RefreshSummonerCommand { get; }
+        public RelayCommand ShowAuthenticationDiagCommand { get; }
+
         private readonly LeagueClientApi LeagueClientApi;
 
         public DashboardPageViewModel(LeagueClientApi leagueClientApi)
@@ -31,6 +35,26 @@ namespace Hextech.ViewModels
             LiveGamePage = new LiveGamePage(leagueClientApi);
             BuildsPage = new BuildsPage(leagueClientApi);
             ChampionsPage = new ChampionsPage(leagueClientApi);
+
+            RefreshSummonerCommand = new RelayCommand(
+                async (e) =>
+                {
+                    await Update();
+                },
+                (e) =>
+                {
+                    return LeagueClientApi.IsLoggedIn;
+                });
+
+            ShowAuthenticationDiagCommand = new RelayCommand(
+                (e) =>
+                {
+                    new AuthenticationInfoDialog(leagueClientApi).Show();
+                },
+                (e) =>
+                {
+                    return true;
+                });
         }
 
         public async Task Update()
