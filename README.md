@@ -23,20 +23,6 @@ Communicate with the LeagueClient API.
 
 DLL. Mostly used for research.
 
-### KatarinaInjector
-
-Simple commandline DLL injector.
-Usage: `KatarinaInjector.exe ProcessName DllFile.dll`
-
-### KatarinaInjectorGUI
-
-Simple DLL injector with GUI. Loads DLLs from `./Inject`.
-Only supports injecting DLLs into LeagueClient or LeagueClientUx.
-
-### KatarinaMini
-
-DLL. Used by Hextech/PassportPls. Displays password and port when injected into LeagueClientUx.
-
 ### PassportPls
 
 GUI tool to grab the password and port for the LeagueClient API.
