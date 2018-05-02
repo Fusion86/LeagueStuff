@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,81 +27,51 @@ namespace PassportPls
             }));
         }
 
-        private async Task<PasswordPort> GetPasswordPort()
+        // Taken from https://github.com/Fumi24/RunesReformed/blob/master/RunesReformed1.1/Form1.cs#L210
+        private PasswordPort GetPasswordPort()
         {
-            const string injector = "KatarinaInjector.exe";
-            const string dll = "KatarinaMini.dll";
-            bool isMissingFiles = false;
+            Process[] procs = Process.GetProcessesByName("LeagueClientUx");
 
-            foreach (string file in new[] { injector, dll })
+            if (procs.Length == 0) return null;
+
+            foreach (var getid in procs)
             {
-                if (!File.Exists(file))
+                using (ManagementObjectSearcher mos = new ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + getid.Id))
                 {
-                    isMissingFiles = true;
-                    MessageBox.Show($"Missing required file '{file}'");
-                }
-            }
-
-            if (isMissingFiles)
-                return null;
-
-            // Enable KatarinaInjector quite modus
-            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appPath = Path.Combine(appdata, "Katarina");
-            appPath = Path.Combine(appPath, "KatarinaMini");
-
-            string quietPath = Path.Combine(appPath, "quiet");
-            string authPath = Path.Combine(appPath, "auth");
-
-            Directory.CreateDirectory(appPath); // Create dirs if they don't exist
-            using (File.Create(quietPath)) { } // Create empty file
-
-            Process p = new Process();
-            p.StartInfo.FileName = injector;
-            p.StartInfo.Arguments = "LeagueClientUx " + dll;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.Start();
-
-            string res = p.StandardOutput.ReadToEnd();
-
-            if (res.Contains("process not found"))
-            {
-                SetStatus("Please launch the League of Legends client and click start.");
-                return null;
-            }
-
-            SetStatus("Please click on something in the League of Legends client.");
-
-            while (true)
-            {
-                if (File.Exists(authPath))
-                {
-                    string[] parts = File.ReadAllText(authPath).Split(new[] { ',' });
-
-                    PasswordPort pp = new PasswordPort();
-                    pp.Password = parts[0];
-                    pp.Port = int.Parse(parts[1]);
-
-                    try
+                    foreach (ManagementObject mo in mos.Get())
                     {
-                        File.Delete(quietPath);
-                        File.Delete(authPath);
-                    } catch (Exception ex) { }
+                        if (mo["CommandLine"] != null)
+                        {
+                            string data = (mo["CommandLine"].ToString());
+                            string[] CommandlineArray = data.Split('"');
+                            PasswordPort pp = new PasswordPort();
 
-                    SetStatus("Done!");
+                            foreach (var attributes in CommandlineArray)
+                            {
+                                if (attributes.Contains("token") || attributes.Contains("remoting-auth-token"))
+                                {
+                                    string[] token = attributes.Split('=');
+                                    pp.Password = token[1];
+                                }
+                                if (attributes.Contains("port") || attributes.Contains("app-port"))
+                                {
+                                    string[] port = attributes.Split('=');
+                                    int.TryParse(port[1], out pp.Port);
+                                }
+                            }
 
-                    return pp;
+                            return pp;
+                        }
+                    }
                 }
-
-                await Task.Delay(100);
             }
+
+            return null;
         }
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
-            PasswordPort pp = await GetPasswordPort();
+            PasswordPort pp = GetPasswordPort();
 
             if (pp != null)
             {

@@ -36,7 +36,7 @@ namespace Hextech.ViewModels
                 ButtonText = e;
             };
 
-            LeagueClientPassport pp = await LeagueClientApiUtilities.GetPassport(progress);
+            LeagueClientPassport pp = LeagueClientApiUtilities.GetPassport();
 
             if (pp != null)
             {
