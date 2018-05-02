@@ -55,8 +55,8 @@ Tries to give files dumped with LeagueClient's `libzstd-ZSTD_decompress-dump` a 
 
 ## F.A.Q
 
-**Q:** Can Riot detect this?
-**A:** 100% yes
+**Q:** Can Riot detect this?  
+**A:** They could detect Katarina and mistake it for a cheating application. Hextech should be fine, since it uses the LeagueClient API directly and doesn't inject DLL's, hook methods, etc.
 
 
 ## Riot's Stance on Third Party Applications
