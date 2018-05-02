@@ -21,7 +21,7 @@ Communicate with the LeagueClient API.
 
 ### Katarina
 
-DLL. Mostly used for research.
+DLL. Mostly used for research. Use Xenos Injector (or any other) to inject into LeagueClient or LeagueClientUx.
 
 ### PassportPls
 
@@ -42,7 +42,7 @@ Tries to give files dumped with LeagueClient's `libzstd-ZSTD_decompress-dump` a 
 ## F.A.Q
 
 **Q:** Can Riot detect this?  
-**A:** They could detect Katarina and mistake it for a cheating application. Hextech should be fine, since it uses the LeagueClient API directly and doesn't inject DLL's, hook methods, etc.
+**A:** They could detect Katarina and mistake it for a cheating application. Hextech should be fine since it uses the LeagueClient API directly and doesn't inject DLL's or hook methods.
 
 
 ## Riot's Stance on Third Party Applications
