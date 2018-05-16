@@ -10,11 +10,6 @@ Just for fun.
 
 ## Projects
 
-### Hextech
-
-GUI that uses Hextech.LeagueClient to quickly lists a champions abilities/runes/builds/winrates
-and suggests counter picks based on your personal winrate etc.
-
 ### Hextech.LeagueClient
 
 Communicate with the LeagueClient API.
@@ -42,7 +37,7 @@ Tries to give files dumped with LeagueClient's `libzstd-ZSTD_decompress-dump` a 
 ## F.A.Q
 
 **Q:** Can Riot detect this?  
-**A:** They could detect Katarina and mistake it for a cheating application. Hextech should be fine since it uses the LeagueClient API directly and doesn't inject DLL's or hook methods.
+**A:** They could detect Katarina and mistake it for a cheating application. Hextech.LeagueClient should be fine since it uses the LeagueClient API directly and doesn't inject DLL's or hook methods.
 
 
 ## Riot's Stance on Third Party Applications
