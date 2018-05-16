@@ -14,13 +14,10 @@ namespace Hextech.LeagueClient.Test
         [AssemblyInitialize]
         public static async Task Initialize(TestContext context)
         {
-            string password = context.Properties["password"].ToString();
-            int port = int.Parse(context.Properties["port"].ToString());
-
-            bool isLoggedIn = await Client.Login(password, port);
+            bool success = await Client.Initialize();
             
-            if (!isLoggedIn)
-                throw new Exception("Password and/or port is invalid!");
+            if (!success)
+                throw new Exception("Couldn't initialize LeagueClientApi. Is the LeagueClient not running?");
         }
     }
 }

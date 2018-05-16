@@ -14,14 +14,6 @@ namespace Hextech.LeagueClient
         public SummonerApi Summoner;
         public GameDataApi GameData;
 
-        public bool IsLoggedIn { get; private set; }
-
-        public event EventHandler OnLoggedIn;
-        public event EventHandler OnLoggedOut;
-
-        public string Password { get; private set; }
-        public int Port { get; private set; }
-
         public LeagueClientApi()
         {
             client = new LeagueHttpClient();
@@ -33,27 +25,11 @@ namespace Hextech.LeagueClient
             GameData = new GameDataApi(client);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="password"></param>
-        /// <param name="port"></param>
-        /// <returns>True if login successful, false on error or when already logged in</returns>
-        public async Task<bool> Login(string password, int port)
+        public async Task<bool> Initialize()
         {
-            if (IsLoggedIn) return false;
-
-            IsLoggedIn = await client.Login(password, port);
-
-            if (IsLoggedIn)
-            {
-                Password = password;
-                Port = port;
-
-                OnLoggedIn?.Invoke(this, EventArgs.Empty);
-            }
-
-            return IsLoggedIn;
+            PasswordPort pp = Utility.GetPasswordPort();
+            if (pp == null) return false;
+            return await client.Login(pp.Password, pp.Port);
         }
     }
 }

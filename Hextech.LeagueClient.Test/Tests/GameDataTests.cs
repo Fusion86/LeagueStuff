@@ -11,7 +11,7 @@ namespace Hextech.LeagueClient.Test.Tests
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
-        public async Task GameDataGetChampionSummary()
+        public async Task GetChampionSummary()
         {
             var obj = await client.GameData.GetChampionSummary();
             Assert.IsTrue(obj.Count > 0);

@@ -11,7 +11,7 @@ namespace Hextech.LeagueClient.Test.Tests
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
-        public async Task AssetsGetAsset()
+        public async Task GetAsset()
         {
             var obj = await client.Assets.GetAsset("/lol-game-data/assets/v1/champion-icons/1.png");
             Assert.IsNotNull(obj);

@@ -11,14 +11,14 @@ namespace Hextech.LeagueClient.Test.Tests
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
-        public async Task SummonerGetCurrentSummoner()
+        public async Task GetCurrentSummoner()
         {
             var obj = await client.Summoner.GetCurrentSummoner();
             Assert.IsNotNull(obj);
         }
 
         [TestMethod]
-        public async Task SummonerGetSummoner()
+        public async Task GetSummoner()
         {
             var obj = await client.Summoner.GetSummoner("Fizz sucks");
             Assert.IsNotNull(obj);

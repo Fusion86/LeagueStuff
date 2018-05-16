@@ -30,7 +30,6 @@
         {
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtPort = new System.Windows.Forms.TextBox();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPassword.Location = new System.Drawing.Point(116, 12);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.ReadOnly = true;
             this.txtPassword.Size = new System.Drawing.Size(512, 29);
             this.txtPassword.TabIndex = 0;
             // 
@@ -51,19 +51,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPort.Location = new System.Drawing.Point(116, 47);
             this.txtPort.Name = "txtPort";
+            this.txtPort.ReadOnly = true;
             this.txtPort.Size = new System.Drawing.Size(512, 29);
             this.txtPort.TabIndex = 1;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStatus.Location = new System.Drawing.Point(12, 94);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(776, 78);
-            this.lblStatus.TabIndex = 2;
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnStart
             // 
@@ -98,16 +88,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 181);
+            this.ClientSize = new System.Drawing.Size(800, 88);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnStart);
-            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.txtPassword);
             this.Name = "Form1";
             this.Text = "Passport Pls";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -118,7 +106,6 @@
 
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtPort;
-        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

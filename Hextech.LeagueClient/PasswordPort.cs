@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PassportPls
+namespace Hextech.LeagueClient
 {
-    class PasswordPort
+    public class PasswordPort
     {
         public string Password;
         public int Port;

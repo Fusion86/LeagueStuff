@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hextech.Properties
+namespace ProfileIconBrowser.Properties
 {
 
 

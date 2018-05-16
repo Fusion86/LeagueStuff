@@ -11,7 +11,7 @@ namespace Hextech.LeagueClient.Test.Tests
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
-        public async Task SystemGetBuildInfo()
+        public async Task GetBuildInfo()
         {
             var obj = await client.System.GetBuildInfo();
             TestContext.WriteLine("Version: " + obj.Version); // Doesn't work
