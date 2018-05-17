@@ -17,6 +17,9 @@ namespace Jinx.CLI
 
         static readonly LeagueClientApi lc = new LeagueClientApi();
 
+        static readonly string aboutString = $"Jinx v{Assembly.GetExecutingAssembly().GetName().Version} (Core v{Assembly.GetAssembly(typeof(AbilityBase)).GetName().Version})";
+        static string leagueVersionString;
+
         static async Task Main(string[] args)
         {
             // Register abilities
@@ -29,7 +32,7 @@ namespace Jinx.CLI
                 Console.WriteLine(JsonConvert.SerializeObject(info, Formatting.Indented));
             }));
 
-            Console.WriteLine($"Jinx v{Assembly.GetExecutingAssembly().GetName().Version} (Core v{Assembly.GetAssembly(typeof(AbilityBase)).GetName().Version})\n");
+            Console.WriteLine(aboutString + '\n');
 
             Console.WriteLine("Trying to connect to the LeagueClient...");
             bool success = await lc.Initialize();
@@ -39,7 +42,9 @@ namespace Jinx.CLI
                 Console.WriteLine("Connected to the LeagueClient");
                 Console.WriteLine("Requestiong LeagueClient version...");
                 BuildInfo info = await lc.System.GetBuildInfo();
-                Console.WriteLine("LeagueClient version is " + info.Version);
+                leagueVersionString = "LeagueClient version is " + info.Version;
+
+                Console.WriteLine(leagueVersionString);
                 Console.WriteLine();
 
                 await MainMenuLoop();
@@ -60,7 +65,13 @@ namespace Jinx.CLI
             while (true)
             {
                 if (first) first = false;
-                else Console.Clear();
+                else
+                {
+                    Console.Clear();
+
+                    Console.WriteLine(aboutString + '\n');
+                    Console.WriteLine(leagueVersionString + '\n');
+                }
 
                 foreach (var item in actionItems)
                 {
