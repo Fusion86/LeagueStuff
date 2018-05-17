@@ -14,6 +14,8 @@ namespace Hextech.LeagueClient
         public SummonerApi Summoner;
         public GameDataApi GameData;
 
+        public bool IsConnected { get; private set; }
+
         public LeagueClientApi()
         {
             client = new LeagueHttpClient();
@@ -29,7 +31,7 @@ namespace Hextech.LeagueClient
         {
             PasswordPort pp = Utility.GetPasswordPort();
             if (pp == null) return false;
-            return await client.Login(pp.Password, pp.Port);
+            return IsConnected = await client.Login(pp.Password, pp.Port);
         }
     }
 }

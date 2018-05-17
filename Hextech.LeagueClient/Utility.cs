@@ -11,6 +11,7 @@ namespace Hextech.LeagueClient
         {
             PlatformID platform = Environment.OSVersion.Platform;
 
+            string result = null;
             if (platform == PlatformID.Win32NT)
             {
                 Process cmd = new Process();
@@ -22,39 +23,48 @@ namespace Hextech.LeagueClient
                 cmd.Start();
                 cmd.WaitForExit();
 
-                string result = cmd.StandardOutput.ReadToEnd();
-
-                string authTokenRegex = "\"--remoting-auth-token=([\\w\\d]+)\"";
-                string portRegex = "\"--app-port=([\\d]+)\"";
-
-                string authToken = null;
-                int port = 0;
-
-                GroupCollection gc = Regex.Match(result, authTokenRegex).Groups;
-                if (gc.Count > 1) authToken = gc[1].Value;
-
-                gc = Regex.Match(result, portRegex).Groups;
-                if (gc.Count > 1) int.TryParse(gc[1].Value, out port);
-
-                if (authToken != null && port != 0)
-                {
-                    return new PasswordPort
-                    {
-                        Password = authToken,
-                        Port = port
-                    };
-                }
-
-                return null;
+                result = cmd.StandardOutput.ReadToEnd();
             }
             else if (platform == PlatformID.Unix)
             {
-                throw new NotImplementedException();
+                Process cmd = new Process();
+                cmd.StartInfo.FileName = "/bin/bash";
+                cmd.StartInfo.RedirectStandardOutput = true;
+                // cmd.StartInfo.CreateNoWindow = true;
+                // cmd.StartInfo.UseShellExecute = false;
+                cmd.StartInfo.Arguments = "-c \"ps x -o args | grep 'LeagueClientUx'\"";
+                cmd.Start();
+                cmd.WaitForExit();
+
+                result = cmd.StandardOutput.ReadToEnd();
             }
             else
             {
                 throw new PlatformNotSupportedException();
             }
+
+            string authTokenRegex = "--remoting-auth-token=([\\w\\d]+)";
+            string portRegex = "--app-port=([\\d]+)";
+
+            string authToken = null;
+            int port = 0;
+
+            GroupCollection gc = Regex.Match(result, authTokenRegex).Groups;
+            if (gc.Count > 1) authToken = gc[1].Value;
+
+            gc = Regex.Match(result, portRegex).Groups;
+            if (gc.Count > 1) int.TryParse(gc[1].Value, out port);
+
+            if (authToken != null && port != 0)
+            {
+                return new PasswordPort
+                {
+                    Password = authToken,
+                    Port = port
+                };
+            }
+
+            return null;
         }
     }
 }

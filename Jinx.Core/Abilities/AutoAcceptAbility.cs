@@ -5,17 +5,22 @@ using System.Text;
 
 namespace Jinx.Core.Abilities
 {
-    public class AutoAccept : AbilityBase
+    public class AutoAcceptAbility : AbilityBase
     {
         public override string Name => "Auto-Accept";
         public override string Description => "";
         public override AbilityCategory Category => AbilityCategory.Matchmaking;
 
-        public AutoAccept()
+        public AutoAcceptAbility()
         {
             OnEnable += (sender, e) =>
             {
-                Debug.WriteLine("Yes,  really.");
+                Debug.WriteLine("Conneeeeeeeect!");
+            };
+
+            OnDisable += (sender, e) =>
+            {
+                Debug.WriteLine("Disconneeeect!");
             };
         }
     }

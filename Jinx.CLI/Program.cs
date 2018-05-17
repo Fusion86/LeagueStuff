@@ -1,58 +1,61 @@
-﻿using Jinx.Core;
+﻿using Hextech.LeagueClient;
+using Jinx.Core;
 using Jinx.Core.Abilities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Jinx.CLI
 {
-    class MenuItem
-    {
-        public AbilityBase Ability;
-        public ConsoleKey ToggleKey;
-
-        public MenuItem(AbilityBase ability, ConsoleKey toggleKey, bool isEnabled)
-        {
-            Ability = ability;
-            ToggleKey = toggleKey;
-        }
-    }
-
     class Program
     {
-        static readonly List<MenuItem> menuItems = new List<MenuItem>();
+        static readonly Dictionary<ConsoleKey, AbilityBase> menuItems = new Dictionary<ConsoleKey, AbilityBase>();
+
+        static readonly LeagueClientApi lc = new LeagueClientApi();
 
         static void Main(string[] args)
         {
             // Register abilities
-            menuItems.Add(new MenuItem(new AutoAccept(), ConsoleKey.A, false));
+            menuItems.Add(ConsoleKey.A, new AutoAcceptAbility());
 
             MainMenu();
         }
 
         static void MainMenu()
         {
+        menu:
+
             Console.Clear();
             Console.WriteLine($"Jinx v{Assembly.GetExecutingAssembly().GetName().Version} (Core v{Assembly.GetAssembly(typeof(AbilityBase)).GetName().Version})\n");
 
-            foreach (MenuItem item in menuItems)
+            Console.WriteLine();
+            Console.Write("C - Connect to the LeagueClient");
+            Console.WriteLine(lc.IsConnected ? " [ Connected ]" : " [ Not Connected ]");
+            Console.WriteLine();
+
+            foreach (var item in menuItems)
             {
-                Console.Write(item.ToggleKey + " - " + item.Ability.Name);
-                Console.WriteLine(item.Ability.IsEnabled ? " [ Enabled ]" : " [ Disabled ]");
+                Console.Write(item.Key + " - " + item.Value.Name);
+                Console.WriteLine(item.Value.IsEnabled ? " [ Enabled ]" : " [ Disabled ]");
             }
 
             Console.WriteLine();
             Console.Write("> ");
+
             ConsoleKey key = Console.ReadKey().Key;
 
-            MenuItem selectedItem = menuItems.FirstOrDefault(x => x.ToggleKey == key);
+            AbilityBase selectedAbility = null;
+            menuItems.TryGetValue(key, out selectedAbility);
 
-            if (selectedItem != null)
+            if (selectedAbility != null)
             {
-                // stuff
+                if (selectedAbility.IsEnabled) selectedAbility.Disable();
+                else selectedAbility.Enable();
             }
+            else if (key == ConsoleKey.C) lc.Initialize().Wait();
             else if (key == ConsoleKey.Q) return;
+
+            goto menu;
         }
     }
 }

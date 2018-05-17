@@ -13,22 +13,34 @@ namespace Jinx.Core.Abilities
 
         public bool IsEnabled { get; private set; }
 
-        protected EventHandler OnEnable;
-        protected EventHandler OnDisable;
+        public EventHandler OnEnable;
+        public EventHandler OnDisable;
 
-        protected AbilityBase()
+        public void Enable()
         {
-            OnEnable += (sender, e) =>
+            if (IsEnabled)
             {
-                IsEnabled = true;
-                Debug.WriteLine("Enabled " + Name);
-            };
+                Debug.WriteLine(Name + " is already enabled!");
+                return;
+            }
 
-            OnDisable += (sender, e) =>
+            Debug.WriteLine("Enabling " + Name);
+            IsEnabled = true;
+
+            if (OnEnable != null) OnEnable(this, EventArgs.Empty);
+        }
+
+        public void Disable()
+        {
+            if (!IsEnabled)
             {
-                IsEnabled = false;
-                Debug.WriteLine("Disabled " + Name);
-            };
+                Debug.WriteLine(Name + " is already disabled!");
+                return;
+            }
+
+            Debug.WriteLine("Disabling " + Name);
+            IsEnabled = false;
+            if (OnDisable != null) OnDisable(this, EventArgs.Empty);
         }
     }
 }

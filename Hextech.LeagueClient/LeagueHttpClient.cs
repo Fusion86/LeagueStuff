@@ -31,15 +31,7 @@ namespace Hextech.LeagueClient
             var byteArray = Encoding.ASCII.GetBytes("riot:" + password);
             m_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
-            try
-            {
-                await GetAsync("/system/v1/builds"); // Uses a path that should always be available, even if the player is not logged in
-            }
-            catch (Exception ex)
-            {
-                // Put a breakpoint here if something stops working and look at 'ex'
-                return false;
-            }
+            await GetAsync("/system/v1/builds"); // Uses a path that should always be available, even if the player is not logged in
 
             return true;
         }
