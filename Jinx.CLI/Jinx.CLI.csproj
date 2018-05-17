@@ -5,6 +5,14 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Jinx.Core\Jinx.Core.csproj" />
     <ProjectReference Include="..\Hextech.LeagueClient\Hextech.LeagueClient.csproj" />
