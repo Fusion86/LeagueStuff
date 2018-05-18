@@ -66,8 +66,6 @@ namespace Hextech.LeagueClient
 
         public async Task<T> GetAsync<T>(string path)
         {
-            Contract.Requires(typeof(T) is ILeagueClientModel || typeof(T) is IList<ILeagueClientModel>);
-
             HttpResponseMessage res = await m_client.GetAsync(GetFullUrl(path));
             string str = await res.Content.ReadAsStringAsync();
 
