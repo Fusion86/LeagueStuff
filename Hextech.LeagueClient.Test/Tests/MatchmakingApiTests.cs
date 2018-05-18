@@ -16,5 +16,12 @@ namespace Hextech.LeagueClient.Test.Tests
             var obj = await client.Matchmaking.GetReadyCheck();
             Assert.IsNotNull(obj);
         }
+
+        [TestMethod]
+        public async Task GetSearchData()
+        {
+            var obj = await client.Matchmaking.GetSearchData();
+            Assert.IsNotNull(obj);
+        }
     }
 }

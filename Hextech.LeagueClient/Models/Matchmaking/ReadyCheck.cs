@@ -12,13 +12,6 @@ namespace Hextech.LeagueClient.Models.Matchmaking
         public float Timer { get; set; }
     }
 
-    public enum DodgeWarning
-    {
-        None,
-        Warning,
-        Penalty
-    }
-
     public enum ReadyCheckResponse
     {
         None,

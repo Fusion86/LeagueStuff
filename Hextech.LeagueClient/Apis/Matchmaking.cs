@@ -1,4 +1,4 @@
-﻿using Hextech.LeagueClient.Models.Matchmaking;
+using Hextech.LeagueClient.Models.Matchmaking;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,14 +18,19 @@ namespace Hextech.LeagueClient.Apis
             return await m_client.GetAsync<ReadyCheck>(GetUrl("/v1/ready-check"));
         }
 
-        public async Task<object> AcceptReadyCheck()
+        public async Task AcceptReadyCheck()
         {
             await m_client.PostAsync(GetUrl("/v1/ready-check/accept"));
         }
 
-        public async Task<object> DeclineReadyCheck()
+        public async Task DeclineReadyCheck()
         {
             await m_client.PostAsync(GetUrl("/v1/ready-check/decline"));
+        }
+
+        public async Task<SearchResource> GetSearchData()
+        {
+            return await m_client.GetAsync<SearchResource>(GetUrl("/v1/search"));
         }
     }
 }
