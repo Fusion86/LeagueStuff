@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
 {
-    public class Matchmaking : ApiBase
+    public class MatchmakingApi : ApiBase
     {
         public override string Name => "lol-matchmaking";
 
-        public Matchmaking(LeagueHttpClient client) : base(client)
+        public MatchmakingApi(LeagueHttpClient client) : base(client)
         {
 
         }
