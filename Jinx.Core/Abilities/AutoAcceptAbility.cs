@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace Jinx.Core.Abilities
 {
@@ -15,12 +12,12 @@ namespace Jinx.Core.Abilities
         {
             OnEnable += (sender, e) =>
             {
-                Debug.WriteLine("Conneeeeeeeect!");
+
             };
 
             OnDisable += (sender, e) =>
             {
-                Debug.WriteLine("Disconneeeect!");
+
             };
         }
     }

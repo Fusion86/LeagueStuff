@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,7 +15,8 @@ namespace Hextech.LeagueClient
     {
         private HttpClient m_client;
 
-        private int m_port;
+        public string Password { get; private set; }
+        public int Port { get; private set; }
 
         public LeagueHttpClient()
         {
@@ -26,19 +28,34 @@ namespace Hextech.LeagueClient
 
         public async Task<bool> Login(string password, int port)
         {
-            m_port = port;
+            Password = password;
+            Port = port;
 
             var byteArray = Encoding.ASCII.GetBytes("riot:" + password);
             m_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
-            await GetAsync("/system/v1/builds"); // Uses a path that should always be available, even if the player is not logged in
+            try
+            {
+                await GetAsync("/system/v1/builds"); // Uses a path that should always be available, even if the player is not logged in
+            }
+            catch (Exception ex)
+            {
+                // Probably wrong username or port, but could be something else
+                Debug.WriteLine(ex.Message);
+
+                // Reset password and port
+                Password = null;
+                Port = 0;
+
+                return false;
+            }
 
             return true;
         }
 
         private string GetFullUrl(string path)
         {
-            return "https://127.0.0.1:" + m_port + path;
+            return "https://127.0.0.1:" + Port + path;
         }
 
         public async Task<HttpResponseMessage> GetAsync(string path)

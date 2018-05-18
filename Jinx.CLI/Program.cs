@@ -1,6 +1,5 @@
 ﻿using Hextech.LeagueClient;
 using Hextech.LeagueClient.Models.System;
-using Jinx.Core;
 using Jinx.Core.Abilities;
 using Newtonsoft.Json;
 using System;
@@ -29,7 +28,7 @@ namespace Jinx.CLI
             menuItems.Add(ConsoleKey.B, new MenuItem("Print BuildInfo", async () =>
             {
                 var info = await lc.System.GetBuildInfo();
-                Console.WriteLine(JsonConvert.SerializeObject(info, Formatting.Indented));
+                Console.WriteLine(SerializeToJson(info));
             }));
 
             Console.WriteLine(aboutString + '\n');
@@ -47,12 +46,13 @@ namespace Jinx.CLI
                 Console.WriteLine(leagueVersionString);
                 Console.WriteLine();
 
-                await MainMenuLoop();
+                await MainMenuLoop(); // Main loop
             }
             else
             {
                 Console.WriteLine("Couldn't connect to the LeagueClient");
-                Console.WriteLine("Exiting...");
+                Console.WriteLine("Press enter to exit...");
+                Console.ReadLine();
             }
         }
 
@@ -73,6 +73,7 @@ namespace Jinx.CLI
                     Console.WriteLine(leagueVersionString + '\n');
                 }
 
+                // Print action items
                 foreach (var item in actionItems)
                 {
                     Console.WriteLine(item.Key + " - " + item.Value.Name);
@@ -80,6 +81,7 @@ namespace Jinx.CLI
 
                 if (actionItems.Count() > 0) Console.WriteLine();
 
+                // Print ability items
                 foreach (var item in abilityItems)
                 {
                     Console.Write(item.Key + " - " + item.Value.Name);
@@ -92,8 +94,12 @@ namespace Jinx.CLI
 
                 if (abilityItems.Count() > 0) Console.WriteLine();
 
+                Console.WriteLine("Q - Exit");
+                Console.WriteLine();
+
                 Console.Write("> ");
 
+                // Get input
                 ConsoleKey key = Console.ReadKey().Key;
 
                 MenuItem selectedItem = null;
@@ -103,19 +109,26 @@ namespace Jinx.CLI
                 {
                     if (selectedItem.IsAbility)
                     {
+                        // Toggle ability
                         if (selectedItem.Ability.IsEnabled) selectedItem.Ability.Disable();
                         else selectedItem.Ability.Enable();
                     }
                     else
                     {
+                        // Run action
                         Console.Clear();
                         await selectedItem.Run();
                         Console.WriteLine("\nPress enter to go back to the main menu...");
                         Console.ReadLine();
                     }
                 }
-                else if (key == ConsoleKey.Q) return;
+                else if (key == ConsoleKey.Q) return; // Exit
             }
+        }
+
+        static string SerializeToJson(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, Formatting.Indented);
         }
     }
 }

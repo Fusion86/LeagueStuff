@@ -1,12 +1,11 @@
 ﻿using Hextech.LeagueClient.Apis;
-using System;
 using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient
 {
     public class LeagueClientApi
     {
-        private LeagueHttpClient client;
+        public LeagueHttpClient HttpClient { get; private set; }
 
         public AssetsApi Assets;
         public SystemApi System;
@@ -18,20 +17,20 @@ namespace Hextech.LeagueClient
 
         public LeagueClientApi()
         {
-            client = new LeagueHttpClient();
+            HttpClient = new LeagueHttpClient();
 
-            Assets = new AssetsApi(client);
-            System = new SystemApi(client);
-            Chat = new ChatApi(client);
-            Summoner = new SummonerApi(client);
-            GameData = new GameDataApi(client);
+            Assets = new AssetsApi(HttpClient);
+            System = new SystemApi(HttpClient);
+            Chat = new ChatApi(HttpClient);
+            Summoner = new SummonerApi(HttpClient);
+            GameData = new GameDataApi(HttpClient);
         }
 
         public async Task<bool> Initialize()
         {
             PasswordPort pp = Utility.GetPasswordPort();
             if (pp == null) return false;
-            return IsConnected = await client.Login(pp.Password, pp.Port);
+            return IsConnected = await HttpClient.Login(pp.Password, pp.Port);
         }
     }
 }
