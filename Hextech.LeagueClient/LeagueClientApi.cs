@@ -5,14 +5,15 @@ namespace Hextech.LeagueClient
 {
     public class LeagueClientApi
     {
-        public LeagueHttpClient HttpClient { get; private set; }
+        public readonly LeagueHttpClient HttpClient;
 
-        public AssetsApi Assets;
-        public ChatApi Chat;
-        public GameDataApi GameData;
-        public Matchmaking Matchmaking;
-        public SummonerApi Summoner;
-        public SystemApi System;
+        public readonly AssetsApi Assets;
+        public readonly ChatApi Chat;
+        public readonly GameDataApi GameData;
+        public readonly Matchmaking Matchmaking;
+        public readonly Missions Missions;
+        public readonly SummonerApi Summoner;
+        public readonly SystemApi System;
 
         public bool IsConnected { get; private set; }
 
@@ -24,6 +25,7 @@ namespace Hextech.LeagueClient
             Chat = new ChatApi(HttpClient);
             GameData = new GameDataApi(HttpClient);
             Matchmaking = new Matchmaking(HttpClient);
+            Missions = new Missions(HttpClient);
             Summoner = new SummonerApi(HttpClient);
             System = new SystemApi(HttpClient);
         }
