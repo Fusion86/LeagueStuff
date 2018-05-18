@@ -83,7 +83,7 @@ namespace Hextech.LeagueClient
             }
         }
 
-        public async Task<HttpResponseMessage> PostAsync(string path, FormUrlEncodedContent content)
+        public async Task<HttpResponseMessage> PostAsync(string path, FormUrlEncodedContent content = null)
         {
             return await m_client.PostAsync(GetFullUrl(path), content);
         }
