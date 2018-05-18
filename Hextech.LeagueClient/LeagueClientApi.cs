@@ -8,10 +8,11 @@ namespace Hextech.LeagueClient
         public LeagueHttpClient HttpClient { get; private set; }
 
         public AssetsApi Assets;
-        public SystemApi System;
         public ChatApi Chat;
-        public SummonerApi Summoner;
         public GameDataApi GameData;
+        public Matchmaking Matchmaking;
+        public SummonerApi Summoner;
+        public SystemApi System;
 
         public bool IsConnected { get; private set; }
 
@@ -20,10 +21,11 @@ namespace Hextech.LeagueClient
             HttpClient = new LeagueHttpClient();
 
             Assets = new AssetsApi(HttpClient);
-            System = new SystemApi(HttpClient);
             Chat = new ChatApi(HttpClient);
-            Summoner = new SummonerApi(HttpClient);
             GameData = new GameDataApi(HttpClient);
+            Matchmaking = new Matchmaking(HttpClient);
+            Summoner = new SummonerApi(HttpClient);
+            System = new SystemApi(HttpClient);
         }
 
         public async Task<bool> Initialize()

@@ -1,4 +1,5 @@
-﻿using Hextech.LeagueClient.Models;
+﻿using Hextech.LeagueClient.Exceptions;
+using Hextech.LeagueClient.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace Hextech.LeagueClient
             return true;
         }
 
-        private string GetFullUrl(string path)
+        public string GetFullUrl(string path = "")
         {
             return "https://127.0.0.1:" + Port + path;
         }
@@ -68,16 +69,17 @@ namespace Hextech.LeagueClient
             Contract.Requires(typeof(T) is ILeagueClientModel || typeof(T) is IList<ILeagueClientModel>);
 
             HttpResponseMessage res = await m_client.GetAsync(GetFullUrl(path));
+            string str = await res.Content.ReadAsStringAsync();
 
             if (res.IsSuccessStatusCode)
             {
-                string str = await res.Content.ReadAsStringAsync();
                 var obj = JsonConvert.DeserializeObject<T>(str);
                 return obj;
             }
             else
             {
-                return default(T);
+                var obj = JsonConvert.DeserializeObject<LeagueClientError>(str);
+                throw new LeagueClientException(obj);
             }
         }
 

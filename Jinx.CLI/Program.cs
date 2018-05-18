@@ -31,6 +31,20 @@ namespace Jinx.CLI
                 Console.WriteLine(SerializeToJson(info));
             }));
 
+            menuItems.Add(ConsoleKey.L, new MenuItem("Show password and port", async () => {
+                Console.WriteLine("Password: " + lc.HttpClient.Password);
+                Console.WriteLine("Port: " + lc.HttpClient.Port);
+            }));
+
+            menuItems.Add(ConsoleKey.R, new MenuItem("Run GET request", async () =>
+            {
+                Console.Write(lc.HttpClient.GetFullUrl());
+                string url = Console.ReadLine();
+
+                var res = await lc.HttpClient.GetAsync(url.Trim('\n'));
+                Console.WriteLine(res.Content);
+            }));
+
             Console.WriteLine(aboutString + '\n');
 
             Console.WriteLine("Trying to connect to the LeagueClient...");
