@@ -16,5 +16,12 @@ namespace Hextech.LeagueClient.Test.Tests
             var obj = await client.Missions.GetMissions();
             Assert.IsNotNull(obj);
         }
+
+        [TestMethod]
+        public async Task GetSeries()
+        {
+            var obj = await client.Missions.GetSeries();
+            Assert.IsNotNull(obj);
+        }
     }
 }
