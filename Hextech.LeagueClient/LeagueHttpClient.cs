@@ -61,7 +61,18 @@ namespace Hextech.LeagueClient
 
         public async Task<HttpResponseMessage> GetAsync(string path)
         {
-            return await m_client.GetAsync(GetFullUrl(path));
+            var res = await m_client.GetAsync(GetFullUrl(path));
+
+            if (res.IsSuccessStatusCode)
+            {
+                return res;
+            }
+            else
+            {
+                string str = await res.Content.ReadAsStringAsync();
+                var obj = JsonConvert.DeserializeObject<LeagueClientError>(str);
+                throw new LeagueClientException(obj);
+            }
         }
 
         public async Task<T> GetAsync<T>(string path)

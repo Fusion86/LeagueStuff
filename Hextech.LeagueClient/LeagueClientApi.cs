@@ -9,6 +9,7 @@ namespace Hextech.LeagueClient
 
         public readonly AssetsApi Assets;
         public readonly ChatApi Chat;
+        public readonly DataStoreApi DataStore;
         public readonly GameDataApi GameData;
         public readonly Matchmaking Matchmaking;
         public readonly Missions Missions;
@@ -23,6 +24,7 @@ namespace Hextech.LeagueClient
 
             Assets = new AssetsApi(HttpClient);
             Chat = new ChatApi(HttpClient);
+            DataStore = new DataStoreApi(HttpClient);
             GameData = new GameDataApi(HttpClient);
             Matchmaking = new Matchmaking(HttpClient);
             Missions = new Missions(HttpClient);
