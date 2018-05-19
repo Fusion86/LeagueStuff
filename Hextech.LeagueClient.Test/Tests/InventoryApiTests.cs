@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Hextech.LeagueClient.Models.Inventory;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Test.Tests
@@ -16,12 +17,19 @@ namespace Hextech.LeagueClient.Test.Tests
             bool obj = await client.Inventory.GetInitialConfigurationComplete();
         }
 
-        //[TestMethod]
-        //public async Task GetInventory()
-        //{
-        //    var obj = await client.Inventory.GetInventory();
-        //    Assert.IsNotNull(obj);
-        //}
+        [TestMethod]
+        public async Task GetInventoryNoType()
+        {
+            var obj = await client.Inventory.GetInventory(new InventoryType[] { });
+            Assert.IsNotNull(obj);
+        }
+
+        [TestMethod]
+        public async Task GetInventoryEmoteType()
+        {
+            var obj = await client.Inventory.GetInventory(new [] { InventoryType.EMOTE });
+            Assert.IsNotNull(obj);
+        }
 
         [TestMethod]
         public async Task GetEmotes()

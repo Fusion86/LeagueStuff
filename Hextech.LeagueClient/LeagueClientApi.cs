@@ -14,6 +14,7 @@ namespace Hextech.LeagueClient
         public readonly InventoryApi Inventory;
         public readonly MatchmakingApi Matchmaking;
         public readonly MissionsApi Missions;
+        public readonly PerformanceApi Performance;
         public readonly SummonerApi Summoner;
         public readonly SystemApi System;
 
@@ -30,6 +31,7 @@ namespace Hextech.LeagueClient
             Inventory = new InventoryApi(HttpClient);
             Matchmaking = new MatchmakingApi(HttpClient);
             Missions = new MissionsApi(HttpClient);
+            Performance = new PerformanceApi(HttpClient);
             Summoner = new SummonerApi(HttpClient);
             System = new SystemApi(HttpClient);
         }

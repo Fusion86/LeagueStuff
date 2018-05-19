@@ -1,4 +1,6 @@
 ﻿using Hextech.LeagueClient.Models.Inventory;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,10 +22,11 @@ namespace Hextech.LeagueClient.Apis
             return str == "true";
         }
 
-        public async Task<List<InventoryItem>> GetInventory(IEnumerable<string> types)
+        public async Task<List<InventoryItem>> GetInventory(IEnumerable<InventoryType> types)
         {
-            // TODO: Send inventoryTypes as parameter, and possibly list all types
-            return await m_client.GetAsync<List<InventoryItem>>(GetUrl("/v1/inventory"));
+            string queryData = JsonConvert.SerializeObject(types, Formatting.None, new[] { new StringEnumConverter() });
+
+            return await m_client.GetAsync<List<InventoryItem>>(GetUrl("/v1/inventory?inventoryTypes=" + queryData));
         }
 
         public async Task<List<InventoryItem>> GetEmotes()

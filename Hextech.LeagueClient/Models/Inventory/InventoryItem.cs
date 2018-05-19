@@ -2,7 +2,7 @@
 {
     public class InventoryItem
     {
-        public string InventoryType { get; set; }
+        public InventoryType InventoryType { get; set; }
         public long ItemId { get; set; }
         public ItemOwnershipType OwnershipType { get; set; }
         public string PurchaseDate { get; set; } // Undocumented
@@ -14,5 +14,12 @@
         OWNED,
         RENTED,
         F2P
+    }
+
+    // Mostly based on guesswork
+    public enum InventoryType
+    {
+        EMOTE,
+        CHAMPION
     }
 }

@@ -2,9 +2,7 @@
 using Hextech.LeagueClient.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -54,11 +52,21 @@ namespace Hextech.LeagueClient
             return true;
         }
 
+        /// <summary>
+        /// Prefix an url with 'https://127.0.0.1:1234' where 1234 is the port where the LeagueClient is listening on
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public string GetFullUrl(string path = "")
         {
             return "https://127.0.0.1:" + Port + path;
         }
 
+        /// <summary>
+        /// Request a resource (not necessarily a JSON resource)
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public async Task<HttpResponseMessage> GetAsync(string path)
         {
             var res = await m_client.GetAsync(GetFullUrl(path));
@@ -75,6 +83,12 @@ namespace Hextech.LeagueClient
             }
         }
 
+        /// <summary>
+        /// Request and deserialize a JSON resource
+        /// </summary>
+        /// <typeparam name="T">Hextech.LeagueClient.Model</typeparam>
+        /// <param name="path">Endpoint</param>
+        /// <returns></returns>
         public async Task<T> GetAsync<T>(string path)
         {
             HttpResponseMessage res = await m_client.GetAsync(GetFullUrl(path));
