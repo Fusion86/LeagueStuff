@@ -2,6 +2,7 @@ using Hextech.LeagueClient.JsonConverters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Hextech.LeagueClient.Models.Missions
 {
@@ -38,7 +39,9 @@ namespace Hextech.LeagueClient.Models.Missions
 
     public class MissionSeriesMedia
     {
-        public string AccentColor { get; set; }
+        [JsonConverter(typeof(RgbaConverter))]
+        public Color AccentColor { get; set; }
+
         public string BackgroundImageLargeUrl { get; set; }
         public string BackgroundImageSmallUrl { get; set; }
         public string BackgroundUrl { get; set; }

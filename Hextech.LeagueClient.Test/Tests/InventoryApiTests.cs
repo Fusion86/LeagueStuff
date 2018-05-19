@@ -28,7 +28,7 @@ namespace Hextech.LeagueClient.Test.Tests
         public async Task GetInventoryEmoteType()
         {
             var obj = await client.Inventory.GetInventory(new [] { InventoryType.EMOTE });
-            Assert.IsTrue(obj.Count > 0); // Everyone has atleast the basic thumbs-up emote
+            Assert.IsTrue(obj.Count > 0); // Everyone has at least the basic thumbs-up emote
         }
 
         [TestMethod]
