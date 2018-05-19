@@ -21,14 +21,14 @@ namespace Hextech.LeagueClient.Test.Tests
         public async Task GetInventoryNoType()
         {
             var obj = await client.Inventory.GetInventory(new InventoryType[] { });
-            Assert.IsNotNull(obj);
+            Assert.IsTrue(obj.Count == 0); // No given types means that we don't give a filter in which case the LeagueClient will return 0 items
         }
 
         [TestMethod]
         public async Task GetInventoryEmoteType()
         {
             var obj = await client.Inventory.GetInventory(new [] { InventoryType.EMOTE });
-            Assert.IsNotNull(obj);
+            Assert.IsTrue(obj.Count > 0); // Everyone has atleast the basic thumbs-up emote
         }
 
         [TestMethod]
