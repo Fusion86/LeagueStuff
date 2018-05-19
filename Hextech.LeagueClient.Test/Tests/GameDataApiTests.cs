@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Hextech.LeagueClient.Test.Tests
 {
     [TestClass]
-    public class GameDataTests
+    public class GameDataApiTests
     {
         public TestContext TestContext { get; set; }
 

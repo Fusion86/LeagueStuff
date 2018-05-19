@@ -43,7 +43,7 @@ namespace Hextech.LeagueClient
                 throw new PlatformNotSupportedException();
             }
 
-            string authTokenRegex = "--remoting-auth-token=([\\w\\d]+)";
+            string authTokenRegex = "--remoting-auth-token=([\\w\\d-]+)";
             string portRegex = "--app-port=([\\d]+)";
 
             string authToken = null;
