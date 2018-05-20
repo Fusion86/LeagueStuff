@@ -12,7 +12,14 @@ namespace Hextech.LeagueClient.JsonConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            Color c = (Color)value;
+
+            double a = c.A / 0xFF;
+            //a = Math.Round(a, 1); // Maybe not needed?
+
+            string str = $"rgba({c.R}, {c.B}, {c.G}, {a.ToString("0.0")})";
+
+            writer.WriteRawValue(str);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Hextech.LeagueClient
@@ -65,6 +66,46 @@ namespace Hextech.LeagueClient
             }
 
             return null;
+        }
+
+        public static string GetLeagueClientInstallDirectory()
+        {
+            PlatformID platform = Environment.OSVersion.Platform;
+
+            Process cmd = new Process();
+            string installPathRegex = null;
+
+            if (platform == PlatformID.Win32NT)
+            {
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.Arguments = "/C WMIC PROCESS WHERE name='LeagueClientUx.exe' GET commandline";
+                installPathRegex = "\"--install-directory=(.*?)\"";
+            }
+            else if (platform == PlatformID.Unix)
+            {
+                cmd.StartInfo.FileName = "/bin/bash";
+                cmd.StartInfo.Arguments = "-c \"ps x -o args | grep 'LeagueClientUx'\"";
+                installPathRegex = "--install-directory=(.*?)( --|\n|$)";
+            }
+            else
+            {
+                throw new PlatformNotSupportedException();
+            }
+
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+
+            cmd.Start();
+            cmd.WaitForExit();
+
+            string result = cmd.StandardOutput.ReadToEnd();
+
+            GroupCollection gc = Regex.Match(result, installPathRegex).Groups;
+
+            if (gc.Count > 1) return gc[1].Value;
+
+            else return null;
         }
     }
 }
