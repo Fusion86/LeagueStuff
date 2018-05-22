@@ -15,6 +15,7 @@ namespace Hextech.LeagueClient
         public readonly MatchmakingApi Matchmaking;
         public readonly MissionsApi Missions;
         public readonly PerformanceApi Performance;
+        public readonly RiotClientApi RiotClient;
         public readonly SummonerApi Summoner;
         public readonly SystemApi System;
 
@@ -32,6 +33,7 @@ namespace Hextech.LeagueClient
             Matchmaking = new MatchmakingApi(HttpClient);
             Missions = new MissionsApi(HttpClient);
             Performance = new PerformanceApi(HttpClient);
+            RiotClient = new RiotClientApi(HttpClient);
             Summoner = new SummonerApi(HttpClient);
             System = new SystemApi(HttpClient);
         }
