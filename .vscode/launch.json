@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Jinx.CLI/bin/Debug/netcoreapp2.0/Jinx.CLI.dll",
+            "program": "${workspaceFolder}/Jinx.CLI/bin/Debug/netcoreapp2.1/Jinx.CLI.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Jinx.CLI",
             "console": "integratedTerminal",

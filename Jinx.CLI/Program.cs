@@ -2,6 +2,7 @@
 using Hextech.LeagueClient.Models.System;
 using Jinx.Core.Abilities;
 using Newtonsoft.Json;
+using PureWebSockets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,8 @@ namespace Jinx.CLI
                 Console.WriteLine(SerializeToJson(info));
             }));
 
-            menuItems.Add(ConsoleKey.L, new MenuItem("Show password and port", async () => {
+            menuItems.Add(ConsoleKey.L, new MenuItem("Show password and port", async () =>
+            {
                 Console.WriteLine("Password: " + lc.HttpClient.Password);
                 Console.WriteLine("Port: " + lc.HttpClient.Port);
             }));
@@ -60,7 +62,20 @@ namespace Jinx.CLI
                 Console.WriteLine(leagueVersionString);
                 Console.WriteLine();
 
-                await MainMenuLoop(); // Main loop
+                var socketOptions = new PureWebSocketOptions()
+                {
+                    DebugMode = true,
+                    SendDelay = 100,
+                };
+
+                string url = $"wss://riot:{lc.HttpClient.Password}@127.0.0.1:{lc.HttpClient.Port}/";
+
+                Console.WriteLine(url);
+
+                PureWebSocket ws = new PureWebSocket(url, socketOptions);
+                ws.Connect();
+
+                // await MainMenuLoop(); // Main loop
             }
             else
             {
