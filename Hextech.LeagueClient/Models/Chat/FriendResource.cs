@@ -19,31 +19,14 @@ namespace Hextech.LeagueClient.Models.Chat
 
     public class FriendResourceExtraData
     {
-        [JsonProperty("profileIcon", NullValueHandling = NullValueHandling.Ignore)]
         public string ProfileIcon { get; set; }
-
-        [JsonProperty("championId", NullValueHandling = NullValueHandling.Ignore)]
         public string ChampionId { get; set; }
-
-        [JsonProperty("clubsData", NullValueHandling = NullValueHandling.Ignore)]
         public string ClubsData { get; set; }
-
-        [JsonProperty("gameQueueType", NullValueHandling = NullValueHandling.Ignore)]
         public string GameQueueType { get; set; }
-
-        [JsonProperty("gameStatus", NullValueHandling = NullValueHandling.Ignore)]
         public string GameStatus { get; set; }
-
-        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
         public string Level { get; set; }
-
-        [JsonProperty("mapId", NullValueHandling = NullValueHandling.Ignore)]
         public string MapId { get; set; }
-
-        [JsonProperty("skinVariant", NullValueHandling = NullValueHandling.Ignore)]
         public string SkinVariant { get; set; }
-
-        [JsonProperty("skinname", NullValueHandling = NullValueHandling.Ignore)]
         public string Skinname { get; set; }
     }
 }

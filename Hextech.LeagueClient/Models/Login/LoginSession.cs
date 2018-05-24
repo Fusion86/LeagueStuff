@@ -13,14 +13,8 @@ namespace Hextech.LeagueClient.Models.Login
         public long SummonerId { get; set; }
         public string UserAuthToken { get; set; }
         public string Username { get; set; }
-
-        [JsonProperty("gasToken", NullValueHandling = NullValueHandling.Ignore)]
         public object GasToken { get; set; }
-
-        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
         public LoginError Error { get; set; }
-
-        [JsonProperty("queueStatus", NullValueHandling = NullValueHandling.Ignore)]
         public LoginQueueStatus QueueStatus { get; set; }
     }
 
@@ -56,8 +50,6 @@ namespace Hextech.LeagueClient.Models.Login
     {
         public string Password { get; set; }
         public string Username { get; set; }
-
-        [JsonProperty("gasToken", NullValueHandling = NullValueHandling.Ignore)]
         public object GasToken { get; set; }
     }
 }
