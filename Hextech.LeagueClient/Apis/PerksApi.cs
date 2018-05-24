@@ -15,9 +15,9 @@ namespace Hextech.LeagueClient.Apis
 
         }
 
-        public async Task<List<UIPerk>> GetPerks()
+        public async Task<List<Perk>> GetPerks()
         {
-            return await m_client.GetAsync<List<UIPerk>>(GetPluginUrl("/v1/perks"));
+            return await m_client.GetAsync<List<Perk>>(GetPluginUrl("/v1/perks"));
         }
 
         public async Task<List<PerkPage>> GetPerkPages()

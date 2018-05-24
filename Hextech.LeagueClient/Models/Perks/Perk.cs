@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-
-namespace Hextech.LeagueClient.Models.Perks
+﻿namespace Hextech.LeagueClient.Models.Perks
 {
-    public class UIPerk
+    public class Perk
     {
         public string IconPath { get; set; }
         public int Id { get; set; }
