@@ -21,7 +21,7 @@ namespace Hextech.LeagueClient.Models.Perks
     {
         public List<long> Perks { get; set; }
         public string SlotLabel { get; set; }
-        public TypeEnum Type { get; set; }
+        public StyleType Type { get; set; }
     }
 
     public class SubStyleBonus
@@ -30,7 +30,7 @@ namespace Hextech.LeagueClient.Models.Perks
         public long StyleId { get; set; }
     }
 
-    public enum TypeEnum
+    public enum StyleType
     {
         KKeyStone,
         KMixedRegularSplashable
