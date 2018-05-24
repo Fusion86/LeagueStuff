@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Hextech.LeagueClient.Models.Performance
+﻿namespace Hextech.LeagueClient.Models.Performance
 {
     // There is no official model for this object
     public class MemoryStatus

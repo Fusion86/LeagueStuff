@@ -10,7 +10,6 @@ namespace Hextech.LeagueClient.Apis
 
         public PerformanceApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using Hextech.LeagueClient.Models.Login;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
@@ -10,7 +9,6 @@ namespace Hextech.LeagueClient.Apis
 
         public LoginApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<LoginSession> GetSession()

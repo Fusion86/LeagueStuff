@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hextech.LeagueClient.Models.RiotClient;
+﻿using Hextech.LeagueClient.Models.RiotClient;
+using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
 {
@@ -9,7 +9,6 @@ namespace Hextech.LeagueClient.Apis
 
         public RiotClientApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<BasicSystemInfo> GetInstallDir()

@@ -10,7 +10,6 @@ namespace Hextech.LeagueClient.Apis
 
         public ChatApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<ChatServiceDynamicClientConfig> GetConfig()

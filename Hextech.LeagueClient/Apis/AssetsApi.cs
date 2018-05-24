@@ -9,7 +9,6 @@ namespace Hextech.LeagueClient.Apis
 
         public AssetsApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<byte[]> GetAsset(string path)

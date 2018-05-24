@@ -1,5 +1,4 @@
 ﻿using Hextech.LeagueClient.Models.GameData;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +10,6 @@ namespace Hextech.LeagueClient.Apis
 
         public GameDataApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<List<Champion>> GetChampionSummary()

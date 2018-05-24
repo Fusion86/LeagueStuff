@@ -90,5 +90,12 @@ namespace Hextech.LeagueClient.Test.Tests
 
             Assert.IsTrue(exception.Message == "Perk page not found");
         }
+
+        [TestMethod]
+        public async Task GetStyles()
+        {
+            var obj = await client.Perks.GetStyles();
+            Assert.IsNotNull(obj);
+        }
     }
 }

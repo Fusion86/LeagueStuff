@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Hextech.LeagueClient.Models.Chat
+﻿namespace Hextech.LeagueClient.Models.Chat
 {
     public class FriendResource
     {

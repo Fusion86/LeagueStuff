@@ -1,5 +1,5 @@
-using System;
 using Hextech.LeagueClient.Models;
+using System;
 
 namespace Hextech.LeagueClient.Exceptions
 {
@@ -9,7 +9,6 @@ namespace Hextech.LeagueClient.Exceptions
 
         public LeagueClientException(LeagueClientError error) : base(error.Message)
         {
-
         }
     }
 }

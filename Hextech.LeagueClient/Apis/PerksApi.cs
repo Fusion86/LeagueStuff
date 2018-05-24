@@ -12,7 +12,6 @@ namespace Hextech.LeagueClient.Apis
 
         public PerksApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<List<Perk>> GetPerks()
@@ -49,6 +48,11 @@ namespace Hextech.LeagueClient.Apis
 
             var res = await m_client.PutAsync(GetPluginUrl("/v1/currentpage"), content);
             return res.IsSuccessStatusCode;
+        }
+
+        public async Task<List<Style>> GetStyles()
+        {
+            return await m_client.GetAsync<List<Style>>(GetPluginUrl("/v1/styles"));
         }
     }
 }

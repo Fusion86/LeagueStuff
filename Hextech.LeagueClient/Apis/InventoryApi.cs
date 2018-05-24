@@ -12,7 +12,6 @@ namespace Hextech.LeagueClient.Apis
 
         public InventoryApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<bool> GetInitialConfigurationComplete()

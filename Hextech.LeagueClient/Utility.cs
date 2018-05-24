@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Hextech.LeagueClient
@@ -104,7 +103,6 @@ namespace Hextech.LeagueClient
             GroupCollection gc = Regex.Match(result, installPathRegex).Groups;
 
             if (gc.Count > 1) return gc[1].Value;
-
             else return null;
         }
     }

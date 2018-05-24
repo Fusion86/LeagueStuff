@@ -10,6 +10,7 @@ namespace Hextech.LeagueClient.Models.Missions
     {
         // public DisplayRewards DisplayRewards { get; set; }
         public string QueueId { get; set; }
+
         public long StepNumber { get; set; }
         public string UseQuickSearchMatchmaking { get; set; }
     }

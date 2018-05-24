@@ -10,7 +10,6 @@ namespace Hextech.LeagueClient.Apis
 
         public MissionsApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<List<PlayerMission>> GetMissions()

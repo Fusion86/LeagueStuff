@@ -39,7 +39,7 @@ namespace Hextech.LeagueClient.JsonConverters
             float.TryParse(gc[4].Value, NumberStyles.Any, CultureInfo.InvariantCulture, out float a);
 
             a = a * 0xFF; // a is in range 0-1 and FromArgb() expects it to be in range 0-255;
-            
+
             return Color.FromArgb((int)a, r, g, b);
         }
     }

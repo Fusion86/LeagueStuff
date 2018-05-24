@@ -1,5 +1,4 @@
 ﻿using Hextech.LeagueClient.Models.System;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
@@ -10,7 +9,6 @@ namespace Hextech.LeagueClient.Apis
 
         public SystemApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<BuildInfo> GetBuildInfo()

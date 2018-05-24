@@ -8,7 +8,6 @@ namespace Hextech.LeagueClient.Apis
 
         public DataStoreApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<string> GetInstallDir()

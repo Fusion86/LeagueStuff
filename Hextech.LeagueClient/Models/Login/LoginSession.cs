@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Hextech.LeagueClient.Models.Login
+﻿namespace Hextech.LeagueClient.Models.Login
 {
     public class LoginSession
     {

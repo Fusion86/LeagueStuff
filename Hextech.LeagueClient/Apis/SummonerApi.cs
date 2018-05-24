@@ -1,5 +1,4 @@
 ﻿using Hextech.LeagueClient.Models.Summoner;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -11,7 +10,6 @@ namespace Hextech.LeagueClient.Apis
 
         public SummonerApi(LeagueHttpClient client) : base(client)
         {
-
         }
 
         public async Task<Summoner> GetCurrentSummoner()
