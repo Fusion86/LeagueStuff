@@ -15,7 +15,7 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<BuildInfo> GetBuildInfo()
         {
-            return await m_client.GetAsync<BuildInfo>(GetUrl("/v1/builds"));
+            return await m_client.GetAsync<BuildInfo>(GetPluginUrl("/v1/builds"));
         }
     }
 }

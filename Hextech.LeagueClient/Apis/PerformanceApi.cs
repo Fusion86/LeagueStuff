@@ -19,7 +19,7 @@ namespace Hextech.LeagueClient.Apis
         /// <returns></returns>
         public async Task<MemoryStatus> GetMemoryStatus()
         {
-            return await m_client.GetAsync<MemoryStatus>(GetUrl("/v1/memory"));
+            return await m_client.GetAsync<MemoryStatus>(GetPluginUrl("/v1/memory"));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Hextech.LeagueClient.Apis
         /// <returns></returns>
         public async Task<List<MemoryStatus>> GetCefReport()
         {
-            return await m_client.GetAsync<List<MemoryStatus>>(GetUrl("/v1/report"));
+            return await m_client.GetAsync<List<MemoryStatus>>(GetPluginUrl("/v1/report"));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Hextech.LeagueClient.Apis
         /// <returns></returns>
         public async Task<SystemInfo> GetSystemInfo()
         {
-            return await m_client.GetAsync<SystemInfo>(GetUrl("/v1/system-info"));
+            return await m_client.GetAsync<SystemInfo>(GetPluginUrl("/v1/system-info"));
         }
     }
 }

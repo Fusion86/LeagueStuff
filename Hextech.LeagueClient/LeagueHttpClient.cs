@@ -71,10 +71,7 @@ namespace Hextech.LeagueClient
         {
             var res = await m_client.GetAsync(GetFullUrl(path));
 
-            if (res.IsSuccessStatusCode)
-            {
-                return res;
-            }
+            if (res.IsSuccessStatusCode) return res;
             else
             {
                 string str = await res.Content.ReadAsStringAsync();
@@ -94,11 +91,7 @@ namespace Hextech.LeagueClient
             HttpResponseMessage res = await m_client.GetAsync(GetFullUrl(path));
             string str = await res.Content.ReadAsStringAsync();
 
-            if (res.IsSuccessStatusCode)
-            {
-                var obj = JsonConvert.DeserializeObject<T>(str);
-                return obj;
-            }
+            if (res.IsSuccessStatusCode) return JsonConvert.DeserializeObject<T>(str);
             else
             {
                 var obj = JsonConvert.DeserializeObject<LeagueClientError>(str);
@@ -106,9 +99,38 @@ namespace Hextech.LeagueClient
             }
         }
 
-        public async Task<HttpResponseMessage> PostAsync(string path, FormUrlEncodedContent content = null)
+        public async Task<HttpResponseMessage> PostAsync(string path, HttpContent content = null)
         {
-            return await m_client.PostAsync(GetFullUrl(path), content);
+            // Set Content-Type to 'application/json'
+            if (content != null)
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var res = await m_client.PostAsync(GetFullUrl(path), content);
+
+            if (res.IsSuccessStatusCode) return res;
+            else
+            {
+                string str = await res.Content.ReadAsStringAsync();
+                var obj = JsonConvert.DeserializeObject<LeagueClientError>(str);
+                throw new LeagueClientException(obj);
+            }
+        }
+
+        public async Task<HttpResponseMessage> PutAsync(string path, HttpContent content = null)
+        {
+            // Set Content-Type to 'application/json'
+            if (content != null)
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var res = await m_client.PutAsync(GetFullUrl(path), content);
+
+            if (res.IsSuccessStatusCode) return res;
+            else
+            {
+                string str = await res.Content.ReadAsStringAsync();
+                var obj = JsonConvert.DeserializeObject<LeagueClientError>(str);
+                throw new LeagueClientException(obj);
+            }
         }
     }
 }

@@ -15,12 +15,12 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<List<PlayerMission>> GetMissions()
         {
-            return await m_client.GetAsync<List<PlayerMission>>(GetUrl("/v1/missions"));
+            return await m_client.GetAsync<List<PlayerMission>>(GetPluginUrl("/v1/missions"));
         }
 
         public async Task<List<MissionSeries>> GetSeries()
         {
-            return await m_client.GetAsync<List<MissionSeries>>(GetUrl("/v1/series"));
+            return await m_client.GetAsync<List<MissionSeries>>(GetPluginUrl("/v1/series"));
         }
     }
 }

@@ -15,17 +15,17 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<ChatServiceDynamicClientConfig> GetConfig()
         {
-            return await m_client.GetAsync<ChatServiceDynamicClientConfig>(GetUrl("/v1/config"));
+            return await m_client.GetAsync<ChatServiceDynamicClientConfig>(GetPluginUrl("/v1/config"));
         }
 
         public async Task<List<FriendResource>> GetFriends()
         {
-            return await m_client.GetAsync<List<FriendResource>>(GetUrl("/v1/friends"));
+            return await m_client.GetAsync<List<FriendResource>>(GetPluginUrl("/v1/friends"));
         }
 
         public async Task<FriendResource> GetMe()
         {
-            return await m_client.GetAsync<FriendResource>(GetUrl("/v1/me"));
+            return await m_client.GetAsync<FriendResource>(GetPluginUrl("/v1/me"));
         }
     }
 }

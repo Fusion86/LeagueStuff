@@ -13,7 +13,7 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<string> GetInstallDir()
         {
-            var res = await m_client.GetAsync(GetUrl("/v1/install-dir"));
+            var res = await m_client.GetAsync(GetPluginUrl("/v1/install-dir"));
             string str = await res.Content.ReadAsStringAsync();
             return str.Substring(1, str.Length - 2); // Remove start and end quotes, e.g "C:\Install Dir" becomes C:\Install Dir
         }

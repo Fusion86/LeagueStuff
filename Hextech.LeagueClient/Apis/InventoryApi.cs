@@ -17,7 +17,7 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<bool> GetInitialConfigurationComplete()
         {
-            var res = await m_client.GetAsync(GetUrl("/v1/initial-configuration-complete"));
+            var res = await m_client.GetAsync(GetPluginUrl("/v1/initial-configuration-complete"));
             var str = await res.Content.ReadAsStringAsync();
             return str == "true";
         }
@@ -26,12 +26,12 @@ namespace Hextech.LeagueClient.Apis
         {
             string queryData = JsonConvert.SerializeObject(types, Formatting.None, new[] { new StringEnumConverter() });
 
-            return await m_client.GetAsync<List<InventoryItem>>(GetUrl("/v1/inventory?inventoryTypes=" + queryData));
+            return await m_client.GetAsync<List<InventoryItem>>(GetPluginUrl("/v1/inventory?inventoryTypes=" + queryData));
         }
 
         public async Task<List<InventoryItem>> GetEmotes()
         {
-            return await m_client.GetAsync<List<InventoryItem>>(GetUrl("/v1/inventory/emotes"));
+            return await m_client.GetAsync<List<InventoryItem>>(GetPluginUrl("/v1/inventory/emotes"));
         }
     }
 }

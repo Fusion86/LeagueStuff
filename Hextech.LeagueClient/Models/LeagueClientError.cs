@@ -11,6 +11,8 @@ namespace Hextech.LeagueClient.Models
     {
         RESOURCE_NOT_FOUND,
         RPC_ERROR,
-        WRONG_METHOD
+        WRONG_METHOD,
+        BAD_REQUEST,
+        BAD_REQUEST_FORMAT
     }
 }

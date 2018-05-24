@@ -16,7 +16,7 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<List<Champion>> GetChampionSummary()
         {
-            return await m_client.GetAsync<List<Champion>>(GetUrl("/assets/v1/champion-summary.json"));
+            return await m_client.GetAsync<List<Champion>>(GetPluginUrl("/assets/v1/champion-summary.json"));
         }
     }
 }

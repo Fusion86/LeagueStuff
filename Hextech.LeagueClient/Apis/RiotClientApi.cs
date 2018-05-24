@@ -14,29 +14,29 @@ namespace Hextech.LeagueClient.Apis
 
         public async Task<BasicSystemInfo> GetInstallDir()
         {
-            return await m_client.GetAsync<BasicSystemInfo>(GetUrl("/system-info/v1/basic-info"));
+            return await m_client.GetAsync<BasicSystemInfo>(GetPluginUrl("/system-info/v1/basic-info"));
         }
 
         public async Task<string> GetUxState()
         {
-            var res = await m_client.GetAsync(GetUrl("/ux-state"));
+            var res = await m_client.GetAsync(GetPluginUrl("/ux-state"));
             var str = await res.Content.ReadAsStringAsync();
             return str.Substring(1, str.Length - 2); // Remove start and end quotes
         }
 
         public async Task ShowUx()
         {
-            await m_client.PostAsync(GetUrl("/ux-show"));
+            await m_client.PostAsync(GetPluginUrl("/ux-show"));
         }
 
         public async Task MinimizeUx()
         {
-            await m_client.PostAsync(GetUrl("/ux-minimize"));
+            await m_client.PostAsync(GetPluginUrl("/ux-minimize"));
         }
 
         public async Task FlashUx()
         {
-            await m_client.PostAsync(GetUrl("/ux-flash"));
+            await m_client.PostAsync(GetPluginUrl("/ux-flash"));
         }
     }
 }
