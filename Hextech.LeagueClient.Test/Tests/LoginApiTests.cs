@@ -31,21 +31,21 @@ namespace Hextech.LeagueClient.Test.Tests
         [TestMethod]
         public async Task GetSession()
         {
-            var obj = client.Login.GetSession();
+            var obj = await client.Login.GetSession();
             Assert.IsNotNull(obj);
         }
 
         [TestMethod]
         public async Task GetWallet()
         {
-            var obj = client.Login.GetWallet();
+            var obj = await client.Login.GetWallet();
             Assert.IsNotNull(obj);
         }
 
         [TestMethod]
         public async Task GetPlatformCredentials()
         {
-            var obj = client.Login.GetPlatformCredentials();
+            var obj = await client.Login.GetPlatformCredentials();
             Assert.IsNotNull(obj);
         }
     }

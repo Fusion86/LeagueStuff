@@ -19,6 +19,7 @@ namespace Hextech.LeagueClient
         public readonly MissionsApi Missions;
         public readonly PerformanceApi Performance;
         public readonly PerksApi Perks;
+        public readonly PlayerBehaviorApi PlayerBehavior;
         public readonly RiotClientApi RiotClient;
         public readonly SummonerApi Summoner;
         public readonly SystemApi System;
@@ -39,6 +40,7 @@ namespace Hextech.LeagueClient
             Missions = new MissionsApi(HttpClient);
             Performance = new PerformanceApi(HttpClient);
             Perks = new PerksApi(HttpClient);
+            PlayerBehavior = new PlayerBehaviorApi(HttpClient);
             RiotClient = new RiotClientApi(HttpClient);
             Summoner = new SummonerApi(HttpClient);
             System = new SystemApi(HttpClient);
