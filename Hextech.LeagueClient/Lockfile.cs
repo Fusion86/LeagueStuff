@@ -24,6 +24,9 @@ namespace Hextech.LeagueClient
 
         private readonly FileSystemWatcher m_watcher = new FileSystemWatcher();
 
+        /// <summary>
+        /// Call Lockfile.EnableRaisingEvents = true if you want to auto-refresh.
+        /// </summary>
         public Lockfile(string path)
         {
             m_watcher.Path = System.IO.Path.GetDirectoryName(path);
