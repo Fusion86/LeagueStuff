@@ -4,6 +4,7 @@ using Jinx.Core.Abilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -31,7 +32,8 @@ namespace Jinx.CLI
                 Console.WriteLine(SerializeToJson(info));
             }));
 
-            menuItems.Add(ConsoleKey.L, new MenuItem("Show password and port", async () => {
+            menuItems.Add(ConsoleKey.L, new MenuItem("Show password and port", async () =>
+            {
                 Console.WriteLine("Password: " + lc.HttpClient.Password);
                 Console.WriteLine("Port: " + lc.HttpClient.Port);
             }));
@@ -43,6 +45,26 @@ namespace Jinx.CLI
 
                 var res = await lc.HttpClient.GetAsync(url.Trim('\n'));
                 Console.WriteLine(res.Content);
+            }));
+
+            menuItems.Add(ConsoleKey.I, new MenuItem("Get install directory", async () =>
+            {
+                string installDir = Utility.GetLeagueClientInstallDirectory();
+                Console.WriteLine(installDir);
+            }));
+
+            menuItems.Add(ConsoleKey.W, new MenuItem("FileSystem watcher stuff", async () =>
+            {
+                string installDir = Utility.GetLeagueClientInstallDirectory();
+                string lockfilePath = Path.Combine(installDir, "lockfile");
+                Lockfile lockfile = new Lockfile(lockfilePath);
+                lockfile.Updated += (StringReader, e) =>
+                {
+                    Console.WriteLine("Updated!");
+                    Console.WriteLine($"Port: {lockfile.Port}");
+                    Console.WriteLine($"AuthToken: {lockfile.AuthToken}");
+                };
+                lockfile.EnableRaisingEvents = true;
             }));
 
             Console.WriteLine(aboutString + '\n');
