@@ -7,47 +7,44 @@ namespace Hextech.LeagueClient
     public class Utility
     {
         // Based on https://github.com/Pupix/lcu-connector/blob/master/lib/index.js
+
+        /// <summary>
+        /// Gets the password and port (for the LeagueClient API) from the LeagueClientUx process args
+        /// </summary>
         public static PasswordPort GetPasswordPort()
         {
             PlatformID platform = Environment.OSVersion.Platform;
 
-            string result = null;
+            Process cmd = new Process();
+            string authTokenRegex = "--remoting-auth-token=([\\w\\d-]+)";
+            string portRegex = "--app-port=([\\d]+)";
+
+            string authToken = null;
+            int port = 0;
+
             if (platform == PlatformID.Win32NT)
             {
-                Process cmd = new Process();
                 cmd.StartInfo.FileName = "cmd.exe";
-                cmd.StartInfo.RedirectStandardOutput = true;
-                cmd.StartInfo.CreateNoWindow = true;
-                cmd.StartInfo.UseShellExecute = false;
                 cmd.StartInfo.Arguments = "/C WMIC PROCESS WHERE name='LeagueClientUx.exe' GET commandline";
-                cmd.Start();
-                cmd.WaitForExit();
-
-                result = cmd.StandardOutput.ReadToEnd();
             }
             else if (platform == PlatformID.Unix)
             {
-                Process cmd = new Process();
                 cmd.StartInfo.FileName = "/bin/bash";
-                cmd.StartInfo.RedirectStandardOutput = true;
-                // cmd.StartInfo.CreateNoWindow = true;
-                // cmd.StartInfo.UseShellExecute = false;
                 cmd.StartInfo.Arguments = "-c \"ps x -o args | grep 'LeagueClientUx'\"";
-                cmd.Start();
-                cmd.WaitForExit();
-
-                result = cmd.StandardOutput.ReadToEnd();
             }
             else
             {
                 throw new PlatformNotSupportedException();
             }
 
-            string authTokenRegex = "--remoting-auth-token=([\\w\\d-]+)";
-            string portRegex = "--app-port=([\\d]+)";
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
 
-            string authToken = null;
-            int port = 0;
+            cmd.Start();
+            cmd.WaitForExit();
+
+            string result = cmd.StandardOutput.ReadToEnd();
 
             GroupCollection gc = Regex.Match(result, authTokenRegex).Groups;
             if (gc.Count > 1) authToken = gc[1].Value;
@@ -67,6 +64,13 @@ namespace Hextech.LeagueClient
             return null;
         }
 
+        /// <summary>
+        /// Gets the LeagueClient install directory from the LeagueClientUx process args.
+        /// This is also the directory that contains the 'lockfile' whenever the client is running
+        ///
+        /// Ex: /Applications/League of Legends.app/Contents/LoL/
+        /// Ex: (windows example here)
+        /// </summary>
         public static string GetLeagueClientInstallDirectory()
         {
             PlatformID platform = Environment.OSVersion.Platform;
