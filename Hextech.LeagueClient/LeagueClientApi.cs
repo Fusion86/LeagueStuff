@@ -14,6 +14,7 @@ namespace Hextech.LeagueClient
         public readonly DataStoreApi DataStore;
         public readonly GameDataApi GameData;
         public readonly InventoryApi Inventory;
+        public readonly ItemSetsApi ItemSets;
         public readonly LoginApi Login;
         public readonly MatchmakingApi Matchmaking;
         public readonly MissionsApi Missions;
@@ -35,6 +36,7 @@ namespace Hextech.LeagueClient
             DataStore = new DataStoreApi(HttpClient);
             GameData = new GameDataApi(HttpClient);
             Inventory = new InventoryApi(HttpClient);
+            ItemSets = new ItemSetsApi(HttpClient);
             Login = new LoginApi(HttpClient);
             Matchmaking = new MatchmakingApi(HttpClient);
             Missions = new MissionsApi(HttpClient);
