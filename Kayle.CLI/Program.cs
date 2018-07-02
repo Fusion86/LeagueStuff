@@ -28,7 +28,7 @@ namespace Kayle.CLI
                 return;
             }
 
-            WAD wad = new WAD(wadfile);
+            WAD wad = WAD.Load(wadfile);
         }
     }
 }
