@@ -1,6 +1,6 @@
 ﻿namespace Hextech.LeagueClient.Models.Summoner
 {
-    public class Summoner
+    public class Summoner : JsonSerializable
     {
         public long AccountId { get; set; }
         public string DisplayName { get; set; }
@@ -16,7 +16,7 @@
         public long XpUntilNextLevel { get; set; }
     }
 
-    public class RerollPoints
+    public class RerollPoints : JsonSerializable
     {
         public long CurrentPoints { get; set; }
         public long MaxRolls { get; set; }
