@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Hextech.LeagueClient.Models.ItemSets
@@ -8,6 +9,11 @@ namespace Hextech.LeagueClient.Models.ItemSets
         public long AccountId { get; set; }
         public List<ItemSet> ItemSets { get; set; }
         public long Timestamp { get; set; }
+
+        public ItemSetsCollection()
+        {
+            ItemSets = new List<ItemSet>();
+        }
     }
 
     public class ItemSet : JsonSerializable
@@ -23,6 +29,19 @@ namespace Hextech.LeagueClient.Models.ItemSets
         public string Title { get; set; }
         public string Type { get; set; }
         public string Uid { get; set; }
+
+        public ItemSet()
+        {
+            AssociatedChampions = new List<int>();
+            AssociatedMaps = new List<int>();
+            Blocks = new List<Block>();
+            Map = "any";
+            Mode = "any";
+            PreferredItemSlots = new List<PreferredItemSlotEntry>();
+            StartedFrom = "blank";
+            Type = "custom";
+            Uid = Guid.NewGuid().ToString(); // I don't know how to get a legitimate Uid so the best we can do is generate a legit-looking one
+        }
     }
 
     public class Block : JsonSerializable
@@ -31,6 +50,11 @@ namespace Hextech.LeagueClient.Models.ItemSets
         public List<Item> Items { get; set; }
         public string ShowIfSummonerSpell { get; set; }
         public string Type { get; set; }
+
+        public Block()
+        {
+            Items = new List<Item>();
+        }
     }
 
     public class Item : JsonSerializable
