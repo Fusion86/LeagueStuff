@@ -1,6 +1,6 @@
-﻿using Hextech.LeagueClient.Models.ItemSets;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using static Hextech.LeagueClient.Test.Utils;
 
 namespace Hextech.LeagueClient.Test.Tests
 {
@@ -14,7 +14,9 @@ namespace Hextech.LeagueClient.Test.Tests
         [TestMethod]
         public async Task GetItemSets()
         {
-            var obj = await client.ItemSets.GetItemSets(0);
+            var summoner = await client.Summoner.GetCurrentSummoner();
+            var obj = await client.ItemSets.GetItemSets(summoner.SummonerId);
+            JsonPrintAndVerify(obj);
             Assert.IsNotNull(obj);
         }
     }

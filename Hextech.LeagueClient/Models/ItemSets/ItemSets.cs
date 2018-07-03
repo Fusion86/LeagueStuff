@@ -3,14 +3,14 @@ using System.Collections.Generic;
 namespace Hextech.LeagueClient.Models.ItemSets
 {
     // LolItemSetsItemSets, added -Collection to avoid collision with member 'ItemSets'
-    public class ItemSetsCollection
+    public class ItemSetsCollection : JsonSerializable
     {
         public long AccountId { get; set; }
         public List<ItemSet> ItemSets { get; set; }
         public long Timestamp { get; set; }
     }
 
-    public class ItemSet
+    public class ItemSet : JsonSerializable
     {
         public List<int> AssociatedChampions { get; set; }
         public List<int> AssociatedMaps { get; set; }
@@ -25,7 +25,7 @@ namespace Hextech.LeagueClient.Models.ItemSets
         public string Uid { get; set; }
     }
 
-    public class Block
+    public class Block : JsonSerializable
     {
         public string HideIfSummonerSpell { get; set; }
         public List<Item> Items { get; set; }
@@ -33,14 +33,14 @@ namespace Hextech.LeagueClient.Models.ItemSets
         public string Type { get; set; }
     }
 
-    public class Item
+    public class Item : JsonSerializable
     {
         public int Count { get; set; }
         public int Id { get; set; }
     }
 
     // LolItemSetsPreferredItemSlot, added -Entry to avoid collision with member 'PreferredItemSlot'
-    public class PreferredItemSlotEntry
+    public class PreferredItemSlotEntry : JsonSerializable
     {
         public string Id { get; set; }
         public int PreferredItemSlot { get; set; }
