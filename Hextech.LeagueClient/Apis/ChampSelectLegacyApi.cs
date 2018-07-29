@@ -11,7 +11,7 @@ namespace Hextech.LeagueClient.Apis
         {
         }
 
-        public async Task<ChampSelectSession> GetSession(string path)
+        public async Task<ChampSelectSession> GetSession()
         {
             return await m_client.GetAsync<ChampSelectSession>(GetPluginUrl("/v1/session"));
         }
