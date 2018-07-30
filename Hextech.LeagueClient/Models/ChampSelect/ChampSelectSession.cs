@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Hextech.LeagueClient.Models.ChampSelect
 {
@@ -82,5 +83,12 @@ namespace Hextech.LeagueClient.Models.ChampSelect
 
     public enum TradeState { Available, Busy, Invalid, Received, Sent };
 
-    public enum ActionType { Ban, Pick, TenBansReveal };
+    public enum ActionType
+    {
+        Ban,
+        Pick,
+
+        [EnumMember(Value = "ten_bans_reveal")]
+        TenBansReveal
+    };
 }
