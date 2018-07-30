@@ -9,8 +9,6 @@ namespace Hextech.LeagueClient.Test.Tests
     {
         // All tests assume that you are not banned
 
-        public TestContext TestContext { get; set; }
-
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]

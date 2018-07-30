@@ -7,8 +7,6 @@ namespace Hextech.LeagueClient.Test.Tests
     [TestClass]
     public class InventoryApiTests
     {
-        public TestContext TestContext { get; set; }
-
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]

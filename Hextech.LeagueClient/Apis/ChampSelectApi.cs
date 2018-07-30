@@ -1,13 +1,13 @@
-﻿using Hextech.LeagueClient.Models.ChampSelectLegacy;
+﻿using Hextech.LeagueClient.Models.ChampSelect;
 using System.Threading.Tasks;
 
 namespace Hextech.LeagueClient.Apis
 {
-    public class ChampSelectLegacy : ApiBase
+    public class ChampSelectApi : ApiBase
     {
-        public override string Name => "lol-champ-select-legacy";
+        public override string Name => "lol-champ-select";
 
-        public ChampSelectLegacy(LeagueHttpClient client) : base(client)
+        public ChampSelectApi(LeagueHttpClient client) : base(client)
         {
         }
 

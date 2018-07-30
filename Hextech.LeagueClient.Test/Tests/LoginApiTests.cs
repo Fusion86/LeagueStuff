@@ -7,8 +7,6 @@ namespace Hextech.LeagueClient.Test.Tests
     [TestClass]
     public class LoginApiTests
     {
-        public TestContext TestContext { get; set; }
-
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
@@ -24,6 +22,9 @@ namespace Hextech.LeagueClient.Test.Tests
             {
                 exception = ex;
             }
+
+            if (exception == null)
+                Assert.Inconclusive("It looks like you are currently logged in.");
 
             Assert.IsTrue(exception.Message == "No session currently exists, you must initiate a login first.");
         }

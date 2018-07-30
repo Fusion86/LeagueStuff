@@ -11,8 +11,6 @@ namespace Hextech.LeagueClient.Test.Tests
     [TestClass]
     public class PerksApiTests
     {
-        public TestContext TestContext { get; set; }
-
         private LeagueClientApi client = GlobalContext.Client;
 
         [TestMethod]
@@ -43,7 +41,7 @@ namespace Hextech.LeagueClient.Test.Tests
 
             PerkPage page = pages.FirstOrDefault(x => x.IsEditable);
 
-            if (page == null) throw new Exception("No editable page available to test");
+            if (page == null) Assert.Inconclusive("No editable page available to test");
             else
             {
                 string oldName = page.Name;

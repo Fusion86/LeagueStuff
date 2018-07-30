@@ -10,7 +10,7 @@ namespace Hextech.LeagueClient
         public readonly LeagueHttpClient HttpClient;
 
         public readonly AssetsApi Assets;
-        public readonly ChampSelectLegacy ChampSelectLegacy;
+        public readonly ChampSelectApi ChampSelect;
         public readonly ChatApi Chat;
         public readonly DataStoreApi DataStore;
         public readonly GameDataApi GameData;
@@ -33,7 +33,7 @@ namespace Hextech.LeagueClient
             HttpClient = new LeagueHttpClient();
 
             Assets = new AssetsApi(HttpClient);
-            ChampSelectLegacy = new ChampSelectLegacy(HttpClient);
+            ChampSelect = new ChampSelectApi(HttpClient);
             Chat = new ChatApi(HttpClient);
             DataStore = new DataStoreApi(HttpClient);
             GameData = new GameDataApi(HttpClient);
