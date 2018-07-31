@@ -15,5 +15,10 @@ namespace Hextech.LeagueClient.Apis
         {
             return await m_client.GetAsync<ChampSelectSession>(GetPluginUrl("/v1/session"));
         }
+
+        public async Task<TeamBoost> GetTeamBoost()
+        {
+            return await m_client.GetAsync<TeamBoost>(GetPluginUrl("/v1/team-boost"));
+        }
     }
 }

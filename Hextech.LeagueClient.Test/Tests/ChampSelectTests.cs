@@ -48,5 +48,26 @@ namespace Hextech.LeagueClient.Test.Tests
             Assert.IsTrue(exception != null);
             Assert.IsTrue(exception.Message == "No active delegate");
         }
+
+        [TestMethod]
+        public async Task GetTeamBoost()
+        {
+
+            TeamBoost obj = null;
+
+            try
+            {
+                obj = await client.ChampSelect.GetTeamBoost();
+            }
+            catch (LeagueClientException ex)
+            {
+                if (ex.Message == "No active delegate")
+                    Assert.Inconclusive("Not in Champ Select");
+                else
+                    throw;
+            }
+
+            Assert.IsNotNull(obj);
+        }
     }
 }
