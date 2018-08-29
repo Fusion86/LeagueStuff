@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 launchSettings.json
-/Hextech.LeagueClient.Test/test.runsettings
+.vscode/
